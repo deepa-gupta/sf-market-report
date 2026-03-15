@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -237,33 +238,39 @@
 </div>
 
 <div class="stat-grid">
-  <div class="stat-card">
-    <div class="sc-bar"></div>
-    <div class="sc-body">
-      <span class="sc-icon">💰</span>
-      <div class="lbl">Median Sale Price</div>
-      <div class="val" data-stat="med_price">$1.45M</div>
-      <div class="sub">All property types</div>
-    </div>
+  
+<div class="stat-card ">
+  <div class="sc-bar"></div>
+  <div class="sc-body">
+    <span class="sc-icon">💰</span>
+    <div class="lbl">Median Sale Price</div>
+    <div class="val" data-stat="med_price">$1.45M</div>
+    <div class="sub">All property types</div>
   </div>
-  <div class="stat-card gold">
-    <div class="sc-bar"></div>
-    <div class="sc-body">
-      <span class="sc-icon">📊</span>
-      <div class="lbl">Average Sale Price</div>
-      <div class="val" data-stat="avg_price">$1.96M</div>
-      <div class="sub">Pulled up by luxury sales</div>
-    </div>
+</div>
+
+  
+<div class="stat-card gold">
+  <div class="sc-bar"></div>
+  <div class="sc-body">
+    <span class="sc-icon">📊</span>
+    <div class="lbl">Average Sale Price</div>
+    <div class="val" data-stat="avg_price">$1.96M</div>
+    <div class="sub">Pulled up by luxury sales</div>
   </div>
-  <div class="stat-card sky">
-    <div class="sc-bar"></div>
-    <div class="sc-body">
-      <span class="sc-icon">📋</span>
-      <div class="lbl">Total Closed Sales</div>
-      <div class="val" data-stat="total_sales_fmt">7,570</div>
-      <div class="sub" data-stat="date_range">Mar 2025 – Mar 2026</div>
-    </div>
+</div>
+
+  
+<div class="stat-card sky">
+  <div class="sc-bar"></div>
+  <div class="sc-body">
+    <span class="sc-icon">📋</span>
+    <div class="lbl">Total Closed Sales</div>
+    <div class="val" data-stat="total_sales_fmt">7,570</div>
+    <div class="sub">Mar 2025 – Mar 2026</div>
   </div>
+</div>
+
   <div class="stat-card">
     <div class="sc-bar"></div>
     <div class="sc-body">
@@ -273,31 +280,37 @@
       <div class="sub">From listing to close</div>
     </div>
   </div>
-  <div class="stat-card">
-    <div class="sc-bar"></div>
-    <div class="sc-body">
-      <span class="sc-icon">📐</span>
-      <div class="lbl">Avg Price / Sq Ft</div>
-      <div class="val" data-stat="avg_ppsf">$916</div>
-      <div class="sub">Across all transactions</div>
-    </div>
-  </div>
-  <div class="stat-card green">
-    <div class="sc-bar"></div>
-    <div class="sc-body">
-      <span class="sc-icon">🎯</span>
-      <div class="lbl">Sold Over Asking</div>
-      <div class="val" data-stat="pct_over_asking">54%</div>
-      <div class="sub">Of sales with list price</div>
-    </div>
+  
+<div class="stat-card ">
+  <div class="sc-bar"></div>
+  <div class="sc-body">
+    <span class="sc-icon">📐</span>
+    <div class="lbl">Avg Price / Sq Ft</div>
+    <div class="val" data-stat="avg_ppsf">$916</div>
+    <div class="sub">Across all transactions</div>
   </div>
 </div>
+
+  
+<div class="stat-card green">
+  <div class="sc-bar"></div>
+  <div class="sc-body">
+    <span class="sc-icon">🎯</span>
+    <div class="lbl">Sold Over Asking</div>
+    <div class="val" data-stat="pct_over_asking">54%</div>
+    <div class="sub">Of sales with list price</div>
+  </div>
+</div>
+
+</div>
+
 
 <div class="chart-card">
   <div class="ct">Sales by Price Range</div>
   <div class="cs">All property types · Full period</div>
   <canvas id="chart-price-range" height="80"></canvas>
 </div>
+
 
 <div class="chart-row">
   <div class="chart-card">
@@ -307,11 +320,13 @@
   </div>
 </div>
 
+
 <div class="chart-card">
   <div class="ct">Most Active Neighborhoods — by Sales Volume</div>
   <div class="cs">Top 10 neighborhoods · More inventory = more options</div>
   <canvas id="chart-neighborhoods-vol" height="160"></canvas>
 </div>
+
 
 <!-- ═══════════════════════════════════════════════════════
      SECTION 2: MARKET TRENDS
@@ -322,11 +337,14 @@
   <span class="tag" id="trend-gran-label">Monthly</span>
 </div>
 
+
 <div class="chart-card">
   <div class="ct">Median &amp; Average Sale Price</div>
   <div class="cs">Median (solid) vs. Average (dashed) — avg is pulled higher by luxury sales</div>
   <canvas id="chart-trend-price" height="90"></canvas>
 </div>
+
+
 
 <div class="chart-card">
   <div class="ct">Sales Volume</div>
@@ -334,16 +352,21 @@
   <canvas id="chart-trend-volume" height="80"></canvas>
 </div>
 
+
+
 <div class="chart-card">
   <div class="ct">Price Per Square Foot — Single Family vs. Condo</div>
   <div class="cs">Median PPSF · A rising PPSF means waiting costs more per square foot</div>
   <canvas id="chart-trend-ppsf" height="90"></canvas>
 </div>
+
+
 <div class="chart-card">
   <div class="ct">% Sold Over Asking</div>
   <div class="cs">Share of closed sales that exceeded list price · Rising trend = stronger seller leverage</div>
   <canvas id="chart-trend-pct-over" height="80"></canvas>
 </div>
+
 
 <!-- ═══════════════════════════════════════════════════════
      SECTION 3: CONDO vs. SINGLE FAMILY
@@ -384,37 +407,47 @@
 </div>
 
 <div class="chart-row">
-  <div class="chart-card">
-    <div class="ct">Over vs. Under Asking — SF vs. Condo</div>
-    <div class="cs">% of each type's sales · Side-by-side</div>
-    <canvas id="chart-over-under-grouped" height="200"></canvas>
-  </div>
+  
+<div class="chart-card">
+  <div class="ct">Over vs. Under Asking — SF vs. Condo</div>
+  <div class="cs">% of each type's sales · Side-by-side</div>
+  <canvas id="chart-over-under-grouped" height="200"></canvas>
+</div>
+
 </div>
 
 <div class="chart-row">
-  <div class="chart-card">
-    <div class="ct">Top Neighborhoods — Single Family</div>
-    <div class="cs">By median sale price · Min. 3 sales</div>
-    <canvas id="chart-top-neigh-sf" height="260"></canvas>
-  </div>
-  <div class="chart-card">
-    <div class="ct">Top Neighborhoods — Condo</div>
-    <div class="cs">By median sale price · Min. 3 sales</div>
-    <canvas id="chart-top-neigh-condo" height="260"></canvas>
-  </div>
+  
+<div class="chart-card">
+  <div class="ct">Top Neighborhoods — Single Family</div>
+  <div class="cs">By median sale price · Min. 3 sales</div>
+  <canvas id="chart-top-neigh-sf" height="260"></canvas>
+</div>
+
+  
+<div class="chart-card">
+  <div class="ct">Top Neighborhoods — Condo</div>
+  <div class="cs">By median sale price · Min. 3 sales</div>
+  <canvas id="chart-top-neigh-condo" height="260"></canvas>
+</div>
+
 </div>
 
 <div class="chart-row">
-  <div class="chart-card">
-    <div class="ct">Top Neighborhoods — Single Family</div>
-    <div class="cs">By number of sales · Min. 3 sales</div>
-    <canvas id="chart-top-neigh-sf-vol" height="260"></canvas>
-  </div>
-  <div class="chart-card">
-    <div class="ct">Top Neighborhoods — Condo</div>
-    <div class="cs">By number of sales · Min. 3 sales</div>
-    <canvas id="chart-top-neigh-condo-vol" height="260"></canvas>
-  </div>
+  
+<div class="chart-card">
+  <div class="ct">Top Neighborhoods — Single Family</div>
+  <div class="cs">By number of sales · Min. 3 sales</div>
+  <canvas id="chart-top-neigh-sf-vol" height="260"></canvas>
+</div>
+
+  
+<div class="chart-card">
+  <div class="ct">Top Neighborhoods — Condo</div>
+  <div class="cs">By number of sales · Min. 3 sales</div>
+  <canvas id="chart-top-neigh-condo-vol" height="260"></canvas>
+</div>
+
 </div>
 
 </div><!-- /container -->
