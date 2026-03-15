@@ -100,6 +100,24 @@
   footer strong{color:rgba(255,255,255,.85)}
   footer a{color:var(--gold);text-decoration:none}
   .footer-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
+  /* AGENT FOCUS LINE */
+  .hero-focus{font-size:13px;color:rgba(255,255,255,.6);margin-top:-18px;margin-bottom:24px;letter-spacing:.2px}
+  /* TIMELINE */
+  .timeline-wrap{overflow-x:auto;padding-bottom:8px}
+  .timeline{display:flex;gap:0;position:relative;min-width:600px;margin-top:8px}
+  .timeline::before{content:'';position:absolute;top:24px;left:24px;right:24px;height:2px;background:linear-gradient(90deg,var(--navy),var(--gold));z-index:0}
+  .tl-item{flex:1;text-align:center;padding:0 8px;position:relative;z-index:1}
+  .tl-dot{width:14px;height:14px;border-radius:50%;background:var(--navy);border:2px solid var(--card);box-shadow:0 0 0 2px var(--navy);margin:0 auto 12px}
+  .tl-dot.close{background:var(--green);box-shadow:0 0 0 2px var(--green)}
+  .tl-day{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+  .tl-label{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px;letter-spacing:-.2px}
+  .tl-desc{font-size:12px;color:var(--slate);line-height:1.5}
+  .tl-note{text-align:center;font-size:12px;color:var(--slate);margin-top:28px;font-style:italic}
+  /* PORTAL GRID */
+  .portal-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px}
+  .portal-pill{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:40px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--navy);box-shadow:0 2px 8px rgba(0,0,0,.04);transition:border-color .15s,box-shadow .15s}
+  .portal-pill:hover{border-color:var(--navy);box-shadow:0 4px 14px rgba(27,58,107,.1)}
+  .portal-pill span{font-size:18px;line-height:1}
   /* RESPONSIVE */
   @media(max-width:700px){
     .hero{padding:48px 20px 44px}.hero h1{font-size:30px}
@@ -120,12 +138,13 @@
     <div class="hero-badge">&#127968; California Transaction Coordinator</div>
     <h1>Close Every Deal<br>With <em>Confidence</em></h1>
     <p class="hero-sub">Expert transaction coordination so you can focus on your clients — not your paperwork. Every deadline met, every document in order, every closing on time.</p>
+    <p class="hero-focus">Working with individual agents and small teams closing 5–40 transactions per year.</p>
     <div class="hero-pills">
       <a href="tel:6073791933" class="hero-pill">&#128222; 607-379-1933</a>
       <a href="mailto:deepa.tcservices@gmail.com" class="hero-pill">&#9993; deepa.tcservices@gmail.com</a>
       <span class="hero-pill">&#127796; California Only</span>
     </div>
-    <a href="mailto:deepa.tcservices@gmail.com" class="hero-cta">Get Started &#8594;</a>
+    <a href="mailto:deepa.tcservices@gmail.com" class="hero-cta">Open a Transaction &#8594;</a>
     <div class="hero-state">California Transactions Only</div>
   </div>
 </div>
@@ -180,7 +199,7 @@
           </ul>
         </div>
         <div class="price-footer">
-          <a href="mailto:deepa.tcservices@gmail.com?subject=Rental%20TC%20Inquiry" class="price-btn navy">Book Now &#8594;</a>
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Rental%20TC%20Inquiry" class="price-btn navy">Start a New File &#8594;</a>
         </div>
       </div>
 
@@ -201,7 +220,7 @@
           </ul>
         </div>
         <div class="price-footer">
-          <a href="mailto:deepa.tcservices@gmail.com?subject=Buyer%2FSeller%20TC%20Inquiry" class="price-btn gold">Book Now &#8594;</a>
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Buyer%2FSeller%20TC%20Inquiry" class="price-btn gold">Start a New File &#8594;</a>
         </div>
       </div>
 
@@ -221,7 +240,7 @@
           </ul>
         </div>
         <div class="price-footer">
-          <a href="mailto:deepa.tcservices@gmail.com?subject=Dual%20Rep%20TC%20Inquiry" class="price-btn green">Book Now &#8594;</a>
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Dual%20Rep%20TC%20Inquiry" class="price-btn green">Start a New File &#8594;</a>
         </div>
       </div>
 
@@ -260,6 +279,56 @@
   </div>
 </div>
 
+<!-- TYPICAL TIMELINE -->
+<div class="section section-alt">
+  <div class="container">
+    <div class="section-label">Transaction Timeline</div>
+    <h2 class="section-title">A Typical 30-Day Transaction</h2>
+    <p class="section-sub">Here's what I'm managing at every stage — so nothing slips through the cracks on the way to close.</p>
+    <div class="timeline-wrap">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-day">Day 0</div>
+          <div class="tl-label">Contract Signed</div>
+          <div class="tl-desc">File opened, timeline built, all parties looped in.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-day">Days 1–3</div>
+          <div class="tl-label">Escrow &amp; Disclosures</div>
+          <div class="tl-desc">Escrow opened, EMD tracked, disclosure package dispatched.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-day">Days 7–10</div>
+          <div class="tl-label">Inspections</div>
+          <div class="tl-desc">Inspection coordinated, reports reviewed, repair requests prepared.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-day">Day 17</div>
+          <div class="tl-label">Contingencies</div>
+          <div class="tl-desc">Inspection, loan, and appraisal contingencies removed on schedule.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-day">Day 21+</div>
+          <div class="tl-label">Final Steps</div>
+          <div class="tl-desc">Walkthrough scheduled, final docs signed, lender updated.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot close"></div>
+          <div class="tl-day">Day 30</div>
+          <div class="tl-label">Closed ✓</div>
+          <div class="tl-desc">Complete file uploaded to your broker portal. Done.</div>
+        </div>
+      </div>
+    </div>
+    <p class="tl-note">Timelines vary by contract. I adapt to your specific dates and any extensions.</p>
+  </div>
+</div>
+
 <!-- WHY TC -->
 <div class="section section-alt">
   <div class="container">
@@ -291,6 +360,24 @@
         <div class="why-check">&#10003;</div>
         <div><h4>Closes On Time, Every Time</h4><p>Proactive deadline management keeps your transactions on track.</p></div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- BROKERAGE COMPATIBILITY -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Platform Experience</div>
+    <h2 class="section-title">Works With Your Brokerage</h2>
+    <p class="section-sub">Agents ask about broker compliance portals — here's what I work in regularly. If yours isn't listed, just ask.</p>
+    <div class="portal-grid">
+      <div class="portal-pill"><span>🏔️</span> SkySlope</div>
+      <div class="portal-pill"><span>📋</span> Disclosures.io (HomeLight)</div>
+      <div class="portal-pill"><span>📁</span> PropDisc</div>
+      <div class="portal-pill"><span>🧭</span> Compass Platform</div>
+      <div class="portal-pill"><span>📝</span> ZipForms</div>
+      <div class="portal-pill"><span>✨</span> Glide</div>
+      <div class="portal-pill"><span>✍️</span> DocuSign</div>
     </div>
   </div>
 </div>
