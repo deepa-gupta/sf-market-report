@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>San Francisco Real Estate Market Report — Market Reports</title>
+<style>
+  :root{--navy:#1B3A6B;--gold:#C8923A;--sky:#4A90D9;--green:#2E7D5E;--slate:#5A5A7A;--bg:#F8F6F2;--card:#fff;--border:#E0DBD0;--text:#1A1A2E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+  .hero{background:linear-gradient(150deg,#0d2147 0%,#1B3A6B 55%,#2a5298 100%);color:#fff;padding:64px 40px 56px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-80px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(200,146,58,.12);pointer-events:none}
+  .hero::after{content:'';position:absolute;bottom:-60px;left:20%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
+  .hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+  .hero-badge{display:inline-block;background:var(--gold);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:18px}
+  .hero h1{font-size:38px;font-weight:900;letter-spacing:-.8px;line-height:1.1;margin-bottom:12px}
+  .hero p{font-size:15px;opacity:.75;margin-bottom:24px;line-height:1.7}
+  .hero-meta{font-size:12px;opacity:.45;margin-top:8px}
+  .pills{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.9);font-size:12px;font-weight:600;padding:5px 16px;border-radius:20px}
+  .cards{max-width:900px;margin:0 auto;padding:56px 24px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;flex:1}
+  .card{background:var(--card);border-radius:20px;border:1px solid var(--border);box-shadow:0 4px 18px rgba(0,0,0,.06);overflow:hidden;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.11)}
+  .card-accent{height:5px}
+  .card-accent.navy{background:var(--navy)}
+  .card-accent.gold{background:var(--gold)}
+  .card-accent.green{background:var(--green)}
+  .card-body{padding:24px 24px 20px;flex:1}
+  .card-icon{font-size:28px;margin-bottom:12px;display:block;line-height:1}
+  .card h2{font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px;letter-spacing:-.3px}
+  .card p{font-size:13px;color:var(--slate);line-height:1.6}
+  .card-footer{padding:0 24px 22px}
+  .card a{display:block;text-align:center;padding:10px;border-radius:12px;font-size:13px;font-weight:700;letter-spacing:.3px;text-decoration:none;transition:all .15s}
+  .card.navy-card a{background:var(--navy);color:#fff}
+  .card.navy-card a:hover{background:#142d5e}
+  .card.gold-card a{background:var(--gold);color:#fff}
+  .card.gold-card a:hover{background:#a87430}
+  .card.green-card a{background:var(--green);color:#fff}
+  .card.green-card a:hover{background:#1e5c40}
+  footer{background:var(--navy);color:rgba(255,255,255,.45);text-align:center;padding:22px 24px;font-size:12px;line-height:1.8}
+  footer strong{color:rgba(255,255,255,.8)}
+  .footer-brand{font-size:13px;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.15)}
+  .footer-brand a{color:#C8923A;text-decoration:none}
+  @media(max-width:600px){.hero{padding:40px 20px 36px}.hero h1{font-size:26px}.cards{padding:32px 16px 60px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">📊 Market Intelligence</div>
+    <h1>San Francisco Real Estate Market Report</h1>
+    <p>Comprehensive data on 8,964 closed sales — from price trends and days-on-market to neighborhood breakdowns.</p>
+    <div class="pills">
+      <span class="pill">Median $1.43M</span>
+      <span class="pill">53% over asking</span>
+      <span class="pill">42d median DOM</span>
+      <span class="pill">$916/sqft</span>
+    </div>
+    <div class="hero-meta">Jan 2025 – Mar 2026 &nbsp;·&nbsp; Data through March 13, 2026</div>
+  </div>
+</div>
+
+<div class="cards">
+  <div class="card navy-card">
+    <div class="card-accent navy"></div>
+    <div class="card-body">
+      <span class="card-icon">📊</span>
+      <h2>Full Market Report</h2>
+      <p>All charts, trends, and comparisons in one interactive report. Toggle between buyer and seller views. Includes the complete 12-month and quarterly breakdowns.</p>
+    </div>
+    <div class="card-footer"><a href="report.html">View Full Report →</a></div>
+  </div>
+
+  <div class="card gold-card">
+    <div class="card-accent gold"></div>
+    <div class="card-body">
+      <span class="card-icon">🔑</span>
+      <h2>Buyers Guide</h2>
+      <p>Price distribution, days-on-market trends, neighborhood competition, and what % of homes are selling over asking. Everything a buyer needs to move confidently.</p>
+    </div>
+    <div class="card-footer"><a href="buyers.html">Buyers Guide →</a></div>
+  </div>
+
+  <div class="card green-card">
+    <div class="card-accent green"></div>
+    <div class="card-body">
+      <span class="card-icon">🏡</span>
+      <h2>Sellers Guide</h2>
+      <p>Pricing strategy insights, over/under-asking analysis, and neighborhood-level demand signals. Know when and how to list for maximum results.</p>
+    </div>
+    <div class="card-footer"><a href="sellers.html">Sellers Guide →</a></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">Prepared by <strong>Deepa Gupta</strong> &nbsp;·&nbsp; <a href="mailto:deepa.tcservices@gmail.com">deepa.tcservices@gmail.com</a> &nbsp;·&nbsp; <a href="index.html">TC Services</a></div>
+  <strong>San Francisco Real Estate Market Report</strong><br>
+  8,964 verified closed sales · Jan 2025 – Mar 2026<br>
+  Data through March 13, 2026 &nbsp;·&nbsp; Generated March 15, 2026<br>
+  For informational purposes only. Not financial or legal advice.
+</footer>
+
+</body>
+</html>

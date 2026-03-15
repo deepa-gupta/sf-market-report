@@ -3,102 +3,337 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>San Francisco Real Estate Market Report — Market Reports</title>
+<title>Deepa Gupta — California Transaction Coordinator</title>
 <style>
   :root{--navy:#1B3A6B;--gold:#C8923A;--sky:#4A90D9;--green:#2E7D5E;--slate:#5A5A7A;--bg:#F8F6F2;--card:#fff;--border:#E0DBD0;--text:#1A1A2E}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-  .hero{background:linear-gradient(150deg,#0d2147 0%,#1B3A6B 55%,#2a5298 100%);color:#fff;padding:64px 40px 56px;text-align:center;position:relative;overflow:hidden}
-  .hero::before{content:'';position:absolute;top:-80px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(200,146,58,.12);pointer-events:none}
-  .hero::after{content:'';position:absolute;bottom:-60px;left:20%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
-  .hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
-  .hero-badge{display:inline-block;background:var(--gold);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:18px}
-  .hero h1{font-size:38px;font-weight:900;letter-spacing:-.8px;line-height:1.1;margin-bottom:12px}
-  .hero p{font-size:15px;opacity:.75;margin-bottom:24px;line-height:1.7}
-  .hero-meta{font-size:12px;opacity:.45;margin-top:8px}
-  .pills{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:20px}
-  .pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.9);font-size:12px;font-weight:600;padding:5px 16px;border-radius:20px}
-  .cards{max-width:900px;margin:0 auto;padding:56px 24px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;flex:1}
-  .card{background:var(--card);border-radius:20px;border:1px solid var(--border);box-shadow:0 4px 18px rgba(0,0,0,.06);overflow:hidden;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s}
-  .card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.11)}
-  .card-accent{height:5px}
-  .card-accent.navy{background:var(--navy)}
-  .card-accent.gold{background:var(--gold)}
-  .card-accent.green{background:var(--green)}
-  .card-body{padding:24px 24px 20px;flex:1}
-  .card-icon{font-size:28px;margin-bottom:12px;display:block;line-height:1}
-  .card h2{font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px;letter-spacing:-.3px}
-  .card p{font-size:13px;color:var(--slate);line-height:1.6}
-  .card-footer{padding:0 24px 22px}
-  .card a{display:block;text-align:center;padding:10px;border-radius:12px;font-size:13px;font-weight:700;letter-spacing:.3px;text-decoration:none;transition:all .15s}
-  .card.navy-card a{background:var(--navy);color:#fff}
-  .card.navy-card a:hover{background:#142d5e}
-  .card.gold-card a{background:var(--gold);color:#fff}
-  .card.gold-card a:hover{background:#a87430}
-  .card.green-card a{background:var(--green);color:#fff}
-  .card.green-card a:hover{background:#1e5c40}
-  footer{background:var(--navy);color:rgba(255,255,255,.45);text-align:center;padding:22px 24px;font-size:12px;line-height:1.8}
-  footer strong{color:rgba(255,255,255,.8)}
-  .footer-brand{font-size:13px;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.15)}
-  .footer-brand a{color:#C8923A;text-decoration:none}
-  @media(max-width:600px){.hero{padding:40px 20px 36px}.hero h1{font-size:26px}.cards{padding:32px 16px 60px}}
+  body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  /* HERO */
+  .hero{background:linear-gradient(150deg,#0d2147 0%,#1B3A6B 55%,#2a5298 100%);color:#fff;padding:72px 40px 64px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-80px;right:-60px;width:380px;height:380px;border-radius:50%;background:rgba(200,146,58,.10);pointer-events:none}
+  .hero::after{content:'';position:absolute;bottom:-60px;left:15%;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+  .hero-deco{position:absolute;top:24px;right:64px;width:140px;height:140px;border-radius:50%;border:2px solid rgba(200,146,58,.2);pointer-events:none}
+  .hero-deco::after{content:'';position:absolute;top:18px;left:18px;right:18px;bottom:18px;border-radius:50%;border:1px solid rgba(200,146,58,.12)}
+  .hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
+  .hero-badge{display:inline-block;background:var(--gold);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:20px}
+  .hero h1{font-size:44px;font-weight:900;letter-spacing:-.8px;line-height:1.1;margin-bottom:16px}
+  .hero h1 em{font-style:normal;color:var(--gold)}
+  .hero-sub{font-size:16px;opacity:.8;line-height:1.75;margin-bottom:28px;max-width:540px;margin-left:auto;margin-right:auto}
+  .hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:32px}
+  .hero-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.9);font-size:13px;font-weight:600;padding:7px 18px;border-radius:20px;text-decoration:none;transition:background .15s}
+  .hero-pill:hover{background:rgba(255,255,255,.2)}
+  .hero-cta{display:inline-block;background:var(--gold);color:#fff;font-size:15px;font-weight:700;letter-spacing:.3px;padding:14px 36px;border-radius:32px;text-decoration:none;transition:all .18s;box-shadow:0 4px 16px rgba(200,146,58,.35)}
+  .hero-cta:hover{background:#a87430;transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,146,58,.4)}
+  .hero-state{font-size:12px;opacity:.4;margin-top:16px;letter-spacing:.5px}
+  /* SECTIONS */
+  .section{padding:72px 40px}
+  .section-alt{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .container{max-width:1040px;margin:0 auto}
+  .section-label{text-align:center;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .section-title{text-align:center;font-size:30px;font-weight:900;color:var(--navy);letter-spacing:-.5px;margin-bottom:10px}
+  .section-sub{text-align:center;font-size:15px;color:var(--slate);line-height:1.7;max-width:560px;margin:0 auto 48px}
+  /* FEATURE CARDS */
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+  .feat-card{background:var(--card);border-radius:20px;border:1px solid var(--border);padding:32px 28px;box-shadow:0 4px 18px rgba(0,0,0,.05);transition:transform .18s,box-shadow .18s}
+  .feat-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.09)}
+  .feat-icon{font-size:36px;margin-bottom:18px;display:block;line-height:1}
+  .feat-card h3{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:10px;letter-spacing:-.3px}
+  .feat-card p{font-size:14px;color:var(--slate);line-height:1.7}
+  /* PRICING */
+  .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;align-items:start}
+  .price-card{background:var(--card);border-radius:24px;border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+  .price-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.11)}
+  .price-card.featured{border-color:var(--gold);box-shadow:0 4px 24px rgba(200,146,58,.18)}
+  .price-top{height:6px}
+  .price-top.navy{background:var(--navy)}.price-top.gold{background:var(--gold)}.price-top.green{background:var(--green)}
+  .price-body{padding:28px 28px 20px;flex:1}
+  .price-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 12px;border-radius:20px;margin-bottom:14px}
+  .price-badge.navy{background:rgba(27,58,107,.1);color:var(--navy)}
+  .price-badge.gold{background:rgba(200,146,58,.12);color:#a87430;border:1px solid rgba(200,146,58,.3)}
+  .price-badge.green{background:rgba(46,125,94,.1);color:var(--green)}
+  .price-card h3{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:6px;letter-spacing:-.3px}
+  .price-amount{font-size:42px;font-weight:900;color:var(--navy);letter-spacing:-1px;margin:12px 0 4px;line-height:1}
+  .price-amount span{font-size:18px;font-weight:600;color:var(--slate);vertical-align:middle}
+  .price-desc{font-size:13px;color:var(--slate);margin-bottom:20px;line-height:1.6}
+  .price-list{list-style:none;margin-bottom:24px}
+  .price-list li{font-size:13px;color:var(--slate);padding:6px 0;display:flex;align-items:flex-start;gap:8px;border-bottom:1px solid var(--border)}
+  .price-list li:last-child{border-bottom:none}
+  .price-list li::before{content:'\2713';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+  .price-footer{padding:0 28px 28px}
+  .price-btn{display:block;text-align:center;padding:12px;border-radius:14px;font-size:14px;font-weight:700;letter-spacing:.3px;text-decoration:none;transition:all .15s}
+  .price-btn.navy{background:var(--navy);color:#fff}.price-btn.navy:hover{background:#142d5e}
+  .price-btn.gold{background:var(--gold);color:#fff}.price-btn.gold:hover{background:#a87430}
+  .price-btn.green{background:var(--green);color:#fff}.price-btn.green:hover{background:#1e5c40}
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:16px}
+  .steps::before{content:'';position:absolute;top:28px;left:calc(12.5%);right:calc(12.5%);height:2px;background:linear-gradient(90deg,var(--gold),rgba(200,146,58,.3));z-index:0}
+  .step{text-align:center;padding:0 16px;position:relative;z-index:1}
+  .step-num{width:56px;height:56px;border-radius:50%;background:var(--navy);color:#fff;font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 4px 14px rgba(27,58,107,.3)}
+  .step h4{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:8px;letter-spacing:-.2px}
+  .step p{font-size:13px;color:var(--slate);line-height:1.6}
+  /* WHY TC */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px;max-width:760px;margin:0 auto}
+  .why-item{display:flex;align-items:flex-start;gap:12px}
+  .why-check{width:28px;height:28px;border-radius:50%;background:rgba(46,125,94,.12);color:var(--green);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .why-item h4{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px}
+  .why-item p{font-size:13px;color:var(--slate);line-height:1.5}
+  /* CTA BAND */
+  .cta-band{background:linear-gradient(135deg,#0d2147 0%,#1B3A6B 60%,#2a5298 100%);padding:72px 40px;text-align:center;position:relative;overflow:hidden}
+  .cta-band::before{content:'';position:absolute;top:-60px;right:-40px;width:280px;height:280px;border-radius:50%;background:rgba(200,146,58,.08);pointer-events:none}
+  .cta-band-inner{position:relative;z-index:1}
+  .cta-band h2{font-size:30px;font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:12px}
+  .cta-band p{font-size:15px;color:rgba(255,255,255,.7);margin-bottom:32px;line-height:1.7}
+  .cta-contact{display:flex;justify-content:center;flex-wrap:wrap;gap:24px;margin-bottom:36px}
+  .cta-item{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.85);font-size:14px}
+  .cta-item strong{color:#fff;font-weight:700}
+  .cta-item-icon{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .cta-btn{display:inline-block;background:var(--gold);color:#fff;font-size:15px;font-weight:700;letter-spacing:.3px;padding:14px 40px;border-radius:32px;text-decoration:none;transition:all .18s;box-shadow:0 4px 16px rgba(200,146,58,.35)}
+  .cta-btn:hover{background:#a87430;transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,146,58,.45)}
+  /* REPORTS STRIP */
+  .reports-strip{padding:36px 40px;text-align:center;background:var(--bg)}
+  .reports-card{display:inline-flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 28px;text-decoration:none;color:var(--navy);font-weight:700;font-size:14px;transition:all .18s;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+  .reports-card:hover{border-color:var(--navy);box-shadow:0 6px 20px rgba(27,58,107,.1);transform:translateY(-2px)}
+  .reports-card-icon{font-size:26px}
+  .reports-card-label{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:2px}
+  /* FOOTER */
+  footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:28px 24px;font-size:12px;line-height:2}
+  footer strong{color:rgba(255,255,255,.85)}
+  footer a{color:var(--gold);text-decoration:none}
+  .footer-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
+  /* RESPONSIVE */
+  @media(max-width:700px){
+    .hero{padding:48px 20px 44px}.hero h1{font-size:30px}
+    .section{padding:52px 20px}
+    .steps{grid-template-columns:1fr 1fr;gap:32px}.steps::before{display:none}
+    .why-grid{grid-template-columns:1fr}
+    .cta-band{padding:52px 20px}.cta-band h2{font-size:22px}
+  }
+  @media(max-width:420px){.hero h1{font-size:24px}.steps{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
+<!-- HERO -->
 <div class="hero">
+  <div class="hero-deco"></div>
   <div class="hero-inner">
-    <div class="hero-badge">📊 Market Intelligence</div>
-    <h1>San Francisco Real Estate Market Report</h1>
-    <p>Comprehensive data on 8,964 closed sales — from price trends and days-on-market to neighborhood breakdowns.</p>
-    <div class="pills">
-      <span class="pill">Median $1.43M</span>
-      <span class="pill">53% over asking</span>
-      <span class="pill">42d median DOM</span>
-      <span class="pill">$916/sqft</span>
+    <div class="hero-badge">&#127968; California Transaction Coordinator</div>
+    <h1>Close Every Deal<br>With <em>Confidence</em></h1>
+    <p class="hero-sub">Expert transaction coordination so you can focus on your clients — not your paperwork. Every deadline met, every document in order, every closing on time.</p>
+    <div class="hero-pills">
+      <a href="tel:6073791933" class="hero-pill">&#128222; 607-379-1933</a>
+      <a href="mailto:deepa.tcservices@gmail.com" class="hero-pill">&#9993; deepa.tcservices@gmail.com</a>
+      <span class="hero-pill">&#127796; California Only</span>
     </div>
-    <div class="hero-meta">Jan 2025 – Mar 2026 &nbsp;·&nbsp; Data through March 13, 2026</div>
+    <a href="mailto:deepa.tcservices@gmail.com" class="hero-cta">Get Started &#8594;</a>
+    <div class="hero-state">California Transactions Only</div>
   </div>
 </div>
 
-<div class="cards">
-  <div class="card navy-card">
-    <div class="card-accent navy"></div>
-    <div class="card-body">
-      <span class="card-icon">📊</span>
-      <h2>Full Market Report</h2>
-      <p>All charts, trends, and comparisons in one interactive report. Toggle between buyer and seller views. Includes the complete 12-month and quarterly breakdowns.</p>
+<!-- WHAT I DO -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">What I Do</div>
+    <h2 class="section-title">Transaction Coordination, Start to Finish</h2>
+    <p class="section-sub">From the moment a contract is executed to the day escrow closes, I manage every moving part so nothing falls through the cracks.</p>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <span class="feat-icon">&#128203;</span>
+        <h3>End-to-End Coordination</h3>
+        <p>I open escrow, manage the disclosure package, track every document, and upload your complete file to your broker portal — so your transaction moves forward without interruption.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">&#128197;</span>
+        <h3>Timeline Management</h3>
+        <p>I build and maintain the transaction timeline, send reminders before every deadline, manage contingency removals, and keep all parties in sync from day one through close.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">&#128193;</span>
+        <h3>Document Accuracy</h3>
+        <p>Disclosure packages, CAR forms, home warranty orders, natural hazard reports — every document is reviewed for completeness and compliance before it goes out.</p>
+      </div>
     </div>
-    <div class="card-footer"><a href="report.html">View Full Report →</a></div>
   </div>
+</div>
 
-  <div class="card gold-card">
-    <div class="card-accent gold"></div>
-    <div class="card-body">
-      <span class="card-icon">🔑</span>
-      <h2>Buyers Guide</h2>
-      <p>Price distribution, days-on-market trends, neighborhood competition, and what % of homes are selling over asking. Everything a buyer needs to move confidently.</p>
-    </div>
-    <div class="card-footer"><a href="buyers.html">Buyers Guide →</a></div>
-  </div>
+<!-- PRICING -->
+<div class="section section-alt">
+  <div class="container">
+    <div class="section-label">Services &amp; Pricing</div>
+    <h2 class="section-title">Simple, Transparent Pricing</h2>
+    <p class="section-sub">Flat fees per transaction — no surprises. California residential and rental transactions only.</p>
+    <div class="price-grid">
 
-  <div class="card green-card">
-    <div class="card-accent green"></div>
-    <div class="card-body">
-      <span class="card-icon">🏡</span>
-      <h2>Sellers Guide</h2>
-      <p>Pricing strategy insights, over/under-asking analysis, and neighborhood-level demand signals. Know when and how to list for maximum results.</p>
+      <div class="price-card">
+        <div class="price-top navy"></div>
+        <div class="price-body">
+          <span class="price-badge navy">Rental</span>
+          <h3>Rental Transaction</h3>
+          <div class="price-amount">$200<span> flat</span></div>
+          <p class="price-desc">Lease paperwork and coordination handled start to finish.</p>
+          <ul class="price-list">
+            <li>Lease document review &amp; tracking</li>
+            <li>Transaction timeline setup</li>
+            <li>Deadline alerts and reminders</li>
+            <li>Document delivery to all parties</li>
+            <li>Complete file organization</li>
+          </ul>
+        </div>
+        <div class="price-footer">
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Rental%20TC%20Inquiry" class="price-btn navy">Book Now &#8594;</a>
+        </div>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-top gold"></div>
+        <div class="price-body">
+          <span class="price-badge gold">Most Common</span>
+          <h3>Buyer or Seller</h3>
+          <div class="price-amount">$500<span> flat</span></div>
+          <p class="price-desc">Full contract-to-close coordination for one side of a residential transaction.</p>
+          <ul class="price-list">
+            <li>Escrow opening &amp; coordination</li>
+            <li>Disclosure package preparation</li>
+            <li>Inspection &amp; contingency management</li>
+            <li>Home warranty ordering</li>
+            <li>Broker checklist &amp; portal upload</li>
+            <li>Transaction timeline &amp; updates</li>
+          </ul>
+        </div>
+        <div class="price-footer">
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Buyer%2FSeller%20TC%20Inquiry" class="price-btn gold">Book Now &#8594;</a>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div class="price-top green"></div>
+        <div class="price-body">
+          <span class="price-badge green">Both Parties</span>
+          <h3>Dual Representation</h3>
+          <div class="price-amount">$700<span> flat</span></div>
+          <p class="price-desc">Comprehensive coordination when you represent both buyer and seller.</p>
+          <ul class="price-list">
+            <li>Everything in Buyer + Seller tiers</li>
+            <li>Dual-side file management</li>
+            <li>Coordination with both clients</li>
+            <li>Single point of contact for all parties</li>
+            <li>Complete dual-representation compliance</li>
+          </ul>
+        </div>
+        <div class="price-footer">
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Dual%20Rep%20TC%20Inquiry" class="price-btn green">Book Now &#8594;</a>
+        </div>
+      </div>
+
     </div>
-    <div class="card-footer"><a href="sellers.html">Sellers Guide →</a></div>
   </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Process</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">Four simple steps from signed contract to closed file.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Loop Me In Early</h4>
+        <p>Include me when you start working with your client — the sooner, the smoother.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>File &amp; Timeline Setup</h4>
+        <p>I open the file, build the transaction timeline, and loop in all parties.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>I Coordinate Everyone</h4>
+        <p>Escrow, title, lenders, agents — I manage all communication and deadlines.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>You Close</h4>
+        <p>Complete, compliant file delivered to your broker portal at closing.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY TC -->
+<div class="section section-alt">
+  <div class="container">
+    <div class="section-label">Why It Matters</div>
+    <h2 class="section-title">Why Agents Work With a TC</h2>
+    <p class="section-sub">The best agents use transaction coordinators so they can do what they do best — serve their clients.</p>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>Never Miss a Contingency Deadline</h4><p>Every removal date tracked and flagged well in advance.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>Fully Compliant Documentation</h4><p>CAR forms and DRE requirements handled accurately, every time.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>More Time for Your Clients</h4><p>Stop chasing paperwork. Focus on relationships and new business.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>California Expertise</h4><p>I work exclusively in California — I know the forms, the process, and the standards.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>Clear Communication</h4><p>All parties stay informed. No surprises on the way to close.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>Closes On Time, Every Time</h4><p>Proactive deadline management keeps your transactions on track.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <h2>Ready to Simplify Your Next Transaction?</h2>
+    <p>Reach out today — I'll take it from contract to close.</p>
+    <div class="cta-contact">
+      <div class="cta-item">
+        <div class="cta-item-icon">&#128100;</div>
+        <div><strong>Deepa Gupta</strong><br><span style="color:rgba(255,255,255,.6);font-size:12px">Transaction Coordinator</span></div>
+      </div>
+      <div class="cta-item">
+        <div class="cta-item-icon">&#128222;</div>
+        <div><a href="tel:6073791933" style="color:var(--gold);text-decoration:none;font-weight:700;font-size:15px">607-379-1933</a></div>
+      </div>
+      <div class="cta-item">
+        <div class="cta-item-icon">&#9993;</div>
+        <div><a href="mailto:deepa.tcservices@gmail.com" style="color:var(--gold);text-decoration:none;font-weight:700;font-size:15px">deepa.tcservices@gmail.com</a></div>
+      </div>
+    </div>
+    <a href="mailto:deepa.tcservices@gmail.com" class="cta-btn">Email Me &#8594;</a>
+  </div>
+</div>
+
+<!-- MARKET REPORTS LINK -->
+<div class="reports-strip">
+  <a href="reports.html" class="reports-card">
+    <div class="reports-card-icon">&#128202;</div>
+    <div>
+      <div class="reports-card-label">SF Market Data</div>
+      <div>View San Francisco Real Estate Reports &#8594;</div>
+    </div>
+  </a>
 </div>
 
 <footer>
-  <div class="footer-brand">Prepared by <strong>Deepa Gupta</strong> &nbsp;·&nbsp; <a href="mailto:deepa.tcservices@gmail.com">deepa.tcservices@gmail.com</a></div>
-  <strong>San Francisco Real Estate Market Report</strong><br>
-  8,964 verified closed sales · Jan 2025 – Mar 2026<br>
-  Data through March 13, 2026 &nbsp;·&nbsp; Generated March 15, 2026<br>
-  For informational purposes only. Not financial or legal advice.
+  <div class="footer-name">Deepa Gupta</div>
+  <strong>Transaction Coordinator &nbsp;&middot;&nbsp; California Only</strong><br>
+  <a href="tel:6073791933">607-379-1933</a> &nbsp;&middot;&nbsp; <a href="mailto:deepa.tcservices@gmail.com">deepa.tcservices@gmail.com</a><br>
+  For informational purposes only. Pricing subject to change.
 </footer>
 
 </body>
