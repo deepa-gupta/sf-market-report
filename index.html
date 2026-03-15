@@ -120,6 +120,19 @@
   .portal-pill{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:40px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--navy);box-shadow:0 2px 8px rgba(0,0,0,.04);transition:border-color .15s,box-shadow .15s}
   .portal-pill:hover{border-color:var(--navy);box-shadow:0 4px 14px rgba(27,58,107,.1)}
   .portal-pill span{font-size:18px;line-height:1}
+  /* CHYRON */
+  .chyron-wrap{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 0;overflow:hidden}
+  .chyron-label{text-align:center;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:16px;opacity:.7}
+  .chyron-outer{overflow:hidden;position:relative}
+  .chyron-outer::before,.chyron-outer::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+  .chyron-outer::before{left:0;background:linear-gradient(90deg,var(--card),transparent)}
+  .chyron-outer::after{right:0;background:linear-gradient(270deg,var(--card),transparent)}
+  .chyron-track{display:flex;align-items:center;gap:64px;width:max-content;animation:chyron-scroll 18s linear infinite}
+  .chyron-track:hover{animation-play-state:paused}
+  @keyframes chyron-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .chyron-item{display:flex;align-items:center;justify-content:center;height:44px;flex-shrink:0}
+  .chyron-item img{height:36px;max-width:130px;object-fit:contain;mix-blend-mode:multiply;filter:grayscale(1) opacity(0.55);transition:filter .25s}
+  .chyron-track:hover .chyron-item img{filter:grayscale(0) opacity(1)}
   /* RESPONSIVE */
   @media(max-width:700px){
     .hero{padding:48px 20px 44px}.hero h1{font-size:30px}
@@ -166,6 +179,24 @@
     </div>
     <a href="mailto:deepa.tcservices@gmail.com" class="hero-cta">Open a Transaction &#8594;</a>
     <div class="hero-state">California Transactions Only</div>
+  </div>
+</div>
+
+<!-- BROKERAGE CHYRON -->
+<div class="chyron-wrap">
+  <div class="chyron-label">Trusted by agents at</div>
+  <div class="chyron-outer">
+    <div class="chyron-track">
+      <div class="chyron-item"><img src="https://logo.clearbit.com/compass.com" alt="Compass"></div>
+      <div class="chyron-item"><img src="https://logo.clearbit.com/alliancebayrealty.com" alt="Alliance Bay Realty"></div>
+      <div class="chyron-item"><img src="https://logo.clearbit.com/exprealty.com" alt="eXp Realty"></div>
+      <div class="chyron-item"><img src="https://logo.clearbit.com/epiquerealty.com" alt="Epique Realty"></div>
+      <!-- duplicate set for seamless loop -->
+      <div class="chyron-item"><img src="https://logo.clearbit.com/compass.com" alt="Compass"></div>
+      <div class="chyron-item"><img src="https://logo.clearbit.com/alliancebayrealty.com" alt="Alliance Bay Realty"></div>
+      <div class="chyron-item"><img src="https://logo.clearbit.com/exprealty.com" alt="eXp Realty"></div>
+      <div class="chyron-item"><img src="https://logo.clearbit.com/epiquerealty.com" alt="Epique Realty"></div>
+    </div>
   </div>
 </div>
 
