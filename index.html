@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deepa Gupta — California Transaction Coordinator</title>
-<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <style>
   :root{--navy:#1B3A6B;--gold:#C8923A;--sky:#4A90D9;--green:#2E7D5E;--slate:#5A5A7A;--bg:#F8F6F2;--card:#fff;--border:#E0DBD0;--text:#1A1A2E}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -17,7 +15,7 @@
   .hero-deco{position:absolute;top:24px;right:64px;width:140px;height:140px;border-radius:50%;border:2px solid rgba(200,146,58,.2);pointer-events:none}
   .hero-deco::after{content:'';position:absolute;top:18px;left:18px;right:18px;bottom:18px;border-radius:50%;border:1px solid rgba(200,146,58,.12)}
   .hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
-  .hero-badge{display:block;width:100%;background:var(--gold);color:#fff;font-size:16px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;padding:12px 0;border-radius:32px;margin-bottom:24px;text-align:center}
+  .hero-badge{display:inline-block;background:var(--gold);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:20px}
   .hero h1{font-size:44px;font-weight:900;letter-spacing:-.8px;line-height:1.1;margin-bottom:16px}
   .hero h1 em{font-style:normal;color:var(--gold)}
   .hero-sub{font-size:16px;opacity:.8;line-height:1.75;margin-bottom:28px;max-width:540px;margin-left:auto;margin-right:auto}
@@ -102,37 +100,6 @@
   footer strong{color:rgba(255,255,255,.85)}
   footer a{color:var(--gold);text-decoration:none}
   .footer-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
-  /* AGENT FOCUS LINE */
-  .hero-focus{font-size:13px;color:rgba(255,255,255,.6);margin-top:-18px;margin-bottom:24px;letter-spacing:.2px}
-  /* TIMELINE */
-  .timeline-wrap{overflow-x:auto;padding-bottom:8px}
-  .timeline{display:flex;gap:0;position:relative;min-width:600px;margin-top:8px}
-  .timeline::before{content:'';position:absolute;top:24px;left:24px;right:24px;height:2px;background:linear-gradient(90deg,var(--navy),var(--gold));z-index:0}
-  .tl-item{flex:1;text-align:center;padding:0 8px;position:relative;z-index:1}
-  .tl-dot{width:14px;height:14px;border-radius:50%;background:var(--navy);border:2px solid var(--card);box-shadow:0 0 0 2px var(--navy);margin:0 auto 12px}
-  .tl-dot.close{background:var(--green);box-shadow:0 0 0 2px var(--green)}
-  .tl-day{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
-  .tl-label{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px;letter-spacing:-.2px}
-  .tl-desc{font-size:12px;color:var(--slate);line-height:1.5}
-  .tl-note{text-align:center;font-size:12px;color:var(--slate);margin-top:28px;font-style:italic}
-  /* PORTAL GRID */
-  .portal-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px}
-  .portal-pill{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:40px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--navy);box-shadow:0 2px 8px rgba(0,0,0,.04);transition:border-color .15s,box-shadow .15s}
-  .portal-pill:hover{border-color:var(--navy);box-shadow:0 4px 14px rgba(27,58,107,.1)}
-  .portal-pill span{font-size:18px;line-height:1}
-  /* CHYRON */
-  .chyron-wrap{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 0;overflow:hidden}
-  .chyron-label{text-align:center;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin-bottom:16px;opacity:.7}
-  .chyron-outer{overflow:hidden;position:relative}
-  .chyron-outer::before,.chyron-outer::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
-  .chyron-outer::before{left:0;background:linear-gradient(90deg,var(--card),transparent)}
-  .chyron-outer::after{right:0;background:linear-gradient(270deg,var(--card),transparent)}
-  .chyron-track{display:flex;align-items:center;gap:64px;width:max-content;animation:chyron-scroll 18s linear infinite}
-  .chyron-track:hover{animation-play-state:paused}
-  @keyframes chyron-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  .chyron-item{display:flex;align-items:center;justify-content:center;height:44px;flex-shrink:0}
-  .chyron-item img{height:36px;max-width:220px;object-fit:contain;mix-blend-mode:multiply;filter:grayscale(1) opacity(0.5);transition:filter .25s}
-  .chyron-track:hover .chyron-item img{filter:grayscale(0) opacity(1)}
   /* RESPONSIVE */
   @media(max-width:700px){
     .hero{padding:48px 20px 44px}.hero h1{font-size:30px}
@@ -142,63 +109,24 @@
     .cta-band{padding:52px 20px}.cta-band h2{font-size:22px}
   }
   @media(max-width:420px){.hero h1{font-size:24px}.steps{grid-template-columns:1fr}}
-  /* NAV */
-  .site-nav{background:rgba(13,33,71,.97);backdrop-filter:blur(8px);position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;box-shadow:0 2px 16px rgba(0,0,0,.25)}
-  .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-  .nav-logo{width:36px;height:36px;object-fit:contain;border-radius:6px}
-  .nav-name{color:#fff;font-size:14px;font-weight:700;letter-spacing:.1px;line-height:1.2}
-  .nav-name small{display:block;font-size:10px;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase}
-  .nav-cta{background:var(--gold);color:#fff;font-size:12px;font-weight:700;letter-spacing:.3px;padding:8px 18px;border-radius:20px;text-decoration:none;transition:background .15s}
-  .nav-cta:hover{background:#a87430}
-  @media(max-width:500px){.site-nav{padding:0 16px}.nav-name small{display:none}}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav class="site-nav">
-  <a href="#" class="nav-brand">
-    <img src="logo.png" alt="Deepa Gupta TC" class="nav-logo">
-    <div class="nav-name">Deepa Gupta<small>Transaction Coordinator</small></div>
-  </a>
-  <a href="mailto:deepa.tcservices@gmail.com" class="nav-cta">Open a Transaction →</a>
-</nav>
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-deco"></div>
   <div class="hero-inner">
-    <img src="logo.png" alt="Deepa Gupta TC Logo" style="display:block;margin:0 auto 20px;width:100px;height:100px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))">
-    <div class="hero-badge">California Transaction Coordinator</div>
+    <div class="hero-badge">&#127968; California Transaction Coordinator</div>
     <h1>Close Every Deal<br>With <em>Confidence</em></h1>
     <p class="hero-sub">Expert transaction coordination so you can focus on your clients — not your paperwork. Every deadline met, every document in order, every closing on time.</p>
-    <p class="hero-focus">Working with individual agents and small teams closing 5–40 transactions per year.</p>
     <div class="hero-pills">
       <a href="tel:6073791933" class="hero-pill">&#128222; 607-379-1933</a>
       <a href="mailto:deepa.tcservices@gmail.com" class="hero-pill">&#9993; deepa.tcservices@gmail.com</a>
+      <span class="hero-pill">&#127796; California Only</span>
     </div>
-    <a href="mailto:deepa.tcservices@gmail.com" class="hero-cta">Open a Transaction &#8594;</a>
+    <a href="mailto:deepa.tcservices@gmail.com" class="hero-cta">Get Started &#8594;</a>
     <div class="hero-state">California Transactions Only</div>
-  </div>
-</div>
-
-<!-- BROKERAGE CHYRON -->
-<div class="chyron-wrap">
-  <div class="chyron-label">Trusted by agents at</div>
-  <div class="chyron-outer">
-    <div class="chyron-track">
-      <div class="chyron-item"><img src="logo-compass.png" alt="Compass"></div>
-      <div class="chyron-item"><img src="logo-alliance.png" alt="Alliance Bay Realty"></div>
-      <div class="chyron-item"><img src="logo-exp.png" alt="eXp Realty"></div>
-      <div class="chyron-item"><img src="logo-epique.png" alt="Epique Realty"></div>
-      <div class="chyron-item"><img src="logo-cooper.png" alt="Cooper Gaines"></div>
-      <!-- duplicate set for seamless loop -->
-      <div class="chyron-item"><img src="logo-compass.png" alt="Compass"></div>
-      <div class="chyron-item"><img src="logo-alliance.png" alt="Alliance Bay Realty"></div>
-      <div class="chyron-item"><img src="logo-exp.png" alt="eXp Realty"></div>
-      <div class="chyron-item"><img src="logo-epique.png" alt="Epique Realty"></div>
-      <div class="chyron-item"><img src="logo-cooper.png" alt="Cooper Gaines"></div>
-    </div>
   </div>
 </div>
 
@@ -252,7 +180,7 @@
           </ul>
         </div>
         <div class="price-footer">
-          <a href="mailto:deepa.tcservices@gmail.com?subject=Rental%20TC%20Inquiry" class="price-btn navy">Start a New File &#8594;</a>
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Rental%20TC%20Inquiry" class="price-btn navy">Book Now &#8594;</a>
         </div>
       </div>
 
@@ -273,7 +201,7 @@
           </ul>
         </div>
         <div class="price-footer">
-          <a href="mailto:deepa.tcservices@gmail.com?subject=Buyer%2FSeller%20TC%20Inquiry" class="price-btn gold">Start a New File &#8594;</a>
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Buyer%2FSeller%20TC%20Inquiry" class="price-btn gold">Book Now &#8594;</a>
         </div>
       </div>
 
@@ -293,7 +221,7 @@
           </ul>
         </div>
         <div class="price-footer">
-          <a href="mailto:deepa.tcservices@gmail.com?subject=Dual%20Rep%20TC%20Inquiry" class="price-btn green">Start a New File &#8594;</a>
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Dual%20Rep%20TC%20Inquiry" class="price-btn green">Book Now &#8594;</a>
         </div>
       </div>
 
@@ -332,56 +260,6 @@
   </div>
 </div>
 
-<!-- TYPICAL TIMELINE -->
-<div class="section section-alt">
-  <div class="container">
-    <div class="section-label">Transaction Timeline</div>
-    <h2 class="section-title">A Typical 30-Day Transaction</h2>
-    <p class="section-sub">Here's what I'm managing at every stage — so nothing slips through the cracks on the way to close.</p>
-    <div class="timeline-wrap">
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-day">Day 0</div>
-          <div class="tl-label">Contract Signed</div>
-          <div class="tl-desc">File opened, timeline built, all parties looped in.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-day">Days 1–3</div>
-          <div class="tl-label">Escrow &amp; Disclosures</div>
-          <div class="tl-desc">Escrow opened, EMD tracked, disclosure package dispatched.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-day">Days 7–10</div>
-          <div class="tl-label">Inspections</div>
-          <div class="tl-desc">Inspection coordinated, reports reviewed, repair requests prepared.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-day">Day 17</div>
-          <div class="tl-label">Contingencies</div>
-          <div class="tl-desc">Inspection, loan, and appraisal contingencies removed on schedule.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-day">Day 21+</div>
-          <div class="tl-label">Final Steps</div>
-          <div class="tl-desc">Walkthrough scheduled, final docs signed, lender updated.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot close"></div>
-          <div class="tl-day">Day 30</div>
-          <div class="tl-label">Closed ✓</div>
-          <div class="tl-desc">Complete file uploaded to your broker portal. Done.</div>
-        </div>
-      </div>
-    </div>
-    <p class="tl-note">Timelines vary by contract. I adapt to your specific dates and any extensions.</p>
-  </div>
-</div>
-
 <!-- WHY TC -->
 <div class="section section-alt">
   <div class="container">
@@ -413,24 +291,6 @@
         <div class="why-check">&#10003;</div>
         <div><h4>Closes On Time, Every Time</h4><p>Proactive deadline management keeps your transactions on track.</p></div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- BROKERAGE COMPATIBILITY -->
-<div class="section">
-  <div class="container">
-    <div class="section-label">Platform Experience</div>
-    <h2 class="section-title">Works With Your Brokerage</h2>
-    <p class="section-sub">Agents ask about broker compliance portals — here's what I work in regularly. If yours isn't listed, just ask.</p>
-    <div class="portal-grid">
-      <div class="portal-pill"><span>🏔️</span> SkySlope</div>
-      <div class="portal-pill"><span>📋</span> Disclosures.io (HomeLight)</div>
-      <div class="portal-pill"><span>📁</span> PropDisc</div>
-      <div class="portal-pill"><span>🧭</span> Compass Platform</div>
-      <div class="portal-pill"><span>📝</span> ZipForms</div>
-      <div class="portal-pill"><span>✨</span> Glide</div>
-      <div class="portal-pill"><span>✍️</span> DocuSign</div>
     </div>
   </div>
 </div>
