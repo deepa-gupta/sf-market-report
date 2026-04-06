@@ -1,0 +1,545 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-sans);}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;}
+.mc{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.9rem 1rem;}
+.sl{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:8px;}
+.b{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:var(--border-radius-md);}
+.bi{background:#E6F1FB;color:#0C447C;}.bs{background:#EAF3DE;color:#3B6D11;}
+.bw{background:#FAEEDA;color:#854F0B;}.bn{background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);}
+.bd{background:#FCEBEB;color:#A32D2D;}
+.bg{background:#EAF3DE;color:#3B6D11;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{text-align:left;padding:7px 9px;font-weight:500;font-size:11px;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary);}
+td{padding:7px 9px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+.tabs{display:flex;gap:2px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:3px;margin-bottom:1.25rem;flex-wrap:wrap;}
+.tab{flex:1;min-width:80px;padding:6px 8px;font-size:11px;font-weight:500;border:none;background:transparent;border-radius:6px;cursor:pointer;color:var(--color-text-secondary);white-space:nowrap;}
+.tab.active{background:var(--color-background-primary);color:var(--color-text-primary);border:0.5px solid var(--color-border-tertiary);}
+.pane{display:none;}.pane.active{display:block;}
+.dot{width:8px;height:8px;border-radius:2px;display:inline-block;flex-shrink:0;}
+.gb{background:var(--color-background-secondary);border-radius:4px;height:6px;width:100%;margin-top:5px;overflow:hidden;}
+.gf{height:6px;border-radius:4px;}
+.insight-row{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary);}
+.insight-row:last-child{border-bottom:none;}
+.pill{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+</style>
+
+<div style="padding:1rem 0;">
+
+<!-- Header -->
+<div style="background:var(--color-background-primary);border:2px solid #185FA5;border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1.5rem;">
+  <div style="font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#185FA5;margin-bottom:6px;">Property Analysis · April 6, 2026</div>
+  <div style="font-size:22px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;">690 Market Street, Unit 2404</div>
+  <div style="font-size:14px;color:var(--color-text-secondary);margin-bottom:14px;">The Ritz-Carlton Residences · San Francisco, CA 94104 · Financial District</div>
+  <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;">
+    <div><div style="font-size:11px;color:var(--color-text-secondary);">Asking price</div><div style="font-size:17px;font-weight:500;color:var(--color-text-primary);margin-top:2px;">$2,200,000</div></div>
+    <div><div style="font-size:11px;color:var(--color-text-secondary);">Price per sq ft</div><div style="font-size:17px;font-weight:500;color:#185FA5;margin-top:2px;">$1,180/sf</div></div>
+    <div><div style="font-size:11px;color:var(--color-text-secondary);">Size · Layout</div><div style="font-size:17px;font-weight:500;color:var(--color-text-primary);margin-top:2px;">1,865 sf · 2BD/3BA</div></div>
+    <div><div style="font-size:11px;color:var(--color-text-secondary);">HOA fees</div><div style="font-size:17px;font-weight:500;color:var(--color-text-primary);margin-top:2px;">$3,955/mo</div></div>
+    <div><div style="font-size:11px;color:var(--color-text-secondary);">Days on market</div><div style="font-size:17px;font-weight:500;color:var(--color-text-primary);margin-top:2px;">40 days</div></div>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab active" onclick="showTab('overview')">Overview</button>
+  <button class="tab" onclick="showTab('active')">Active listings</button>
+  <button class="tab" onclick="showTab('sold')">Sold comps</button>
+  <button class="tab" onclick="showTab('ppsf')">Price per sq ft</button>
+  <button class="tab" onclick="showTab('market')">Market conditions</button>
+  <button class="tab" onclick="showTab('cost')">Cost of ownership</button>
+  <button class="tab" onclick="showTab('offer')">Offer strategy</button>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div id="pane-overview" class="pane active">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+    <div class="card">
+      <div class="sl" style="margin-bottom:12px;">About this home</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:12px;">Unit 2404 is a two-level penthouse at The Ritz-Carlton Residences, one of San Francisco's most prestigious luxury buildings. It's not a typical condo — it's a duplex spanning two floors, with its own internal staircase, sweeping Bay and city views, and interiors designed by Stanford Hughes Design, the same firm behind several Four Seasons hotel properties.</p>
+      <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;">The home comes with two valet parking spaces — a rarity in this segment — along with full access to the building's hotel-style amenities.</p>
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;"><span style="color:var(--color-text-secondary);">Building</span><span>The Ritz-Carlton Residences (84 units)</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;"><span style="color:var(--color-text-secondary);">Type</span><span>Two-level penthouse duplex</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;"><span style="color:var(--color-text-secondary);">Floor</span><span>24th (entry level)</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;"><span style="color:var(--color-text-secondary);">Views</span><span>Bay, water, city, Downtown SF</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;"><span style="color:var(--color-text-secondary);">Parking</span><span>2 valet spaces (side-by-side)</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;"><span style="color:var(--color-text-secondary);">Interior design</span><span>Stanford Hughes Design (Four Seasons)</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;"><span style="color:var(--color-text-secondary);">Kitchen</span><span>Granite island, premium appliances, pantry</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;"><span style="color:var(--color-text-secondary);">Living area</span><span>Fireplace, wet bar, open dining/living</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;"><span style="color:var(--color-text-secondary);">Primary suite</span><span>Walk-in closet, soaking tub, double vanity</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:13px;"><span style="color:var(--color-text-secondary);">Year built</span><span>2007 · Updated/remodeled</span></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="card">
+        <div class="sl" style="margin-bottom:10px;">Building amenities (included in HOA)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span class="b bn">24-hr concierge</span><span class="b bn">24-hr security</span><span class="b bn">Valet parking</span>
+          <span class="b bn">12th floor lounge + terrace</span><span class="b bn">Executive boardroom</span>
+          <span class="b bn">2 fitness centers</span><span class="b bn">Roof deck</span><span class="b bn">Clubhouse</span>
+          <span class="b bn">Water, sewer, trash</span><span class="b bn">Elevator</span><span class="b bn">Pets allowed</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="sl" style="margin-bottom:10px;">Why this home is priced the way it is</div>
+        <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:10px;">The current owner originally purchased this home in September 2007 for <span style="color:var(--color-text-primary);font-weight:500;">$2,715,000</span>. They are now asking <span style="color:var(--color-text-primary);font-weight:500;">$2,200,000</span> — already a $515,000 reduction from what they paid nearly 18 years ago.</p>
+        <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;">This context matters: the seller is not holding out for a premium. They have already accepted a significant loss, which gives you a more straightforward negotiating position than you might expect for a property of this caliber.</p>
+      </div>
+      <div class="card" style="background:#E6F1FB18;border-color:#B5D4F4;">
+        <div class="sl" style="margin-bottom:10px;">The key number to understand</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="mc">
+            <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;">This home's price per sq ft</div>
+            <div style="font-size:22px;font-weight:500;color:#185FA5;">$1,180/sf</div>
+          </div>
+          <div class="mc">
+            <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;">What similar luxury buildings sell for</div>
+            <div style="font-size:22px;font-weight:500;color:var(--color-text-primary);">$1,500–$1,900/sf</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;margin-top:10px;">Based on recent sales at comparable buildings — Four Seasons (706 Mission), 181 Fremont Residences, The Harrison, and Lumina — this home is priced roughly 21–38% below where similar luxury units have been selling. That gap is meaningful.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ACTIVE LISTINGS ===== -->
+<div id="pane-active" class="pane">
+  <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:14px;">These are the comparable luxury homes currently on the market in San Francisco — the alternatives your competition might also be considering. We've focused on the same tier of full-service, amenity-rich buildings. The subject property is highlighted in blue.</p>
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:14px;">
+    <table>
+      <thead><tr><th>Address</th><th>Building</th><th>Beds</th><th>Sq ft</th><th>Asking price</th><th>Price/sq ft</th><th>Days listed</th><th>HOA/mo</th><th>Parking</th></tr></thead>
+      <tbody>
+        <tr style="background:#E6F1FB18;"><td style="font-weight:500;color:#185FA5;">690 Market #2404</td><td style="color:#185FA5;">Ritz-Carlton</td><td style="color:#185FA5;">2</td><td style="color:#185FA5;">1,865</td><td style="font-weight:500;color:#185FA5;">$2,200,000</td><td style="color:#185FA5;">$1,180</td><td style="color:#185FA5;">40</td><td style="color:#185FA5;">$3,955</td><td style="color:#185FA5;">2</td></tr>
+        <tr><td>181 Fremont #56C</td><td style="color:var(--color-text-secondary);">181 Fremont</td><td>2</td><td>1,605</td><td>$2,595,000</td><td>$1,617</td><td>60</td><td>$4,200</td><td>0</td></tr>
+        <tr><td>181 Fremont #58A</td><td style="color:var(--color-text-secondary);">181 Fremont</td><td>2</td><td>1,926</td><td>$4,100,000</td><td>$2,129</td><td>192</td><td>$4,414</td><td>1</td></tr>
+        <tr><td>706 Mission #801</td><td style="color:var(--color-text-secondary);">Four Seasons</td><td>2</td><td>2,780</td><td>$4,555,000</td><td>$1,638</td><td>24</td><td>$4,983</td><td>1</td></tr>
+        <tr><td>706 Mission #6C</td><td style="color:var(--color-text-secondary);">Four Seasons</td><td>2</td><td>1,301</td><td>$1,500,000</td><td>$1,153</td><td>90</td><td>$3,748</td><td>1</td></tr>
+        <tr><td>706 Mission #1001</td><td style="color:var(--color-text-secondary);">Four Seasons</td><td>3</td><td>2,780</td><td>$5,995,000</td><td>$2,156</td><td>23</td><td>$4,723</td><td>2</td></tr>
+        <tr><td>706 Mission #8A</td><td style="color:var(--color-text-secondary);">Four Seasons</td><td>3</td><td>3,146</td><td>$5,750,000</td><td>$1,828</td><td>31</td><td>$5,146</td><td>1</td></tr>
+        <tr><td>706 Mission #11A</td><td style="color:var(--color-text-secondary);">Four Seasons</td><td>3</td><td>3,146</td><td>$4,900,000</td><td>$1,558</td><td>164</td><td>$5,005</td><td>1</td></tr>
+        <tr><td>401 Harrison #26C</td><td style="color:var(--color-text-secondary);">The Harrison</td><td>2</td><td>1,334</td><td>$1,995,000</td><td>$1,496</td><td>—</td><td>—</td><td>1</td></tr>
+        <tr><td>401 Harrison #18B</td><td style="color:var(--color-text-secondary);">The Harrison</td><td>2</td><td>1,311</td><td>$1,875,000</td><td>$1,430</td><td>74</td><td>—</td><td>1</td></tr>
+        <tr><td>401 Harrison #5F</td><td style="color:var(--color-text-secondary);">The Harrison</td><td>2</td><td>1,242</td><td>$1,199,000</td><td>$965</td><td>65</td><td>—</td><td>1</td></tr>
+        <tr><td>401 Harrison #46B</td><td style="color:var(--color-text-secondary);">The Harrison</td><td>3</td><td>3,214</td><td>$7,800,000</td><td>$2,427</td><td>—</td><td>—</td><td>2</td></tr>
+        <tr><td>338 Main (Lumina)</td><td style="color:var(--color-text-secondary);">Lumina</td><td>2</td><td>1,178</td><td>$1,899,888</td><td>$1,613</td><td>—</td><td>$1,425</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="padding:12px 14px;background:#E6F1FB;border-radius:var(--border-radius-md);font-size:13px;color:#0C447C;line-height:1.7;">
+    <span style="font-weight:500;">What this shows:</span> Among all comparable 2-bedroom units currently listed, Unit 2404 has the lowest price per square foot in the peer group — despite being the only penthouse duplex, having Bay and water views from the 24th floor, and coming with 2 parking spaces. Most of the competing 2-bed listings at similar buildings are asking $1,430–$1,638/sf for standard flat units.
+  </div>
+</div>
+
+<!-- ===== SOLD COMPS ===== -->
+<div id="pane-sold" class="pane">
+  <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:14px;">These are homes that have actually sold at comparable luxury buildings over the past two years. Actual sales tell us what buyers were truly willing to pay — and they paint a clear picture of where this home's value sits.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div>
+      <div class="sl" style="margin-bottom:8px;">Four Seasons · 181 Fremont · St. Regis · 1 Steuart Lane</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table>
+          <thead><tr><th>Address</th><th>Beds</th><th>Sq ft</th><th>Sold for</th><th>$/sf</th><th>vs asking</th></tr></thead>
+          <tbody>
+            <tr><td>706 Mission #38A</td><td>3</td><td>3,590</td><td>$8,800,000</td><td>$2,451</td><td><span class="b bs">At ask</span></td></tr>
+            <tr><td>706 Mission #37B</td><td>3</td><td>4,242</td><td>$9,250,000</td><td>$2,181</td><td><span class="b bs">At ask</span></td></tr>
+            <tr><td>706 Mission #35B</td><td>3</td><td>4,242</td><td>$8,750,000</td><td>$2,063</td><td><span class="b bn">—</span></td></tr>
+            <tr><td>706 Mission #28A</td><td>3</td><td>3,205</td><td>$5,500,000</td><td>$1,716</td><td><span class="b bn">—</span></td></tr>
+            <tr><td>706 Mission #503</td><td>2</td><td>2,944</td><td>$4,250,000</td><td>$1,444</td><td><span class="b bn">—</span></td></tr>
+            <tr><td>706 Mission #16D</td><td>2</td><td>2,843</td><td>$3,300,000</td><td>$1,161</td><td><span class="b bw">−19.5%</span></td></tr>
+            <tr><td>706 Mission #12C</td><td>2</td><td>1,297</td><td>$1,800,000</td><td>$1,388</td><td><span class="b bw">−24.5%</span></td></tr>
+            <tr><td>706 Mission #10C</td><td>2</td><td>1,301</td><td>$1,525,000</td><td>$1,172</td><td><span class="b bw">−1.6%</span></td></tr>
+            <tr><td>706 Mission #8C</td><td>2</td><td>1,277</td><td>$1,470,000</td><td>$1,151</td><td><span class="b bs">+5.2%</span></td></tr>
+            <tr><td>181 Fremont #66A</td><td>2</td><td>2,404</td><td>$6,000,000</td><td>$2,496</td><td><span class="b bw">−4.8%</span></td></tr>
+            <tr><td>181 Fremont #62B</td><td>3</td><td>2,263</td><td>$4,800,000</td><td>$2,121</td><td><span class="b bw">−3.9%</span></td></tr>
+            <tr><td>181 Fremont #64A</td><td>3</td><td>1,841</td><td>$4,100,000</td><td>$2,227</td><td><span class="b bw">−8.8%</span></td></tr>
+            <tr><td>181 Fremont #59A</td><td>2</td><td>1,894</td><td>$3,495,000</td><td>$1,845</td><td><span class="b bw">−5.4%</span></td></tr>
+            <tr><td>181 Fremont #65D</td><td>2</td><td>1,555</td><td>$2,900,000</td><td>$1,865</td><td><span class="b bw">−3.2%</span></td></tr>
+            <tr><td>181 Fremont #65C</td><td>2</td><td>1,262</td><td>$2,395,000</td><td>$1,898</td><td><span class="b bw">−4.0%</span></td></tr>
+            <tr><td>181 Fremont #60C</td><td>2</td><td>1,262</td><td>$1,995,000</td><td>$1,581</td><td><span class="b bs">At ask</span></td></tr>
+            <tr><td>188 Minna #22C</td><td>2</td><td>1,723</td><td>$1,842,500</td><td>$1,069</td><td><span class="b bw">−2.8%</span></td></tr>
+            <tr><td>1 Steuart #1001</td><td>3</td><td>2,974</td><td>$9,250,000</td><td>$3,110</td><td><span class="b bw">−2.6%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="sl" style="margin-bottom:8px;">The Harrison · Lumina</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table>
+          <thead><tr><th>Address</th><th>Beds</th><th>Sq ft</th><th>Sold for</th><th>$/sf</th><th>vs asking</th></tr></thead>
+          <tbody>
+            <tr><td>401 Harrison #45C</td><td>2</td><td>1,589</td><td>$2,375,000</td><td>$1,495</td><td><span class="b bw">−5.0%</span></td></tr>
+            <tr><td>401 Harrison #47C</td><td>2</td><td>1,589</td><td>$2,415,000</td><td>$1,520</td><td><span class="b bw">−5.3%</span></td></tr>
+            <tr><td>401 Harrison #48C</td><td>2</td><td>1,589</td><td>$2,425,000</td><td>$1,526</td><td><span class="b bw">−13.4%</span></td></tr>
+            <tr><td>401 Harrison #31D</td><td>2</td><td>1,297</td><td>$2,100,000</td><td>$1,619</td><td><span class="b bs">+5.3%</span></td></tr>
+            <tr><td>401 Harrison #28C</td><td>2</td><td>1,334</td><td>$2,050,000</td><td>$1,537</td><td><span class="b bw">−6.8%</span></td></tr>
+            <tr><td>401 Harrison #31C</td><td>2</td><td>1,334</td><td>$2,000,000</td><td>$1,499</td><td><span class="b bw">−16.6%</span></td></tr>
+            <tr><td>401 Harrison #40E</td><td>2</td><td>1,270</td><td>$1,840,000</td><td>$1,449</td><td><span class="b bw">−19.8%</span></td></tr>
+            <tr><td>401 Harrison #17D</td><td>2</td><td>1,297</td><td>$1,750,000</td><td>$1,349</td><td><span class="b bw">−7.8%</span></td></tr>
+            <tr><td>401 Harrison #23C</td><td>2</td><td>1,334</td><td>$1,725,000</td><td>$1,293</td><td><span class="b bw">−9.0%</span></td></tr>
+            <tr><td>401 Harrison #31B</td><td>2</td><td>1,311</td><td>$1,535,000</td><td>$1,171</td><td><span class="b bw">−5.5%</span></td></tr>
+            <tr><td>401 Harrison #26B</td><td>2</td><td>1,311</td><td>$1,485,000</td><td>$1,133</td><td><span class="b bw">−7.1%</span></td></tr>
+            <tr><td>338 Main #27A</td><td>2</td><td>1,572</td><td>$2,680,000</td><td>$1,705</td><td><span class="b bw">−0.7%</span></td></tr>
+            <tr><td>338 Main #30A</td><td>2</td><td>1,572</td><td>$2,425,000</td><td>$1,543</td><td><span class="b bw">−2.8%</span></td></tr>
+            <tr><td>338 Main #26C</td><td>2</td><td>1,496</td><td>$2,400,000</td><td>$1,604</td><td><span class="b bw">−11.1%</span></td></tr>
+            <tr><td>338 Main #19G</td><td>2</td><td>1,401</td><td>$1,875,000</td><td>$1,338</td><td><span class="b bw">−1.3%</span></td></tr>
+            <tr><td>338 Main #22F</td><td>2</td><td>1,181</td><td>$1,530,000</td><td>$1,296</td><td><span class="b bw">−4.1%</span></td></tr>
+            <tr><td>338 Main #3F</td><td>2</td><td>1,181</td><td>$1,478,000</td><td>$1,251</td><td><span class="b bw">−1.4%</span></td></tr>
+            <tr><td>338 Main #4F</td><td>2</td><td>1,181</td><td>$1,385,000</td><td>$1,173</td><td><span class="b bw">−2.2%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;">
+    <div class="mc"><div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;">Average sold price (all comps)</div><div style="font-size:17px;font-weight:500;">$3,056,000</div><div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;">Unit 2404 is priced well below this average</div></div>
+    <div class="mc"><div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;">Median price/sq ft (luxury tier)</div><div style="font-size:17px;font-weight:500;">~$1,500/sf</div><div style="font-size:11px;color:#3B6D11;margin-top:2px;">This home asks $1,180/sf — 21% below</div></div>
+    <div class="mc"><div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;">Typical sale vs asking price</div><div style="font-size:17px;font-weight:500;">−4% to −8%</div><div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;">Most close slightly below ask</div></div>
+  </div>
+</div>
+
+<!-- ===== PPSF ===== -->
+<div id="pane-ppsf" class="pane">
+  <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:14px;">Price per square foot ($/sf) is the most reliable way to compare homes of different sizes. It strips away the size variable and lets you compare apples to apples. Here's how Unit 2404 stacks up against every comparable sale in the data.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+    <div class="card">
+      <div class="sl" style="margin-bottom:12px;">Average $/sf by building — sold homes</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;font-size:11px;color:var(--color-text-secondary);">
+        <span style="display:flex;align-items:center;gap:4px;"><span class="dot" style="background:#7F77DD;"></span>Four Seasons</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span class="dot" style="background:#1D9E75;"></span>181 Fremont</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span class="dot" style="background:#D85A30;"></span>The Harrison</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span class="dot" style="background:#BA7517;"></span>Lumina</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span class="dot" style="background:#888780;"></span>St. Regis</span>
+        <span style="display:flex;align-items:center;gap:4px;"><span class="dot" style="background:#185FA5;"></span>Unit 2404 ask</span>
+      </div>
+      <div style="position:relative;height:280px;"><canvas id="bldgChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="sl" style="margin-bottom:12px;">Every 2-bed luxury sale — low to high $/sf</div>
+      <div style="position:relative;height:380px;"><canvas id="ppsfChart"></canvas></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;">
+    <div style="padding:14px;background:#EAF3DE;border-radius:var(--border-radius-md);">
+      <div style="font-size:12px;font-weight:500;color:#27500A;margin-bottom:5px;">The bottom line on value</div>
+      <p style="font-size:12px;color:#3B6D11;line-height:1.7;">At $1,180/sf, Unit 2404 is priced at or below the lowest sales across every comparable building in this analysis — including standard flat units with no views, no duplex layout, and 1 parking space.</p>
+    </div>
+    <div style="padding:14px;background:#E6F1FB;border-radius:var(--border-radius-md);">
+      <div style="font-size:12px;font-weight:500;color:#0C447C;margin-bottom:5px;">What fair value looks like</div>
+      <p style="font-size:12px;color:#185FA5;line-height:1.7;">A penthouse duplex with Bay views and 2 parking at a branded luxury building would reasonably be expected to trade at $1,500–$1,900/sf based on the comp set. At $1,180/sf, you're buying at a meaningful discount to that range.</p>
+    </div>
+    <div style="padding:14px;background:#FAEEDA;border-radius:var(--border-radius-md);">
+      <div style="font-size:12px;font-weight:500;color:#854F0B;margin-bottom:5px;">Why the discount exists</div>
+      <p style="font-size:12px;color:#854F0B;line-height:1.7;">Downtown SF luxury condos have faced headwinds since 2022. The seller bought at the peak in 2007 and is pricing to sell, not to hold out. This is an opportunity created by a motivated seller in a recovering market.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MARKET CONDITIONS ===== -->
+<div id="pane-market" class="pane">
+  <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:14px;">Understanding where the San Francisco market is right now — and where it's heading — is important context for your decision. Here's what the data shows for the first quarter of 2026.</p>
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem;">
+    <div class="mc"><div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;">Condo median (Mar 2026, 3-mo)</div><div style="font-size:18px;font-weight:500;">$1,137,500</div><div style="font-size:11px;color:#3B6D11;margin-top:3px;">↑ 8%+ year-over-year</div></div>
+    <div class="mc"><div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;">Condo inventory citywide</div><div style="font-size:18px;font-weight:500;">338 units</div><div style="font-size:11px;color:#993C1D;margin-top:3px;">↓ 37% from a year ago</div></div>
+    <div class="mc"><div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;">Condos selling above list</div><div style="font-size:18px;font-weight:500;">~54%</div><div style="font-size:11px;color:#854F0B;margin-top:3px;">Up sharply from prior year</div></div>
+    <div class="mc"><div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;">30-yr mortgage rate (Mar 2026)</div><div style="font-size:18px;font-weight:500;">~6.0–6.3%</div><div style="font-size:11px;color:#3B6D11;margin-top:3px;">Down from 6.9% a year ago</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="card">
+      <div class="sl" style="margin-bottom:12px;">What's been happening in the market — Jan to Mar 2026</div>
+      <div class="insight-row">
+        <div class="pill" style="background:#3B6D11;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Condos are bouncing back — and doing it faster than expected</div>
+          <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">After a few slow years, the SF condo market turned a corner in late 2025 and has accelerated into 2026. The 3-month median condo price hit $1,137,500 in March — up over 8% from a year ago. That's a meaningful jump from the 1–2% gains we saw through most of 2024.</p>
+        </div>
+      </div>
+      <div class="insight-row">
+        <div class="pill" style="background:#3B6D11;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">There are far fewer homes to choose from</div>
+          <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">Condo inventory across San Francisco is down 37% compared to this time last year — just 338 units available citywide. The oversupply that kept prices soft in 2023–24 has been absorbed. Buyers now have fewer alternatives, which matters for how you position your offer.</p>
+        </div>
+      </div>
+      <div class="insight-row">
+        <div class="pill" style="background:#3B6D11;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">The AI boom is creating a new wave of luxury buyers</div>
+          <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">San Francisco is the epicenter of the artificial intelligence industry. Companies are expanding rapidly downtown, and well-compensated tech workers are translating stock market gains and signing bonuses into real estate. Luxury home sales in the metro hit a $6.4M median between August and October 2025 — up 5% from 2024. This is the buyer profile for a Ritz-Carlton penthouse near the Financial District.</p>
+        </div>
+      </div>
+      <div class="insight-row">
+        <div class="pill" style="background:#3B6D11;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Buyers are moving faster — 60% more properties going under contract</div>
+          <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">The rate at which listings are going under contract rose roughly 60% compared to this time last year. This doesn't mean you need to panic — but it does mean that well-priced properties in desirable buildings are not sitting forever the way they were in 2023.</p>
+        </div>
+      </div>
+      <div class="insight-row">
+        <div class="pill" style="background:#854F0B;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Downtown luxury highrises are still lagging — but not for long</div>
+          <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">The market recovery has been strongest in residential neighborhoods like Cow Hollow and Pacific Heights. Downtown highrises are improving, but are still seeing longer days on market than the city overall. This means there's still negotiating room — but that window is closing.</p>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="card">
+        <div class="sl" style="margin-bottom:10px;">What this means for your decision on Unit 2404</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);">
+            <span class="b bs" style="white-space:nowrap;margin-top:1px;">Good news</span>
+            <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">You're buying into a recovering market. The price gap between what this home is asking and where the market is heading is working in your favor. If you close at $2,100,000–$2,200,000 today, you're likely to look back on that price as a smart entry point in 3–5 years.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);">
+            <span class="b bs" style="white-space:nowrap;margin-top:1px;">Good news</span>
+            <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">The seller's carrying costs are very real. At $3,955/month in HOA fees on a vacant unit, every month this sits unsold is costing them money. That's genuine motivation to close.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span class="b bw" style="white-space:nowrap;margin-top:1px;">Worth knowing</span>
+            <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">This is not a situation where waiting six months will get you a better price. Inventory is falling, buyer demand is rising, and the AI-driven tech resurgence is bringing new liquidity into the luxury market. A buyer who looks like yours could emerge at any point.</p>
+          </div>
+        </div>
+      </div>
+      <div style="padding:14px;background:#EAF3DE;border-radius:var(--border-radius-md);">
+        <div style="font-size:13px;font-weight:500;color:#27500A;margin-bottom:6px;">Our read on timing</div>
+        <p style="font-size:13px;color:#3B6D11;line-height:1.8;">The market has moved meaningfully in the seller's favor over the last three months — but downtown highrises are still the slowest segment to recover, so you still have negotiating room right now. If you love this home, acting in the next few weeks is strategically sound. The risk of waiting is real and growing.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COST OF OWNERSHIP ===== -->
+<div id="pane-cost" class="pane">
+  <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:14px;">Here's a complete picture of what owning this home actually costs each month, and over time. Use the sliders to adjust based on your specific financing situation.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="card">
+      <div class="sl" style="margin-bottom:12px;">Monthly cost at different purchase prices</div>
+      <table>
+        <thead><tr><th>Offer price</th><th>Mortgage</th><th>HOA</th><th>Prop. tax</th><th>Total/mo</th></tr></thead>
+        <tbody>
+          <tr><td><span class="b bs">At $2,090,000</span></td><td id="pi1">—</td><td>$3,955</td><td id="pt1">—</td><td id="tt1" style="font-weight:500;">—</td></tr>
+          <tr><td><span class="b bi">At $2,200,000 (ask)</span></td><td id="pi2">—</td><td>$3,955</td><td id="pt2">—</td><td id="tt2" style="font-weight:500;">—</td></tr>
+          <tr><td><span class="b bw">At $2,280,000</span></td><td id="pi3">—</td><td>$3,955</td><td id="pt3">—</td><td id="tt3" style="font-weight:500;">—</td></tr>
+        </tbody>
+      </table>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;">
+        <div>
+          <label style="font-size:12px;color:var(--color-text-secondary);">Interest rate</label>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+            <input type="range" min="5" max="9" step="0.1" value="6.5" id="rateSlider" style="flex:1;" oninput="updateCost()">
+            <span id="rateOut" style="font-size:13px;font-weight:500;min-width:36px;">6.5%</span>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:12px;color:var(--color-text-secondary);">Down payment</label>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+            <input type="range" min="10" max="60" step="5" value="20" id="downSlider" style="flex:1;" oninput="updateCost()">
+            <span id="downOut" style="font-size:13px;font-weight:500;min-width:30px;">20%</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);font-size:11px;color:var(--color-text-secondary);line-height:1.6;">
+        Mortgage = principal + interest only on a 30-year fixed loan. Property tax estimated at SF rate of approximately 1.17% of purchase price, which resets to your purchase price under California's Proposition 13 — a meaningful benefit. Does not include homeowner's insurance or utilities.
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="card">
+        <div class="sl" style="margin-bottom:10px;">10-year cost breakdown — at ask price, 20% down, 6.5%</div>
+        <div style="position:relative;height:190px;"><canvas id="costChart"></canvas></div>
+        <div style="margin-top:12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;">
+          <div style="padding:8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);text-align:center;">
+            <div style="font-size:11px;color:var(--color-text-secondary);">10-yr HOA</div>
+            <div style="font-size:15px;font-weight:500;">$474,600</div>
+          </div>
+          <div style="padding:8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);text-align:center;">
+            <div style="font-size:11px;color:var(--color-text-secondary);">10-yr prop tax</div>
+            <div style="font-size:15px;font-weight:500;" id="ptTot">—</div>
+          </div>
+          <div style="padding:8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);text-align:center;">
+            <div style="font-size:11px;color:var(--color-text-secondary);">10-yr mortgage</div>
+            <div style="font-size:15px;font-weight:500;" id="mTot">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="sl" style="margin-bottom:10px;">A note on the HOA</div>
+        <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;margin-bottom:8px;">At $3,955/month, the HOA is the largest recurring cost after your mortgage. Over 10 years, that's nearly $475,000. It's a real number, and it's worth understanding what you get for it: 24-hour concierge and security, valet parking for both cars, the 12th floor lounge and terrace, two fitness centers, and all common area maintenance covered.</p>
+        <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">Before proceeding, we recommend requesting the building's full HOA financials and reserve fund study to confirm the building is well-funded with no pending special assessments.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== OFFER STRATEGY ===== -->
+<div id="pane-offer" class="pane">
+  <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;margin-bottom:14px;">Based on the sales data, the current market conditions, and the specific circumstances of this listing, here is our recommended approach to making an offer.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+    <div>
+      <div class="sl" style="margin-bottom:12px;">How to think about price</div>
+      <div class="card" style="border-color:#B5D4F4;margin-bottom:12px;">
+        <p style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;">Rather than fixating on a single number, think about this as a <span style="color:var(--color-text-primary);font-weight:500;">comfortable range</span>. The data supports good value at every point between $2,090,000 and $2,280,000. Your goal is to land somewhere in that band — not to win by paying the least, but to secure a home that will look like a smart decision for years to come.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="padding:14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+            <span style="font-size:13px;font-weight:500;color:var(--color-text-primary);">Where to start</span>
+            <span class="b bs">$2,090,000</span>
+          </div>
+          <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">Opening at 5% below ask is supported by the comps and reasonable given the seller's situation. It gives both sides room to negotiate and signals you're a serious buyer — not someone fishing for a bargain.</p>
+        </div>
+
+        <div style="padding:14px;border:2px solid #185FA5;border-radius:var(--border-radius-md);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+            <span style="font-size:14px;font-weight:500;color:#185FA5;">Your comfort zone</span>
+            <span class="b bi">$2,090,000 – $2,250,000</span>
+          </div>
+          <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">Any number in this range is a strong outcome. At $2,250,000 — the top of this zone — you're paying $1,207/sf for a Ritz-Carlton penthouse duplex with Bay views and 2 valet parking spaces. The luxury tier median is $1,500/sf. <span style="color:var(--color-text-primary);font-weight:500;">There is no bad deal within this range.</span></p>
+        </div>
+
+        <div style="padding:14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+            <span style="font-size:13px;font-weight:500;color:var(--color-text-primary);">If the seller pushes above ask</span>
+            <span class="b bw">$2,250,000 – $2,280,000</span>
+          </div>
+          <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">A small premium above ask can happen — especially given how much the seller has already conceded from their 2007 purchase price. Even at $2,280,000 ($1,223/sf), you're still well below where this building's product type trades. It's worth considering if it's what closes the deal.</p>
+        </div>
+
+        <div style="padding:14px;background:#FCEBEB;border-radius:var(--border-radius-md);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+            <span style="font-size:13px;font-weight:500;color:#A32D2D;">Where to pause and reassess</span>
+            <span class="b bd">Above $2,300,000</span>
+          </div>
+          <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">If the negotiation pushes north of $2,300,000, step back and evaluate what's driving it. The data gets thinner as a justification above this point. It's not necessarily a deal-breaker — but it warrants a conversation before proceeding.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sl" style="margin-bottom:12px;">What works in your favor</div>
+      <div class="card" style="margin-bottom:12px;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);">
+            <span class="b bs" style="white-space:nowrap;margin-top:1px;">Your leverage</span>
+            <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">The home is vacant, which means the seller is paying $3,955/month in HOA fees with no income from the property. Every month it sits unsold costs them real money. After 40 days on the market, that urgency is building.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);">
+            <span class="b bs" style="white-space:nowrap;margin-top:1px;">Your leverage</span>
+            <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">The seller originally paid $2,715,000 in 2007 and is already listing at a $515,000 loss. They can't argue this is a rising-market situation. That psychological anchor is gone.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);">
+            <span class="b bi" style="white-space:nowrap;margin-top:1px;">Smart ask</span>
+            <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">Include a request for the seller to prepay 3 months of HOA dues ($11,865) as a credit at closing. This doesn't change the official sale price on record, but it puts real money back in your pocket. It's also an easy concession for the seller to make without feeling like they're lowering their price.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:10px;border-bottom:0.5px solid var(--color-border-tertiary);">
+            <span class="b bi" style="white-space:nowrap;margin-top:1px;">Flexible close</span>
+            <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">Offer the seller their preferred closing timeline — whether that's 30, 45, or 60 days. A fast, certain close from a prepared buyer is genuinely valuable to someone carrying a vacant property.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span class="b bw" style="white-space:nowrap;margin-top:1px;">Do first</span>
+            <p style="font-size:12px;color:var(--color-text-secondary);line-height:1.7;">Before submitting an offer, request the full HOA financials and reserve fund study. You want to confirm the building is financially healthy with no upcoming special assessments — particularly for an 18-year-old building with comprehensive amenities.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:14px;background:#EAF3DE;border-radius:var(--border-radius-md);">
+        <div style="font-size:13px;font-weight:500;color:#27500A;margin-bottom:6px;">The bigger picture</div>
+        <p style="font-size:13px;color:#3B6D11;line-height:1.8;">You're looking at a Ritz-Carlton penthouse duplex with Bay views, custom hotel-quality interiors, and 2 valet parking spaces — priced at $1,180/sf in a market where comparable luxury buildings are selling at $1,500–$1,900/sf. The discount exists because of years of downtown SF softness and a motivated seller. That softness is reversing. Buying now, in this range, is likely to look smart with a little distance.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:10px 14px;background:var(--color-background-secondary);border-left:3px solid #378ADD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;font-size:12px;color:var(--color-text-secondary);line-height:1.6;">
+    This analysis is prepared for informational purposes and reflects our professional assessment based on MLS data as of April 6, 2026. It is not an appraisal. All figures should be independently verified with your financial advisor, attorney, and a licensed appraiser before making a purchase decision. Market data sourced from Compass/RESFAR MLS, JVM Lending, Helena 7x7, Legacy Real Estate, and Vanguard Properties.
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('active');
+  event.target.classList.add('active');
+  if(id==='ppsf') renderPPSF();
+  if(id==='cost'){updateCost();renderCost();}
+}
+
+let ppsfR=false;
+function renderPPSF(){
+  if(ppsfR)return; ppsfR=true;
+  const bldgs=[
+    {name:'St. Regis',color:'#888780',avg:1069},
+    {name:'Four Seasons',color:'#7F77DD',avg:Math.round((1161+1172+1151+1202+1144+1248+1388+1444)/8)},
+    {name:'The Harrison',color:'#D85A30',avg:Math.round((944+1071+1079+1133+1171+1186+1293+1309+1349+1449+1495+1499+1519+1526+1537+1619)/16)},
+    {name:'Lumina',color:'#BA7517',avg:Math.round((987+1039+1173+1176+1251+1296+1338+1356+1543+1604+1705)/11)},
+    {name:'181 Fremont',color:'#1D9E75',avg:Math.round((1387+1466+1581+1752+1833+1845+1865+1898+2496)/9)},
+  ];
+  new Chart(document.getElementById('bldgChart'),{
+    type:'bar',
+    data:{labels:[...bldgs.map(b=>b.name),'Unit 2404\nask'],
+      datasets:[{data:[...bldgs.map(b=>b.avg),1180],
+        backgroundColor:[...bldgs.map(b=>b.color),'#185FA5'],borderRadius:4},
+      {type:'line',data:[...bldgs.map(()=>1180),1180],
+        borderColor:'#185FA560',borderWidth:1.5,borderDash:[4,3],pointRadius:0,fill:false,label:'Unit 2404'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{y:{ticks:{callback:v=>'$'+v+'/sf'},grid:{color:'rgba(128,128,128,0.1)'},min:800},
+              x:{ticks:{font:{size:10}}}}}
+  });
+
+  const allSales=[944,987,1039,1069,1071,1079,1133,1144,1151,1161,1171,1172,1173,1176,1186,1202,1248,1251,1293,1296,1309,1338,1349,1356,1387,1388,1444,1449,1466,1495,1499,1519,1526,1537,1543,1581,1604,1619,1705,1752,1833,1845,1865,1898,2496].sort((a,b)=>a-b);
+  const colors=allSales.map(v=>v<=1180?'#185FA5':'#B5D4F4');
+  new Chart(document.getElementById('ppsfChart'),{
+    type:'bar',
+    data:{labels:allSales.map((_,i)=>''),
+      datasets:[{data:allSales,backgroundColor:colors,borderRadius:2,barThickness:7}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'$'+ctx.raw+'/sf'}}},
+      scales:{x:{ticks:{callback:v=>'$'+v+'/sf'},grid:{color:'rgba(128,128,128,0.1)'},min:800},
+              y:{display:false}}}
+  });
+}
+
+function mtg(p,r,y){const m=r/100/12,n=y*12;return Math.round(p*m*Math.pow(1+m,n)/(Math.pow(1+m,n)-1));}
+function updateCost(){
+  const rate=parseFloat(document.getElementById('rateSlider').value);
+  const down=parseFloat(document.getElementById('downSlider').value)/100;
+  document.getElementById('rateOut').textContent=rate.toFixed(1)+'%';
+  document.getElementById('downOut').textContent=Math.round(down*100)+'%';
+  [[2090000,'pi1','pt1','tt1'],[2200000,'pi2','pt2','tt2'],[2280000,'pi3','pt3','tt3']].forEach(([p,pi,pt,tt])=>{
+    const m=mtg(p*(1-down),rate,30);
+    const tax=Math.round(p*0.0117/12);
+    document.getElementById(pi).textContent='$'+m.toLocaleString();
+    document.getElementById(pt).textContent='$'+tax.toLocaleString();
+    document.getElementById(tt).textContent='$'+(m+3955+tax).toLocaleString()+'/mo';
+  });
+}
+
+let costR=false;
+function renderCost(){
+  if(costR)return; costR=true;
+  const pt10=Math.round(2200000*0.0117*10);
+  const mort10=mtg(2200000*0.8,6.5,30)*120;
+  document.getElementById('ptTot').textContent='$'+pt10.toLocaleString();
+  document.getElementById('mTot').textContent='$'+mort10.toLocaleString();
+  new Chart(document.getElementById('costChart'),{
+    type:'doughnut',
+    data:{labels:['10-yr HOA ($474,600)','10-yr property tax ($'+pt10.toLocaleString()+')','10-yr mortgage ($'+mort10.toLocaleString()+')'],
+      datasets:[{data:[474600,pt10,mort10],backgroundColor:['#D85A30','#7F77DD','#185FA5'],borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10,boxWidth:12}}}}
+  });
+}
+
+updateCost();
+</script>
