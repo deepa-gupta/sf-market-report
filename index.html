@@ -1,730 +1,340 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>San Francisco Real Estate Market Report</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-<style>:root {
-  --navy:#1B3A6B; --gold:#C8923A; --sky:#4A90D9; --green:#2E7D5E;
-  --red:#C0392B; --slate:#5A5A7A; --bg:#F8F6F2; --card:#FFFFFF;
-  --border:#E0DBD0; --text:#1A1A2E;
-  /* Typography scale */
-  --fs-xs:10px; --fs-sm:11px; --fs-base:13px; --fs-md:14px;
-  --fs-lg:16px; --fs-xl:22px; --fs-h1:34px;
-  --fs-stat:40px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-
-/* HEADER */
-.header{background:linear-gradient(150deg,#0d2147 0%,#1B3A6B 55%,#2a5298 100%);color:#fff;padding:48px 60px 40px;position:relative;overflow:hidden}
-.header::before{content:'';position:absolute;top:-80px;right:-40px;width:340px;height:340px;border-radius:50%;background:rgba(200,146,58,.12);pointer-events:none}
-.header::after{content:'';position:absolute;bottom:-70px;left:35%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
-.header-decoration{position:absolute;top:20px;right:60px;width:120px;height:120px;border-radius:50%;border:2px solid rgba(200,146,58,.25);pointer-events:none}
-.header-decoration::after{content:'';position:absolute;top:16px;left:16px;right:16px;bottom:16px;border-radius:50%;border:1px solid rgba(200,146,58,.15)}
-.header-inner{position:relative;z-index:1}
-.header-badge{display:inline-block;background:var(--gold);color:#fff;font-size:var(--fs-sm);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px}
-.header h1{font-size:var(--fs-h1);font-weight:900;letter-spacing:-.8px;margin-bottom:8px;line-height:1.1}
-.header .subtitle{font-size:var(--fs-md);opacity:.8;margin-bottom:3px}
-.header .subtitle strong{opacity:1;font-weight:700}
-.header .meta{font-size:var(--fs-sm);opacity:.45;margin-top:4px}
-.header-agent{font-size:12px;color:rgba(255,255,255,.65);margin-top:6px}
-.header-agent strong{color:var(--gold)}
-.header-agent a{color:rgba(200,146,58,.85);text-decoration:none}
-.header-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.hpill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.9);font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;backdrop-filter:blur(4px)}
-
-/* STICKY BAR */
-.sticky-bar{background:var(--card);border-bottom:1px solid var(--border);padding:12px 60px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.bar-label{font-size:var(--fs-sm);font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--slate);margin-right:2px}
-.aud-btn,.dl-btn,.back-btn{padding:6px 18px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--slate);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
-.aud-btn:hover,.back-btn:hover{border-color:var(--navy);color:var(--navy)}
-.aud-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
-.aud-btn.active.gold{background:var(--gold);border-color:var(--gold)}
-.aud-btn:focus-visible,.dl-btn:focus-visible,.slice-btn:focus-visible,.back-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.dl-btn{margin-left:auto;border-color:var(--gold);color:var(--gold);font-weight:700;font-size:var(--fs-xs);letter-spacing:.5px;text-transform:uppercase}
-.dl-btn:hover{background:var(--gold);color:#fff}
-.back-btn{text-decoration:none;display:inline-block}
-
-/* LAYOUT */
-.container{max-width:1180px;margin:0 auto;padding:36px 40px 80px}
-
-/* SECTION BANDS */
-.sec-band{background:linear-gradient(90deg,#0d2147,#1B3A6B);color:#fff;border-left:4px solid var(--gold);padding:18px 32px;margin:40px -40px 28px;display:flex;align-items:center;gap:16px}
-.sec-band .sec-num{font-size:var(--fs-xs);font-weight:900;letter-spacing:1.5px;color:var(--gold);background:rgba(255,255,255,.12);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sec-band h2{font-size:var(--fs-xl);font-weight:800;color:#fff;letter-spacing:-.4px}
-.sec-band .sec-tag{font-size:var(--fs-xs);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(200,146,58,.9);background:rgba(200,146,58,.15);padding:4px 12px;border-radius:20px;border:1px solid rgba(200,146,58,.3)}
-.sec-band .tf-group{margin-left:auto;display:flex;gap:8px;align-items:center}
-.slice-btn{padding:5px 15px;border-radius:16px;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.8);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
-.slice-btn:hover{border-color:rgba(255,255,255,.7);color:#fff}
-.slice-btn.active{background:var(--gold);border-color:var(--gold);color:#fff}
-
-/* SNAPSHOT BAND */
-.snapshot-band{background:linear-gradient(90deg,#0d2147,#1B3A6B);padding:24px 40px;margin:0 -40px 28px;display:flex;justify-content:space-around;align-items:center;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
-.snap-item{text-align:center}
-.snap-val{display:block;font-size:28px;font-weight:900;color:var(--gold);letter-spacing:-.8px;line-height:1}
-.snap-lbl{display:block;font-size:var(--fs-xs);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:6px}
-
-/* STAT CARDS */
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:16px;margin-bottom:16px}
-.stat-card{background:var(--card);border-radius:16px;padding:0;border:1px solid var(--border);box-shadow:0 3px 14px rgba(0,0,0,.06);transition:transform .18s,box-shadow .18s;overflow:hidden}
-.stat-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
-.stat-card .sc-bar{height:4px;background:var(--navy)}
-.stat-card.gold .sc-bar{background:var(--gold)}
-.stat-card.sky  .sc-bar{background:var(--sky)}
-.stat-card.green .sc-bar{background:var(--green)}
-.stat-card .sc-body{padding:16px 18px 14px}
-.stat-card .sc-icon{font-size:22px;margin-bottom:8px;display:block;line-height:1}
-.stat-card .lbl{font-size:var(--fs-xs);font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--slate);margin-bottom:6px}
-.stat-card .val{font-size:var(--fs-stat);font-weight:900;color:var(--navy);letter-spacing:-.8px;line-height:1;margin-bottom:5px}
-.stat-card.gold .val{color:var(--gold)}
-.stat-card.green .val{color:var(--green)}
-.stat-card .sub{font-size:var(--fs-sm);color:var(--slate)}
-.sc-trend{font-size:var(--fs-sm);font-weight:600;margin-top:6px;display:inline-block;padding:2px 8px;border-radius:10px}
-.sc-trend.up{color:var(--green);background:rgba(46,125,94,.1)}
-.sc-trend.down{color:var(--red);background:rgba(192,57,43,.1)}
-
-/* INSIGHT BOXES */
-.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
-.insight-box{background:var(--card);border-radius:14px;padding:18px 20px;border:1px solid var(--border);border-left:5px solid var(--navy);box-shadow:0 3px 10px rgba(0,0,0,.05)}
-.insight-box.gold{border-left-color:var(--gold);background:linear-gradient(135deg,#fffdf8,#fffaf2)}
-.insight-box.green{border-left-color:var(--green);background:linear-gradient(135deg,#f4faf7,#edf7f2)}
-.insight-box.sky{border-left-color:var(--sky)}
-.insight-box h4{font-size:var(--fs-sm);font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--slate);margin-bottom:6px}
-.insight-box p{font-size:var(--fs-base);line-height:1.6;color:var(--text)}
-.insight-box strong{color:var(--navy)}
-
-/* COMMENTARY — editorial */
-.commentary{background:#FAF8F4;border-radius:20px;padding:32px 36px 28px;margin-bottom:8px;border:1px solid var(--border);position:relative}
-.commentary::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent);border-radius:20px 20px 0 0;pointer-events:none}
-.comm-pull{text-align:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px}
-.comm-pull-val{font-size:48px;font-weight:900;color:var(--gold);letter-spacing:-1.5px;line-height:1;display:block}
-.comm-pull-cap{font-size:var(--fs-sm);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);margin-top:8px;display:block}
-.comm-prose{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.comm-section{border-left:4px solid var(--gold);padding:0 0 0 16px}
-.comm-section h4{font-size:var(--fs-md);font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:-.1px}
-.comm-section p{font-size:var(--fs-base);line-height:1.8;color:var(--text);margin:0}
-.comm-section p+p{margin-top:8px}
-.comm-section strong{color:var(--navy);font-weight:700}
-.comm-footer{margin-top:20px;padding-top:12px;border-top:1px solid var(--border);font-size:var(--fs-xs);color:var(--slate);text-align:right}
-
-/* CHART CARDS */
-.chart-card{background:var(--card);border-radius:18px;padding:24px 24px 16px;margin-bottom:20px;border:1px solid var(--border);box-shadow:0 3px 14px rgba(0,0,0,.05)}
-.chart-card .ct{font-size:var(--fs-md);font-weight:800;color:var(--navy);margin-bottom:2px;letter-spacing:-.2px}
-.chart-card .cs{font-size:var(--fs-sm);color:var(--slate);margin-bottom:16px}
-.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
-.chart-row .chart-card{margin-bottom:0}
-
-/* COMPARISON TABLE */
-.cmp-card{background:var(--card);border-radius:18px;padding:24px 24px 20px;margin-bottom:20px;border:1px solid var(--border);box-shadow:0 3px 14px rgba(0,0,0,.05)}
-.cmp-card .ct{font-size:var(--fs-md);font-weight:800;color:var(--navy);margin-bottom:16px;letter-spacing:-.2px}
-.cmp-table{width:100%;border-collapse:collapse;font-size:var(--fs-base)}
-.cmp-table th,.cmp-table td{padding:11px 14px;border-bottom:1px solid var(--border);text-align:right}
-.cmp-table td:first-child{text-align:left;color:var(--slate);font-weight:600}
-.cmp-table th{font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:1px;font-weight:700;padding-bottom:8px}
-.cmp-table th:nth-child(2){color:var(--navy)}
-.cmp-table th:nth-child(3){color:var(--gold)}
-.cmp-table tr:last-child td{border-bottom:none}
-.cmp-table .highlight td{background:rgba(27,58,107,.04);font-weight:700}
-
-/* PAGE NAV */
-.page-nav{display:flex;gap:12px;align-items:center}
-
-/* FOOTER */
-.footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:26px 40px;font-size:12px;margin-top:60px;line-height:1.8}
-.footer strong{color:rgba(255,255,255,.85)}
-.footer-brand{font-size:var(--fs-base);font-weight:600;color:rgba(255,255,255,.9);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.15)}
-.footer-brand a{color:var(--gold);text-decoration:none}
-.footer-brand a:hover{text-decoration:underline}
-.page-links{margin-top:10px;display:flex;gap:20px;justify-content:center}
-.page-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:var(--fs-sm);letter-spacing:.5px;text-transform:uppercase}
-.page-links a:hover{color:#fff}
-
-/* TABLET */
-@media(max-width:1024px) and (min-width:769px){
-  .header{padding:36px 40px 32px}
-  .sticky-bar{padding:10px 32px}
-  .container{padding:28px 32px 80px}
-  .sec-band{margin:40px -32px 28px;padding:16px 24px}
-  .snapshot-band{margin:0 -32px 28px;padding:20px 32px}
-  .stat-grid{grid-template-columns:repeat(3,1fr)}
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .header{padding:28px 20px 24px}
-  .header h1{font-size:22px}
-  .header-pills{gap:6px}
-  .hpill{font-size:var(--fs-sm);padding:4px 10px}
-  .header-decoration{display:none}
-  .sticky-bar{padding:10px 16px;flex-wrap:wrap}
-  .container{padding:20px 16px 60px}
-  .chart-row,.insight-grid{grid-template-columns:1fr}
-  .stat-grid{grid-template-columns:repeat(2,1fr)}
-  .stat-card .val{font-size:28px}
-  .snap-val{font-size:20px}
-  .dl-btn{margin-left:0}
-  .sec-band{margin:28px -16px 20px;padding:14px 20px;flex-wrap:wrap;gap:10px}
-  .sec-band .tf-group{width:100%}
-  .snapshot-band{margin:0 -16px 20px;padding:16px 20px;flex-wrap:wrap;gap:12px}
-  .snap-item{width:45%}
-  .comm-prose{grid-template-columns:1fr}
-  .commentary{padding:20px}
-  .comm-pull-val{font-size:36px}
-}
-
-/* DARK MODE */
-@media(prefers-color-scheme:dark){
-  :root{
-    --bg:#0e1117; --card:#161b22; --border:#30363d; --text:#e6edf3;
-    --slate:#8b949e;
+<title>Deepa Gupta — California Transaction Coordinator</title>
+<style>
+  :root{--navy:#1B3A6B;--gold:#C8923A;--sky:#4A90D9;--green:#2E7D5E;--slate:#5A5A7A;--bg:#F8F6F2;--card:#fff;--border:#E0DBD0;--text:#1A1A2E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  /* HERO */
+  .hero{background:linear-gradient(150deg,#0d2147 0%,#1B3A6B 55%,#2a5298 100%);color:#fff;padding:72px 40px 64px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-80px;right:-60px;width:380px;height:380px;border-radius:50%;background:rgba(200,146,58,.10);pointer-events:none}
+  .hero::after{content:'';position:absolute;bottom:-60px;left:15%;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+  .hero-deco{position:absolute;top:24px;right:64px;width:140px;height:140px;border-radius:50%;border:2px solid rgba(200,146,58,.2);pointer-events:none}
+  .hero-deco::after{content:'';position:absolute;top:18px;left:18px;right:18px;bottom:18px;border-radius:50%;border:1px solid rgba(200,146,58,.12)}
+  .hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
+  .hero-badge{display:inline-block;background:var(--gold);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:20px}
+  .hero h1{font-size:44px;font-weight:900;letter-spacing:-.8px;line-height:1.1;margin-bottom:16px}
+  .hero h1 em{font-style:normal;color:var(--gold)}
+  .hero-sub{font-size:16px;opacity:.8;line-height:1.75;margin-bottom:28px;max-width:540px;margin-left:auto;margin-right:auto}
+  .hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:32px}
+  .hero-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.9);font-size:13px;font-weight:600;padding:7px 18px;border-radius:20px;text-decoration:none;transition:background .15s}
+  .hero-pill:hover{background:rgba(255,255,255,.2)}
+  .hero-cta{display:inline-block;background:var(--gold);color:#fff;font-size:15px;font-weight:700;letter-spacing:.3px;padding:14px 36px;border-radius:32px;text-decoration:none;transition:all .18s;box-shadow:0 4px 16px rgba(200,146,58,.35)}
+  .hero-cta:hover{background:#a87430;transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,146,58,.4)}
+  .hero-state{font-size:12px;opacity:.4;margin-top:16px;letter-spacing:.5px}
+  /* SECTIONS */
+  .section{padding:72px 40px}
+  .section-alt{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .container{max-width:1040px;margin:0 auto}
+  .section-label{text-align:center;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .section-title{text-align:center;font-size:30px;font-weight:900;color:var(--navy);letter-spacing:-.5px;margin-bottom:10px}
+  .section-sub{text-align:center;font-size:15px;color:var(--slate);line-height:1.7;max-width:560px;margin:0 auto 48px}
+  /* FEATURE CARDS */
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+  .feat-card{background:var(--card);border-radius:20px;border:1px solid var(--border);padding:32px 28px;box-shadow:0 4px 18px rgba(0,0,0,.05);transition:transform .18s,box-shadow .18s}
+  .feat-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.09)}
+  .feat-icon{font-size:36px;margin-bottom:18px;display:block;line-height:1}
+  .feat-card h3{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:10px;letter-spacing:-.3px}
+  .feat-card p{font-size:14px;color:var(--slate);line-height:1.7}
+  /* PRICING */
+  .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;align-items:start}
+  .price-card{background:var(--card);border-radius:24px;border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+  .price-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.11)}
+  .price-card.featured{border-color:var(--gold);box-shadow:0 4px 24px rgba(200,146,58,.18)}
+  .price-top{height:6px}
+  .price-top.navy{background:var(--navy)}.price-top.gold{background:var(--gold)}.price-top.green{background:var(--green)}
+  .price-body{padding:28px 28px 20px;flex:1}
+  .price-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 12px;border-radius:20px;margin-bottom:14px}
+  .price-badge.navy{background:rgba(27,58,107,.1);color:var(--navy)}
+  .price-badge.gold{background:rgba(200,146,58,.12);color:#a87430;border:1px solid rgba(200,146,58,.3)}
+  .price-badge.green{background:rgba(46,125,94,.1);color:var(--green)}
+  .price-card h3{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:6px;letter-spacing:-.3px}
+  .price-amount{font-size:42px;font-weight:900;color:var(--navy);letter-spacing:-1px;margin:12px 0 4px;line-height:1}
+  .price-amount span{font-size:18px;font-weight:600;color:var(--slate);vertical-align:middle}
+  .price-desc{font-size:13px;color:var(--slate);margin-bottom:20px;line-height:1.6}
+  .price-list{list-style:none;margin-bottom:24px}
+  .price-list li{font-size:13px;color:var(--slate);padding:6px 0;display:flex;align-items:flex-start;gap:8px;border-bottom:1px solid var(--border)}
+  .price-list li:last-child{border-bottom:none}
+  .price-list li::before{content:'\2713';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+  .price-footer{padding:0 28px 28px}
+  .price-btn{display:block;text-align:center;padding:12px;border-radius:14px;font-size:14px;font-weight:700;letter-spacing:.3px;text-decoration:none;transition:all .15s}
+  .price-btn.navy{background:var(--navy);color:#fff}.price-btn.navy:hover{background:#142d5e}
+  .price-btn.gold{background:var(--gold);color:#fff}.price-btn.gold:hover{background:#a87430}
+  .price-btn.green{background:var(--green);color:#fff}.price-btn.green:hover{background:#1e5c40}
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:16px}
+  .steps::before{content:'';position:absolute;top:28px;left:calc(12.5%);right:calc(12.5%);height:2px;background:linear-gradient(90deg,var(--gold),rgba(200,146,58,.3));z-index:0}
+  .step{text-align:center;padding:0 16px;position:relative;z-index:1}
+  .step-num{width:56px;height:56px;border-radius:50%;background:var(--navy);color:#fff;font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 4px 14px rgba(27,58,107,.3)}
+  .step h4{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:8px;letter-spacing:-.2px}
+  .step p{font-size:13px;color:var(--slate);line-height:1.6}
+  /* WHY TC */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px;max-width:760px;margin:0 auto}
+  .why-item{display:flex;align-items:flex-start;gap:12px}
+  .why-check{width:28px;height:28px;border-radius:50%;background:rgba(46,125,94,.12);color:var(--green);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+  .why-item h4{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px}
+  .why-item p{font-size:13px;color:var(--slate);line-height:1.5}
+  /* CTA BAND */
+  .cta-band{background:linear-gradient(135deg,#0d2147 0%,#1B3A6B 60%,#2a5298 100%);padding:72px 40px;text-align:center;position:relative;overflow:hidden}
+  .cta-band::before{content:'';position:absolute;top:-60px;right:-40px;width:280px;height:280px;border-radius:50%;background:rgba(200,146,58,.08);pointer-events:none}
+  .cta-band-inner{position:relative;z-index:1}
+  .cta-band h2{font-size:30px;font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:12px}
+  .cta-band p{font-size:15px;color:rgba(255,255,255,.7);margin-bottom:32px;line-height:1.7}
+  .cta-contact{display:flex;justify-content:center;flex-wrap:wrap;gap:24px;margin-bottom:36px}
+  .cta-item{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.85);font-size:14px}
+  .cta-item strong{color:#fff;font-weight:700}
+  .cta-item-icon{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .cta-btn{display:inline-block;background:var(--gold);color:#fff;font-size:15px;font-weight:700;letter-spacing:.3px;padding:14px 40px;border-radius:32px;text-decoration:none;transition:all .18s;box-shadow:0 4px 16px rgba(200,146,58,.35)}
+  .cta-btn:hover{background:#a87430;transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,146,58,.45)}
+  /* REPORTS STRIP */
+  .reports-strip{padding:36px 40px;text-align:center;background:var(--bg)}
+  .reports-card{display:inline-flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 28px;text-decoration:none;color:var(--navy);font-weight:700;font-size:14px;transition:all .18s;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+  .reports-card:hover{border-color:var(--navy);box-shadow:0 6px 20px rgba(27,58,107,.1);transform:translateY(-2px)}
+  .reports-card-icon{font-size:26px}
+  .reports-card-label{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:2px}
+  /* FOOTER */
+  footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:28px 24px;font-size:12px;line-height:2}
+  footer strong{color:rgba(255,255,255,.85)}
+  footer a{color:var(--gold);text-decoration:none}
+  .footer-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
+  /* RESPONSIVE */
+  @media(max-width:700px){
+    .hero{padding:48px 20px 44px}.hero h1{font-size:30px}
+    .section{padding:52px 20px}
+    .steps{grid-template-columns:1fr 1fr;gap:32px}.steps::before{display:none}
+    .why-grid{grid-template-columns:1fr}
+    .cta-band{padding:52px 20px}.cta-band h2{font-size:22px}
   }
-  .commentary{background:#1a1f2e;border-color:#30363d}
-  .insight-box.gold{background:linear-gradient(135deg,#2a2216,#251d10)}
-  .insight-box.green{background:linear-gradient(135deg,#162419,#0f1f14)}
-  .cmp-table .highlight td{background:rgba(255,255,255,.05)}
-  .sticky-bar{background:#161b22;border-color:#30363d}
-  .chart-card,.cmp-card{background:#161b22;border-color:#30363d}
-  .stat-card{background:#161b22;border-color:#30363d}
-}
-
-/* PRINT */
-@media print{
-  .sticky-bar{display:none!important}
-  body{background:#fff}
-  .header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .sec-band{-webkit-print-color-adjust:exact;print-color-adjust:exact;margin:20px 0 16px;border-radius:6px}
-  .snapshot-band{-webkit-print-color-adjust:exact;print-color-adjust:exact;margin:0 0 16px;border-radius:6px}
-  .chart-card,.cmp-card{break-inside:avoid;box-shadow:none}
-  .chart-row{break-inside:avoid}
-  .commentary{-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}
-  [data-audience]{display:block!important}
-  .footer .page-links{display:none}
-  .comm-prose{grid-template-columns:1fr 1fr}
-}
+  @media(max-width:420px){.hero h1{font-size:24px}.steps{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-decoration" aria-hidden="true"></div>
-  <div class="header-inner">
-    <div class="header-badge">Market Intelligence</div>
-    <h1>San Francisco Real Estate Market Report</h1>
-    <div class="subtitle">Based on <strong data-stat="total_sales_fmt">7,516</strong> closed sales · <span data-stat="date_range">Apr 2025 – Apr 2026</span></div>
-    <div class="meta">Data through April 16, 2026 &nbsp;·&nbsp; Generated April 18, 2026</div>
-    <div class="header-agent">Prepared by <strong>Deepa Gupta</strong> &nbsp;·&nbsp; <a href="mailto:deepa.tcservices@gmail.com">deepa.tcservices@gmail.com</a></div>
-    <div class="header-pills" aria-label="Key market metrics">
-      <span class="hpill">Median <span data-stat="med_price">$1.48M</span></span>
-      <span class="hpill"><span data-stat="pct_over_asking">55%</span> over asking</span>
-      <span class="hpill"><span data-stat="median_dom">41</span>d median DOM</span>
-      <span class="hpill"><span data-stat="avg_ppsf">$933</span>/sqft</span>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-deco"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">&#127968; California Transaction Coordinator</div>
+    <h1>Close Every Deal<br>With <em>Confidence</em></h1>
+    <p class="hero-sub">Expert transaction coordination so you can focus on your clients — not your paperwork. Every deadline met, every document in order, every closing on time.</p>
+    <div class="hero-pills">
+      <a href="tel:6073791933" class="hero-pill">&#128222; 607-379-1933</a>
+      <a href="mailto:deepa.tcservices@gmail.com" class="hero-pill">&#9993; deepa.tcservices@gmail.com</a>
+      <span class="hero-pill">&#127796; California Only</span>
+    </div>
+    <a href="mailto:deepa.tcservices@gmail.com" class="hero-cta">Get Started &#8594;</a>
+    <div class="hero-state">California Transactions Only</div>
+  </div>
+</div>
+
+<!-- WHAT I DO -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">What I Do</div>
+    <h2 class="section-title">Transaction Coordination, Start to Finish</h2>
+    <p class="section-sub">From the moment a contract is executed to the day escrow closes, I manage every moving part so nothing falls through the cracks.</p>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <span class="feat-icon">&#128203;</span>
+        <h3>End-to-End Coordination</h3>
+        <p>I open escrow, manage the disclosure package, track every document, and upload your complete file to your broker portal — so your transaction moves forward without interruption.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">&#128197;</span>
+        <h3>Timeline Management</h3>
+        <p>I build and maintain the transaction timeline, send reminders before every deadline, manage contingency removals, and keep all parties in sync from day one through close.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">&#128193;</span>
+        <h3>Document Accuracy</h3>
+        <p>Disclosure packages, CAR forms, home warranty orders, natural hazard reports — every document is reviewed for completeness and compliance before it goes out.</p>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- STICKY BAR -->
-<div class="sticky-bar" role="toolbar" aria-label="Report controls">
-  <button class="dl-btn" style="margin-left:auto" onclick="window.print()" aria-label="Download report as PDF">&#8595; Download PDF</button>
-</div>
+<!-- PRICING -->
+<div class="section section-alt">
+  <div class="container">
+    <div class="section-label">Services &amp; Pricing</div>
+    <h2 class="section-title">Simple, Transparent Pricing</h2>
+    <p class="section-sub">Flat fees per transaction — no surprises. California residential and rental transactions only.</p>
+    <div class="price-grid">
 
-<div class="container">
+      <div class="price-card">
+        <div class="price-top navy"></div>
+        <div class="price-body">
+          <span class="price-badge navy">Rental</span>
+          <h3>Rental Transaction</h3>
+          <div class="price-amount">$200<span> flat</span></div>
+          <p class="price-desc">Lease paperwork and coordination handled start to finish.</p>
+          <ul class="price-list">
+            <li>Lease document review &amp; tracking</li>
+            <li>Transaction timeline setup</li>
+            <li>Deadline alerts and reminders</li>
+            <li>Document delivery to all parties</li>
+            <li>Complete file organization</li>
+          </ul>
+        </div>
+        <div class="price-footer">
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Rental%20TC%20Inquiry" class="price-btn navy">Book Now &#8594;</a>
+        </div>
+      </div>
 
+      <div class="price-card featured">
+        <div class="price-top gold"></div>
+        <div class="price-body">
+          <span class="price-badge gold">Most Common</span>
+          <h3>Buyer or Seller</h3>
+          <div class="price-amount">$500<span> flat</span></div>
+          <p class="price-desc">Full contract-to-close coordination for one side of a residential transaction.</p>
+          <ul class="price-list">
+            <li>Escrow opening &amp; coordination</li>
+            <li>Disclosure package preparation</li>
+            <li>Inspection &amp; contingency management</li>
+            <li>Home warranty ordering</li>
+            <li>Broker checklist &amp; portal upload</li>
+            <li>Transaction timeline &amp; updates</li>
+          </ul>
+        </div>
+        <div class="price-footer">
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Buyer%2FSeller%20TC%20Inquiry" class="price-btn gold">Book Now &#8594;</a>
+        </div>
+      </div>
 
-<!-- COMMENTARY -->
-<div class="commentary" style="margin-top:8px">
-  <div class="comm-pull">
-    <span class="comm-pull-val" data-stat="med_price">$1.48M</span>
-    <span class="comm-pull-cap">12-Month Median Sale Price</span>
-  </div>
-  <div class="comm-prose">
-<div class="comm-section">
-  <h4>Where the Market Stands</h4>
-  <p>Spring 2026 is one of the most competitive markets San Francisco has seen in years. Across 9,649 closed sales through April 16, the median price over the last 12 months sits at $1.48M — and this year's sales are running higher, with a YTD median of $1.60M. Homes are selling faster too, averaging just 32 days on market this quarter versus 41 days over the past year. The spring surge is here and it's real.</p>
-</div>
-<div class="comm-section">
-  <h4>If You're Buying a House</h4>
-  <p>Single-family homes are intensely competitive right now. This quarter, <strong>83% of houses sold above asking price</strong>, with buyers paying an average of 26.9% over list. If a home is priced at $1.5M, competitive offers are coming in closer to $1.9M. The median sale price for houses this quarter is $1.93M. Noe Valley (median $1.86M), Pacific Heights ($2.38M), and Bernal Heights ($1.46M) are among the most active neighborhoods. Come fully pre-approved and ready to move quickly — well-priced houses are not lasting long.</p>
-</div>
-<div class="comm-section">
-  <h4>If You're Buying a Condo</h4>
-  <p>The condo market is more accessible, but it's tightening fast. This quarter, 55% of condos sold above asking — up sharply from prior periods — with buyers paying an average of 13.1% over list. The quarterly median is $1.27M. South Beach and Nob Hill remain the highest-volume areas. You still have more room to negotiate than with houses, but the window of low competition for condos is closing. If you've been waiting for the right time, this spring is it.</p>
-</div>
-<div class="comm-section">
-  <h4>If You're Selling</h4>
-  <p>The market is squarely in your favor. Houses are selling in 27 days on average this quarter, and nearly 9 in 10 are closing above list price. Pricing at or just under market to invite multiple offers is the proven strategy — it creates urgency and often results in a final sale well above where you started. Noe Valley, Pacific Heights, and Bernal Heights are commanding the strongest prices. For condos, demand has picked up significantly — 55% are going over asking this quarter, the strongest reading we've seen in this cycle.</p>
-</div>
-<div class="comm-section">
-  <h4>The Moment You're In</h4>
-  <p>This is peak spring market. Buyer demand is high, inventory is still constrained, and the competitive dynamics are working strongly in sellers' favor. If you're a buyer, waiting for things to calm down is a real risk — this data shows the market accelerating, not plateauing. If you're a seller, homes listed now through May will see the most buyer attention and the best offer terms of the year.</p>
-</div>
-</div>
-<div class="comm-footer">Data through April 16, 2026 · 9,649 closed sales · Source: MLS</div>
-</div>
+      <div class="price-card">
+        <div class="price-top green"></div>
+        <div class="price-body">
+          <span class="price-badge green">Both Parties</span>
+          <h3>Dual Representation</h3>
+          <div class="price-amount">$700<span> flat</span></div>
+          <p class="price-desc">Comprehensive coordination when you represent both buyer and seller.</p>
+          <ul class="price-list">
+            <li>Everything in Buyer + Seller tiers</li>
+            <li>Dual-side file management</li>
+            <li>Coordination with both clients</li>
+            <li>Single point of contact for all parties</li>
+            <li>Complete dual-representation compliance</li>
+          </ul>
+        </div>
+        <div class="price-footer">
+          <a href="mailto:deepa.tcservices@gmail.com?subject=Dual%20Rep%20TC%20Inquiry" class="price-btn green">Book Now &#8594;</a>
+        </div>
+      </div>
 
-
-<!-- ═══════════════════════════════════════════════════════
-     SECTION 1: MARKET OVERVIEW
-     ═══════════════════════════════════════════════════════ -->
-<div class="sec-band" role="heading" aria-level="2">
-  <div class="sec-num" aria-hidden="true">01</div>
-  <h2>Market Overview</h2>
-  <span class="sec-tag" id="slice-label" data-stat="date_range">Apr 2025 – Apr 2026</span>
-  <div class="tf-group" role="group" aria-label="Time period">
-    <button class="slice-btn" onclick="setSlice('all',this)" aria-pressed="false">All</button>
-    <button class="slice-btn active" onclick="setSlice('year',this)" aria-pressed="true">1-Year</button>
-    <button class="slice-btn" onclick="setSlice('ytd',this)" aria-pressed="false">YTD</button>
-    <button class="slice-btn" onclick="setSlice('quarter',this)" aria-pressed="false">Last Quarter</button>
-  </div>
-</div>
-
-<div class="stat-grid">
-  
-<div class="stat-card ">
-  <div class="sc-bar"></div>
-  <div class="sc-body">
-    <span class="sc-icon">💰</span>
-    <div class="lbl">Median Sale Price</div>
-    <div class="val" data-stat="med_price">$1.48M</div>
-    <div class="sub">All property types</div>
-    <div class="sc-trend up">↑ 18% vs last yr</div>
-  </div>
-</div>
-
-  
-<div class="stat-card gold">
-  <div class="sc-bar"></div>
-  <div class="sc-body">
-    <span class="sc-icon">📊</span>
-    <div class="lbl">Average Sale Price</div>
-    <div class="val" data-stat="avg_price">$1.99M</div>
-    <div class="sub">Pulled up by luxury sales</div>
-    <div class="sc-trend up">↑ 19% vs last yr</div>
-  </div>
-</div>
-
-  
-<div class="stat-card sky">
-  <div class="sc-bar"></div>
-  <div class="sc-body">
-    <span class="sc-icon">📋</span>
-    <div class="lbl">Total Closed Sales</div>
-    <div class="val" data-stat="total_sales_fmt">7,516</div>
-    <div class="sub">Apr 2025 – Apr 2026</div>
-    <div class="sc-trend up">↑ 5546% vs last yr</div>
-  </div>
-</div>
-
-  <div class="stat-card">
-    <div class="sc-bar"></div>
-    <div class="sc-body">
-      <span class="sc-icon" aria-hidden="true">⏱️</span>
-      <div class="lbl">Median Days on Market</div>
-      <div class="val"><span data-stat="median_dom">41</span>d</div>
-      <div class="sub">From listing to close</div>
-      <div class="sc-trend down">↓ 11% vs last yr</div>
     </div>
   </div>
-  
-<div class="stat-card ">
-  <div class="sc-bar"></div>
-  <div class="sc-body">
-    <span class="sc-icon">📐</span>
-    <div class="lbl">Avg Price / Sq Ft</div>
-    <div class="val" data-stat="avg_ppsf">$933</div>
-    <div class="sub">Across all transactions</div>
-    <div class="sc-trend up">↑ 18% vs last yr</div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section">
+  <div class="container">
+    <div class="section-label">Process</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">Four simple steps from signed contract to closed file.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Loop Me In Early</h4>
+        <p>Include me when you start working with your client — the sooner, the smoother.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>File &amp; Timeline Setup</h4>
+        <p>I open the file, build the transaction timeline, and loop in all parties.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>I Coordinate Everyone</h4>
+        <p>Escrow, title, lenders, agents — I manage all communication and deadlines.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>You Close</h4>
+        <p>Complete, compliant file delivered to your broker portal at closing.</p>
+      </div>
+    </div>
   </div>
 </div>
 
-  
-<div class="stat-card green">
-  <div class="sc-bar"></div>
-  <div class="sc-body">
-    <span class="sc-icon">🎯</span>
-    <div class="lbl">Sold Over Asking</div>
-    <div class="val" data-stat="pct_over_asking">55%</div>
-    <div class="sub">Of sales with list price</div>
-    <div class="sc-trend down">↓ 4% vs last yr</div>
+<!-- WHY TC -->
+<div class="section section-alt">
+  <div class="container">
+    <div class="section-label">Why It Matters</div>
+    <h2 class="section-title">Why Agents Work With a TC</h2>
+    <p class="section-sub">The best agents use transaction coordinators so they can do what they do best — serve their clients.</p>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>Never Miss a Contingency Deadline</h4><p>Every removal date tracked and flagged well in advance.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>Fully Compliant Documentation</h4><p>CAR forms and DRE requirements handled accurately, every time.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>More Time for Your Clients</h4><p>Stop chasing paperwork. Focus on relationships and new business.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>California Expertise</h4><p>I work exclusively in California — I know the forms, the process, and the standards.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>Clear Communication</h4><p>All parties stay informed. No surprises on the way to close.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-check">&#10003;</div>
+        <div><h4>Closes On Time, Every Time</h4><p>Proactive deadline management keeps your transactions on track.</p></div>
+      </div>
+    </div>
   </div>
 </div>
 
-</div>
-
-
-<div class="chart-card">
-  <div class="ct">Sales by Price Range</div>
-  <div class="cs">All property types · Full period</div>
-  <canvas id="chart-price-range" height="80"></canvas>
-</div>
-
-
-<div class="chart-row">
-  <div class="chart-card">
-    <div class="ct">Sales by Property Type</div>
-    <div class="cs">Market share · Full period</div>
-    <div style="max-width:300px;margin:0 auto"><canvas id="chart-property-mix" height="220" aria-label="Pie chart: Sales by property type"></canvas></div>
-  </div>
-  <div class="chart-card">
-    <div class="ct">Sales by Bedroom Count</div>
-    <div class="cs">2BR leads in volume — expect highest competition</div>
-    <canvas id="chart-beds" height="200" aria-label="Bar chart: Sales by bedroom count"></canvas>
-  </div>
-</div>
-
-
-<div class="chart-card">
-  <div class="ct">Most Active Neighborhoods — by Sales Volume</div>
-  <div class="cs">Top 10 neighborhoods · More inventory = more options</div>
-  <canvas id="chart-neighborhoods-vol" height="160"></canvas>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════════════
-     SECTION 2: MARKET TRENDS
-     ═══════════════════════════════════════════════════════ -->
-<div class="sec-band" role="heading" aria-level="2">
-  <div class="sec-num" aria-hidden="true">02</div>
-  <h2>Market Trends</h2>
-  <span class="sec-tag" id="trend-gran-label">Monthly</span>
-</div>
-
-
-<div class="chart-card">
-  <div class="ct">Median &amp; Average Sale Price</div>
-  <div class="cs">Median (solid) vs. Average (dashed) — avg is pulled higher by luxury sales</div>
-  <canvas id="chart-trend-price" height="90"></canvas>
-</div>
-
-
-
-<div class="chart-card">
-  <div class="ct">Sales Volume</div>
-  <div class="cs">Closed transactions per period · Gold = most recent 3 months (year view)</div>
-  <canvas id="chart-trend-volume" height="80"></canvas>
-</div>
-
-
-
-<div class="chart-card">
-  <div class="ct">Days on Market — Single Family vs. Condo</div>
-  <div class="cs">Median days from listing to close · Lower = faster market, less time to decide</div>
-  <canvas id="chart-trend-dom" height="90"></canvas>
-</div>
-
-
-
-<div class="chart-card">
-  <div class="ct">Price Per Square Foot — Single Family vs. Condo</div>
-  <div class="cs">Median PPSF · A rising PPSF means waiting costs more per square foot</div>
-  <canvas id="chart-trend-ppsf" height="90"></canvas>
-</div>
-
-
-
-<div class="chart-card">
-  <div class="ct">% Sold Over Asking</div>
-  <div class="cs">Share of closed sales that exceeded list price · Rising trend = stronger seller leverage</div>
-  <canvas id="chart-trend-pct-over" height="80"></canvas>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════════════
-     SECTION 3: CONDO vs. SINGLE FAMILY
-     ═══════════════════════════════════════════════════════ -->
-<div class="sec-band" role="heading" aria-level="2">
-  <div class="sec-num" aria-hidden="true">03</div>
-  <h2>Condo vs. Single Family</h2>
-  <span class="sec-tag">Head-to-Head</span>
-</div>
-
-
-<div class="cmp-card">
-  <div class="ct">Side-by-Side Comparison — Full Period</div>
-  <table class="cmp-table" aria-label="Property type comparison">
-    <thead>
-      <tr><th scope="col"></th><th scope="col">Single Family</th><th scope="col">Condo</th></tr>
-    </thead>
-    <tbody>
-      <tr class="highlight"><td>Total Sales</td><td data-tc="sf.total_sales">2624</td><td data-tc="condo.total_sales">2575</td></tr>
-      <tr><td>Median Sale Price</td><td data-tc="sf.median_price_fmt">$1.70M</td><td data-tc="condo.median_price_fmt">$1.18M</td></tr>
-      <tr><td>Average Sale Price</td><td data-tc="sf.avg_price_fmt">$2.32M</td><td data-tc="condo.avg_price_fmt">$1.38M</td></tr>
-      <tr><td>Avg Price / Sq Ft</td><td data-tc="sf.avg_ppsf_fmt">$1,081</td><td data-tc="condo.avg_ppsf_fmt">$1,051</td></tr>
-      <tr class="highlight"><td>Median Days on Market</td><td data-tc="sf.median_dom">33 days</td><td data-tc="condo.median_dom">45 days</td></tr>
-      <tr><td>Sold Over Asking</td><td data-tc="sf.pct_over_asking">78%</td><td data-tc="condo.pct_over_asking">40%</td></tr>
-      <tr><td>Avg Overbid %</td><td data-tc="sf.avg_overbid_pct">+22.4%</td><td data-tc="condo.avg_overbid_pct">+11.2%</td></tr>
-      <tr><td>Sold Under Asking</td><td data-tc="sf.pct_under_asking">18%</td><td data-tc="condo.pct_under_asking">49%</td></tr>
-      <tr><td>Avg Underbid %</td><td data-tc="sf.avg_underbid_pct">-8.6%</td><td data-tc="condo.avg_underbid_pct">-6.9%</td></tr>
-    </tbody>
-  </table>
-</div>
-
-
-<div class="insight-grid">
-  <div class="insight-box gold">
-    <h4>Buyer Insight — Choosing Your Type</h4>
-    <p>Single-family homes sell <strong>faster</strong> and command a premium — but <strong>78%</strong> close over asking at an average overbid of <strong>+22.4%</strong>. Condos offer more negotiating room: <strong>49%</strong> sell under asking.</p>
-  </div>
-  <div class="insight-box green">
-    <h4>Seller Insight — Pricing Strategy</h4>
-    <p>Single-family homes priced at or slightly below market trigger the most competitive bidding. With <strong>78%</strong> selling over asking, strategic under-pricing drives the best outcomes.</p>
+<!-- CTA BANNER -->
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <h2>Ready to Simplify Your Next Transaction?</h2>
+    <p>Reach out today — I'll take it from contract to close.</p>
+    <div class="cta-contact">
+      <div class="cta-item">
+        <div class="cta-item-icon">&#128100;</div>
+        <div><strong>Deepa Gupta</strong><br><span style="color:rgba(255,255,255,.6);font-size:12px">Transaction Coordinator</span></div>
+      </div>
+      <div class="cta-item">
+        <div class="cta-item-icon">&#128222;</div>
+        <div><a href="tel:6073791933" style="color:var(--gold);text-decoration:none;font-weight:700;font-size:15px">607-379-1933</a></div>
+      </div>
+      <div class="cta-item">
+        <div class="cta-item-icon">&#9993;</div>
+        <div><a href="mailto:deepa.tcservices@gmail.com" style="color:var(--gold);text-decoration:none;font-weight:700;font-size:15px">deepa.tcservices@gmail.com</a></div>
+      </div>
+    </div>
+    <a href="mailto:deepa.tcservices@gmail.com" class="cta-btn">Email Me &#8594;</a>
   </div>
 </div>
 
-<div class="chart-row">
-  
-<div class="chart-card">
-  <div class="ct">Price Distribution — SF vs. Condo</div>
-  <div class="cs">Condos cluster $500k–$1M · Single family peaks $1.5M–$2M</div>
-  <canvas id="chart-price-dist" height="200"></canvas>
+<!-- MARKET REPORTS LINK -->
+<div class="reports-strip">
+  <a href="report.html" class="reports-card">
+    <div class="reports-card-icon">&#128202;</div>
+    <div>
+      <div class="reports-card-label">SF Market Data</div>
+      <div>View San Francisco Real Estate Reports &#8594;</div>
+    </div>
+  </a>
 </div>
 
-  
-<div class="chart-card">
-  <div class="ct">Over vs. Under Asking — SF vs. Condo</div>
-  <div class="cs">% of each type's sales · Side-by-side</div>
-  <canvas id="chart-over-under-grouped" height="200"></canvas>
-</div>
+<footer>
+  <div class="footer-name">Deepa Gupta</div>
+  <strong>Transaction Coordinator &nbsp;&middot;&nbsp; California Only</strong><br>
+  <a href="tel:6073791933">607-379-1933</a> &nbsp;&middot;&nbsp; <a href="mailto:deepa.tcservices@gmail.com">deepa.tcservices@gmail.com</a><br>
+  For informational purposes only. Pricing subject to change.
+</footer>
 
-</div>
-
-
-<div class="chart-card">
-  <div class="ct">Days on Market Distribution — SF vs. Condo</div>
-  <div class="cs">47% of SF homes close within 14 days · Condos have a longer tail — patient buyers may find motivated sellers</div>
-  <canvas id="chart-dom-dist" height="100"></canvas>
-</div>
-
-
-<div class="chart-row">
-  
-<div class="chart-card">
-  <div class="ct">Top Neighborhoods — Single Family</div>
-  <div class="cs">By median sale price · Min. 3 sales</div>
-  <canvas id="chart-top-neigh-sf" height="260"></canvas>
-</div>
-
-  
-<div class="chart-card">
-  <div class="ct">Top Neighborhoods — Condo</div>
-  <div class="cs">By median sale price · Min. 3 sales</div>
-  <canvas id="chart-top-neigh-condo" height="260"></canvas>
-</div>
-
-</div>
-
-<div class="chart-row">
-  
-<div class="chart-card">
-  <div class="ct">Top Neighborhoods — Single Family</div>
-  <div class="cs">By number of sales · Min. 3 sales</div>
-  <canvas id="chart-top-neigh-sf-vol" height="260"></canvas>
-</div>
-
-  
-<div class="chart-card">
-  <div class="ct">Top Neighborhoods — Condo</div>
-  <div class="cs">By number of sales · Min. 3 sales</div>
-  <canvas id="chart-top-neigh-condo-vol" height="260"></canvas>
-</div>
-
-</div>
-
-</div><!-- /container -->
-
-<div class="footer">
-  <div class="footer-brand">Prepared by <strong>Deepa Gupta</strong> &nbsp;·&nbsp; <a href="mailto:deepa.tcservices@gmail.com">deepa.tcservices@gmail.com</a></div>
-  <strong>San Francisco Real Estate Market Report</strong><br>
-  Based on <span data-stat="total_sales_fmt">7,516</span> verified closed sales · <span data-stat="date_range">Apr 2025 – Apr 2026</span><br>
-  Data through April 16, 2026 &nbsp;·&nbsp; Generated April 18, 2026<br>
-  For informational purposes only. Not financial or legal advice.
-</div>
-
-<script>const SLICE_DATA = {"all": {"stats": {"total_sales": 9649, "total_sales_fmt": "9,649", "recent_sales": 1468, "date_range": "Jan 2025 \u2013 Apr 2026", "recent_range": "Jan 16 \u2013 Apr 16, 2026", "data_through": "April 16, 2026", "generated_at": "April 18, 2026", "med_price": "$1.45M", "avg_price": "$1.97M", "median_dom": "41", "avg_ppsf": "$931", "pct_over_asking": "54%", "yoy_delta": {"med_price": "+14%", "avg_price": "+13%", "median_dom": "-16%", "pct_over_asking": "+28%", "avg_ppsf": "+15%", "total_sales": "-23%"}}, "tc": {"sf": {"total_sales": 3373, "median_price_fmt": "$1.68M", "avg_price_fmt": "$2.30M", "avg_ppsf_fmt": "$1,076", "median_dom": "33 days", "pct_over_asking": "77%", "avg_overbid_pct": "+22.0%", "pct_under_asking": "19%", "avg_underbid_pct": "-8.5%"}, "condo": {"total_sales": 3374, "median_price_fmt": "$1.15M", "avg_price_fmt": "$1.37M", "avg_ppsf_fmt": "$1,043", "median_dom": "45 days", "pct_over_asking": "39%", "avg_overbid_pct": "+10.9%", "pct_under_asking": "50%", "avg_underbid_pct": "-6.8%"}}, "charts": {"price_range": {"labels": ["Under $500k", "$500k\u2013$1M", "$1M\u2013$2M", "$2M\u2013$3M", "$3M\u2013$5M", "$5M+"], "datasets": [{"label": "Sales", "data": [421, 2082, 4301, 1553, 883, 409], "backgroundColor": ["#4A90D9", "#1B3A6B", "#C8923A", "#2E7D5E", "#C0392B", "#5A5A7A"], "borderRadius": 4}], "yFormat": "number"}, "property_mix": {"labels": ["Condo", "Single Family", "Multi Family", "Other", "Co-op", "Multi Family/Duplex", "Non-Residential"], "datasets": [{"data": [3374, 3373, 1096, 849, 363, 303, 291], "backgroundColor": ["#1B3A6B", "#C8923A", "#4A90D9", "#2E7D5E", "#C0392B", "#5A5A7A", "#9B59B6"], "borderWidth": 2, "borderColor": "#FFFFFF"}]}, "beds": {"labels": ["Studio", "1 BR", "2 BR", "3 BR", "4 BR", "5+ BR"], "datasets": [{"label": "Sales", "data": [649, 1060, 2443, 2141, 1059, 708], "backgroundColor": "#1B3A6B", "borderRadius": 4}], "yFormat": "number"}, "neighborhoods_vol": {"labels": ["Central Sunset", "Marina District", "Eureka Valley-Dolores Heights", "Nob Hill", "Russian Hill", "Bernal Heights", "South Beach", "Pacific Heights", "Inner Mission", "Noe Valley"], "datasets": [{"label": "Sales", "data": [220, 223, 248, 265, 321, 339, 378, 390, 443, 454], "backgroundColor": "#1B3A6B", "borderRadius": 3}], "yFormat": "number", "horizontal": true}, "trend": {"price": {"year": {"labels": ["Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Median Price", "data": [1300000, 1352500, 1420000, 1455000, 1544000, 1500000, 1375000, 1330000, 1401000, 1475000, 1502500, 1428000, 1320000, 1520000, 1720000, 1725000], "borderColor": "#1B3A6B", "backgroundColor": "rgba(27,58,107,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Avg Price", "data": [1848645, 1835290, 1893042, 1980289, 2023053, 1936192, 1669869, 1605603, 2027910, 2009788, 2117336, 2185719, 1793851, 2022331, 2362320, 2243604], "borderColor": "#5A5A7A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#5A5A7A", "pointRadius": 3, "pointHoverRadius": 5, "borderDash": [6, 4]}], "yFormat": "price"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Median Price", "data": [1004500, 1325000, 1500000, 1405000, 1535000, 1650000, 1538000, 1572500, 1768750, 1822500, 1692500, 1650000, 1775000, 1658000], "borderColor": "#1B3A6B", "backgroundColor": "rgba(27,58,107,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Avg Price", "data": [1090468, 1517919, 2220492, 1887939, 1939251, 2384451, 1916118, 2080696, 2317347, 2536451, 2381914, 2327190, 2309227, 2091581], "borderColor": "#5A5A7A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#5A5A7A", "pointRadius": 3, "pointHoverRadius": 5, "borderDash": [6, 4]}], "yFormat": "price"}}, "volume": {"year": {"labels": ["Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Sales", "data": [528, 549, 741, 669, 708, 726, 692, 565, 630, 873, 665, 635, 357, 443, 565, 303], "backgroundColor": ["#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#C8923A", "#C8923A", "#C8923A"], "borderRadius": 4}], "yFormat": "number"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Sales", "data": [16, 62, 79, 109, 122, 101, 111, 86, 98, 154, 164, 128, 145, 93], "backgroundColor": ["#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B"], "borderRadius": 4}], "yFormat": "number"}}, "dom_by_type": {"year": {"labels": ["Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Single Family", "data": [50.0, 30.5, 31.0, 31.0, 34.0, 34.0, 39.0, 39.5, 33.0, 34.0, 34.0, 41.0, 41.5, 28.0, 25.0, 27.0], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [82.5, 36.0, 41.0, 47.0, 43.0, 50.0, 59.5, 70.0, 41.5, 42.0, 52.0, 74.0, 87.5, 31.0, 31.0, 33.0], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "days"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Single Family", "data": [58.5, 40.0, 35.0, 28.0, 28.5, 25.0, 30.5, 29.0, 25.0, 22.0, 25.0, 26.5, 27.0, 27.0], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [113.0, 100.0, 87.5, 25.0, 31.0, 32.0, 33.0, 32.0, 24.0, 29.0, 32.0, 33.5, 32.5, 33.5], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "days"}}, "ppsf_by_type": {"year": {"labels": ["Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Single Family", "data": [939, 978, 1068, 1054, 1029, 1002, 972, 927, 1033, 1035, 1049, 984, 942, 1121, 1216, 1180], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [960, 947, 976, 1014, 1008, 1022, 985, 938, 1035, 1051, 1032, 997, 930, 1063, 1130, 1109], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "ppsf"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Single Family", "data": [748, 844, 950, 1024, 1024, 1163, 1162, 1040, 1242, 1235, 1169, 1317, 1175, 1130], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [788, 940, 865, 1036, 1064, 1064, 1074, 1130, 1300, 1103, 1033, 1030, 1109, 1183], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "ppsf"}}, "pct_over": {"year": {"labels": ["Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "% Sold Over Asking", "data": [33.6, 51.5, 55.6, 56.1, 56.7, 54.5, 45.5, 42.5, 54.0, 58.2, 57.6, 42.7, 43.1, 63.8, 69.4, 69.5], "borderColor": "#C8923A", "backgroundColor": "rgba(200,146,58,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "percent"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "% Sold Over Asking", "data": [33.3, 43.2, 52.1, 53.9, 66.3, 61.5, 70.3, 56.5, 81.2, 71.2, 66.7, 70.1, 65.2, 76.1], "borderColor": "#C8923A", "backgroundColor": "rgba(200,146,58,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "percent"}}}, "price_dist": {"labels": ["$0.0M", "$0.5M", "$1.0M", "$1.5M", "$2.0M", "$2.5M", "$3.0M", "$3.5M", "$4.0M", "$4.5M", "$5.0M", "$5.5M", "$6.0M", "$6.5M", "$7.0M", "$7.5M", "$8.0M", "$8.5M", "$9.0M", "$9.5M", "$10.0M"], "datasets": [{"label": "Single Family", "data": [32, 405, 904, 754, 401, 270, 166, 99, 79, 63, 11, 29, 23, 19, 14, 13, 16, 4, 7, 24, 0], "backgroundColor": "#1B3A6B", "borderRadius": 2}, {"label": "Condo", "data": [283, 1125, 933, 512, 216, 117, 60, 52, 23, 24, 0, 4, 1, 4, 8, 1, 2, 2, 4, 1, 0], "backgroundColor": "#C8923A", "borderRadius": 2}], "yFormat": "number"}, "dom_dist": {"labels": ["0\u20137 days", "8\u201314 days", "15\u201321 days", "22\u201330 days", "31\u201360 days", "61+ days"], "datasets": [{"label": "Single Family", "data": [87, 84, 330, 633, 1073, 473], "backgroundColor": "#1B3A6B", "borderRadius": 3}, {"label": "Condo", "data": [90, 82, 205, 391, 924, 982], "backgroundColor": "#C8923A", "borderRadius": 3}], "yFormat": "number"}, "over_under_grouped": {"labels": ["Over Asking", "At Asking", "Under Asking"], "datasets": [{"label": "Single Family", "data": [76.9, 4.1, 19.0], "backgroundColor": "#1B3A6B", "borderRadius": 4}, {"label": "Condo", "data": [38.9, 11.4, 49.7], "backgroundColor": "#C8923A", "borderRadius": 4}], "yFormat": "percent"}, "top_neigh_sf": {"labels": ["Presidio Heights", "Pacific Heights", "Sea Cliff", "Cow Hollow", "Telegraph Hill", "Lake Street", "Marina District", "Buena Vista-Ashbury Heights", "Russian Hill", "Saint Francis Wood"], "datasets": [{"label": "Median Price", "data": [9500000, 7650000, 5126500, 4900000, 4775625, 4300000, 4100000, 3950000, 3900000, 3750000], "backgroundColor": "#1B3A6B", "borderRadius": 3, "counts": [35, 79, 18, 32, 10, 21, 45, 17, 16, 17], "medians": [9500000, 7650000, 5126500, 4900000, 4775625, 4300000, 4100000, 3950000, 3900000, 3750000]}], "yFormat": "price", "horizontal": true}, "top_neigh_condo": {"labels": ["Presidio Heights", "Financial District-Barbary Coast", "Jordan Park-Laurel Heights", "Cow Hollow", "Lake Street", "Marina District", "Pacific Heights", "Noe Valley", "One Mission Bay", "Lone Mountain"], "datasets": [{"label": "Median Price", "data": [2725000, 1962500, 1800000, 1712944, 1674125, 1650000, 1625000, 1570000, 1563000, 1550000], "backgroundColor": "#C8923A", "borderRadius": 3, "counts": [32, 30, 23, 92, 24, 90, 204, 103, 5, 15], "medians": [2725000, 1962500, 1800000, 1712944, 1674125, 1650000, 1625000, 1570000, 1563000, 1550000]}], "yFormat": "price", "horizontal": true}, "top_neigh_sf_vol": {"labels": ["Bernal Heights", "Noe Valley", "Excelsior", "Central Sunset", "Parkside", "Outer Parkside", "Portola", "Glen Park", "Outer Sunset", "Bayview"], "datasets": [{"label": "Sales", "data": [237, 169, 153, 150, 150, 109, 106, 95, 94, 83], "backgroundColor": "#1B3A6B", "borderRadius": 3, "counts": [237, 169, 153, 150, 150, 109, 106, 95, 94, 83], "medians": [1618000, 2600000, 1100000, 1627500, 1562778, 1462888, 1180000, 2050000, 1517500, 905000]}], "yFormat": "number", "horizontal": true}, "top_neigh_condo_vol": {"labels": ["South Beach", "Pacific Heights", "Yerba Buena", "Inner Mission", "Van Ness-Civic Center", "Russian Hill", "Mission Bay", "South of Market", "Noe Valley", "Potrero Hill"], "datasets": [{"label": "Sales", "data": [370, 204, 156, 152, 137, 128, 125, 119, 103, 102], "backgroundColor": "#C8923A", "borderRadius": 3, "counts": [370, 204, 156, 152, 137, 128, 125, 119, 103, 102], "medians": [1147000, 1625000, 986250, 949500, 725000, 1392000, 919500, 700000, 1570000, 1077500]}], "yFormat": "number", "horizontal": true}}}, "year": {"stats": {"total_sales": 7516, "total_sales_fmt": "7,516", "recent_sales": 1468, "date_range": "Apr 2025 \u2013 Apr 2026", "recent_range": "Jan 16 \u2013 Apr 16, 2026", "data_through": "April 16, 2026", "generated_at": "April 18, 2026", "med_price": "$1.48M", "avg_price": "$1.99M", "median_dom": "41", "avg_ppsf": "$933", "pct_over_asking": "55%", "yoy_delta": {"med_price": "+18%", "avg_price": "+19%", "median_dom": "-11%", "pct_over_asking": "-4%", "avg_ppsf": "+18%", "total_sales": "+5546%"}}, "tc": {"sf": {"total_sales": 2624, "median_price_fmt": "$1.70M", "avg_price_fmt": "$2.32M", "avg_ppsf_fmt": "$1,081", "median_dom": "33 days", "pct_over_asking": "78%", "avg_overbid_pct": "+22.4%", "pct_under_asking": "18%", "avg_underbid_pct": "-8.6%"}, "condo": {"total_sales": 2575, "median_price_fmt": "$1.18M", "avg_price_fmt": "$1.38M", "avg_ppsf_fmt": "$1,051", "median_dom": "45 days", "pct_over_asking": "40%", "avg_overbid_pct": "+11.2%", "pct_under_asking": "49%", "avg_underbid_pct": "-6.9%"}}, "charts": {"price_range": {"labels": ["Under $500k", "$500k\u2013$1M", "$1M\u2013$2M", "$2M\u2013$3M", "$3M\u2013$5M", "$5M+"], "datasets": [{"label": "Sales", "data": [310, 1572, 3376, 1218, 714, 326], "backgroundColor": ["#4A90D9", "#1B3A6B", "#C8923A", "#2E7D5E", "#C0392B", "#5A5A7A"], "borderRadius": 4}], "yFormat": "number"}, "property_mix": {"labels": ["Single Family", "Condo", "Multi Family", "Other", "Co-op", "Multi Family/Duplex", "Non-Residential", "Multi Family/5+ Multi-family"], "datasets": [{"data": [2624, 2575, 859, 499, 295, 272, 222, 170], "backgroundColor": ["#1B3A6B", "#C8923A", "#4A90D9", "#2E7D5E", "#C0392B", "#5A5A7A", "#9B59B6", "#E67E22"], "borderWidth": 2, "borderColor": "#FFFFFF"}]}, "beds": {"labels": ["Studio", "1 BR", "2 BR", "3 BR", "4 BR", "5+ BR"], "datasets": [{"label": "Sales", "data": [489, 834, 1867, 1682, 859, 545], "backgroundColor": "#1B3A6B", "borderRadius": 4}], "yFormat": "number"}, "neighborhoods_vol": {"labels": ["Central Sunset", "Hayes Valley", "Eureka Valley-Dolores Heights", "Nob Hill", "Russian Hill", "Bernal Heights", "South Beach", "Pacific Heights", "Inner Mission", "Noe Valley"], "datasets": [{"label": "Sales", "data": [175, 188, 189, 208, 250, 264, 299, 301, 343, 363], "backgroundColor": "#1B3A6B", "borderRadius": 3}], "yFormat": "number", "horizontal": true}, "trend": {"price": {"year": {"labels": ["Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Median Price", "data": [1438000, 1544000, 1500000, 1375000, 1330000, 1401000, 1475000, 1502500, 1428000, 1320000, 1520000, 1720000, 1725000], "borderColor": "#1B3A6B", "backgroundColor": "rgba(27,58,107,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Avg Price", "data": [1925859, 2023053, 1936192, 1669869, 1605603, 2027910, 2009788, 2117336, 2185719, 1793851, 2022331, 2362320, 2243604], "borderColor": "#5A5A7A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#5A5A7A", "pointRadius": 3, "pointHoverRadius": 5, "borderDash": [6, 4]}], "yFormat": "price"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Median Price", "data": [1004500, 1325000, 1500000, 1405000, 1535000, 1650000, 1538000, 1572500, 1768750, 1822500, 1692500, 1650000, 1775000, 1658000], "borderColor": "#1B3A6B", "backgroundColor": "rgba(27,58,107,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Avg Price", "data": [1090468, 1517919, 2220492, 1887939, 1939251, 2384451, 1916118, 2080696, 2317347, 2536451, 2381914, 2327190, 2309227, 2091581], "borderColor": "#5A5A7A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#5A5A7A", "pointRadius": 3, "pointHoverRadius": 5, "borderDash": [6, 4]}], "yFormat": "price"}}, "volume": {"year": {"labels": ["Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Sales", "data": [354, 708, 726, 692, 565, 630, 873, 665, 635, 357, 443, 565, 303], "backgroundColor": ["#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#C8923A", "#C8923A", "#C8923A"], "borderRadius": 4}], "yFormat": "number"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Sales", "data": [16, 62, 79, 109, 122, 101, 111, 86, 98, 154, 164, 128, 145, 93], "backgroundColor": ["#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B"], "borderRadius": 4}], "yFormat": "number"}}, "dom_by_type": {"year": {"labels": ["Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Single Family", "data": [31.0, 34.0, 34.0, 39.0, 39.5, 33.0, 34.0, 34.0, 41.0, 41.5, 28.0, 25.0, 27.0], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [49.0, 43.0, 50.0, 59.5, 70.0, 41.5, 42.0, 52.0, 74.0, 87.5, 31.0, 31.0, 33.0], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "days"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Single Family", "data": [58.5, 40.0, 35.0, 28.0, 28.5, 25.0, 30.5, 29.0, 25.0, 22.0, 25.0, 26.5, 27.0, 27.0], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [113.0, 100.0, 87.5, 25.0, 31.0, 32.0, 33.0, 32.0, 24.0, 29.0, 32.0, 33.5, 32.5, 33.5], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "days"}}, "ppsf_by_type": {"year": {"labels": ["Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Single Family", "data": [1065, 1029, 1002, 972, 927, 1033, 1035, 1049, 984, 942, 1121, 1216, 1180], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [998, 1008, 1022, 985, 938, 1035, 1051, 1032, 997, 930, 1063, 1130, 1109], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "ppsf"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Single Family", "data": [748, 844, 950, 1024, 1024, 1163, 1162, 1040, 1242, 1235, 1169, 1317, 1175, 1130], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [788, 940, 865, 1036, 1064, 1064, 1074, 1130, 1300, 1103, 1033, 1030, 1109, 1183], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "ppsf"}}, "pct_over": {"year": {"labels": ["Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "% Sold Over Asking", "data": [57.6, 56.7, 54.5, 45.5, 42.5, 54.0, 58.2, 57.6, 42.7, 43.1, 63.8, 69.4, 69.5], "borderColor": "#C8923A", "backgroundColor": "rgba(200,146,58,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "percent"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "% Sold Over Asking", "data": [33.3, 43.2, 52.1, 53.9, 66.3, 61.5, 70.3, 56.5, 81.2, 71.2, 66.7, 70.1, 65.2, 76.1], "borderColor": "#C8923A", "backgroundColor": "rgba(200,146,58,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "percent"}}}, "price_dist": {"labels": ["$0.0M", "$0.5M", "$1.0M", "$1.5M", "$2.0M", "$2.5M", "$3.0M", "$3.5M", "$4.0M", "$4.5M", "$5.0M", "$5.5M", "$6.0M", "$6.5M", "$7.0M", "$7.5M", "$8.0M", "$8.5M", "$9.0M", "$9.5M", "$10.0M"], "datasets": [{"label": "Single Family", "data": [25, 305, 684, 603, 315, 205, 127, 81, 65, 56, 10, 23, 17, 16, 9, 11, 16, 3, 6, 19, 0], "backgroundColor": "#1B3A6B", "borderRadius": 2}, {"label": "Condo", "data": [204, 826, 726, 420, 172, 86, 45, 39, 16, 19, 0, 3, 1, 3, 5, 1, 2, 2, 2, 1, 0], "backgroundColor": "#C8923A", "borderRadius": 2}], "yFormat": "number"}, "dom_dist": {"labels": ["0\u20137 days", "8\u201314 days", "15\u201321 days", "22\u201330 days", "31\u201360 days", "61+ days"], "datasets": [{"label": "Single Family", "data": [63, 69, 277, 498, 877, 360], "backgroundColor": "#1B3A6B", "borderRadius": 3}, {"label": "Condo", "data": [62, 58, 165, 308, 744, 785], "backgroundColor": "#C8923A", "borderRadius": 3}], "yFormat": "number"}, "over_under_grouped": {"labels": ["Over Asking", "At Asking", "Under Asking"], "datasets": [{"label": "Single Family", "data": [77.9, 3.7, 18.4], "backgroundColor": "#1B3A6B", "borderRadius": 4}, {"label": "Condo", "data": [39.8, 11.4, 48.8], "backgroundColor": "#C8923A", "borderRadius": 4}], "yFormat": "percent"}, "top_neigh_sf": {"labels": ["Presidio Heights", "Pacific Heights", "Telegraph Hill", "Cow Hollow", "Lake Street", "Marina District", "Sea Cliff", "Russian Hill", "Clarendon Heights", "Buena Vista-Ashbury Heights"], "datasets": [{"label": "Median Price", "data": [8681944, 7650000, 5101250, 4850000, 4512500, 4350000, 4244000, 4100000, 4035000, 3950000], "backgroundColor": "#1B3A6B", "borderRadius": 3, "counts": [28, 64, 9, 29, 16, 33, 10, 13, 11, 13], "medians": [8681944, 7650000, 5101250, 4850000, 4512500, 4350000, 4244000, 4100000, 4035000, 3950000]}], "yFormat": "price", "horizontal": true}, "top_neigh_condo": {"labels": ["Presidio Heights", "Jordan Park-Laurel Heights", "Financial District-Barbary Coast", "Lake Street", "Cow Hollow", "Eureka Valley", "Corona Heights", "Pacific Heights", "Cole Valley-Parnassus Heights", "Noe Valley"], "datasets": [{"label": "Median Price", "data": [2825000, 2196000, 1925000, 1760000, 1740000, 1665000, 1608000, 1600000, 1600000, 1570000], "backgroundColor": "#C8923A", "borderRadius": 3, "counts": [23, 14, 29, 15, 71, 3, 24, 151, 27, 83], "medians": [2825000, 2196000, 1925000, 1760000, 1740000, 1665000, 1608000, 1600000, 1600000, 1570000]}], "yFormat": "price", "horizontal": true}, "top_neigh_sf_vol": {"labels": ["Bernal Heights", "Noe Valley", "Excelsior", "Central Sunset", "Parkside", "Portola", "Outer Parkside", "Outer Sunset", "Outer Richmond", "Glen Park"], "datasets": [{"label": "Sales", "data": [185, 133, 123, 119, 111, 85, 81, 74, 71, 69], "backgroundColor": "#1B3A6B", "borderRadius": 3, "counts": [185, 133, 123, 119, 111, 85, 81, 74, 71, 69], "medians": [1600000, 2587000, 1100000, 1675000, 1600000, 1180000, 1475000, 1510000, 1950000, 1935000]}], "yFormat": "number", "horizontal": true}, "top_neigh_condo_vol": {"labels": ["South Beach", "Pacific Heights", "Yerba Buena", "Inner Mission", "Van Ness-Civic Center", "Russian Hill", "Potrero Hill", "Hayes Valley", "Noe Valley", "South of Market"], "datasets": [{"label": "Sales", "data": [292, 151, 122, 110, 103, 97, 88, 84, 83, 83], "backgroundColor": "#C8923A", "borderRadius": 3, "counts": [292, 151, 122, 110, 103, 97, 88, 84, 83, 83], "medians": [1170000, 1600000, 1002000, 955000, 690000, 1349000, 1100000, 1176500, 1570000, 725000]}], "yFormat": "number", "horizontal": true}}}, "ytd": {"stats": {"total_sales": 1668, "total_sales_fmt": "1,668", "recent_sales": 1468, "date_range": "Jan 2026 \u2013 Apr 2026", "recent_range": "Jan 16 \u2013 Apr 16, 2026", "data_through": "April 16, 2026", "generated_at": "April 18, 2026", "med_price": "$1.60M", "avg_price": "$2.13M", "median_dom": "33", "avg_ppsf": "$1,036", "pct_over_asking": "64%", "yoy_delta": {"med_price": "", "avg_price": "", "median_dom": "", "pct_over_asking": "", "avg_ppsf": "", "total_sales": ""}}, "tc": {"sf": {"total_sales": 612, "median_price_fmt": "$1.87M", "avg_price_fmt": "$2.61M", "avg_ppsf_fmt": "$1,195", "median_dom": "28 days", "pct_over_asking": "82%", "avg_overbid_pct": "+26.7%", "pct_under_asking": "13%", "avg_underbid_pct": "-8.3%"}, "condo": {"total_sales": 638, "median_price_fmt": "$1.25M", "avg_price_fmt": "$1.55M", "avg_ppsf_fmt": "$1,111", "median_dom": "34 days", "pct_over_asking": "53%", "avg_overbid_pct": "+12.9%", "pct_under_asking": "35%", "avg_underbid_pct": "-6.0%"}}, "charts": {"price_range": {"labels": ["Under $500k", "$500k\u2013$1M", "$1M\u2013$2M", "$2M\u2013$3M", "$3M\u2013$5M", "$5M+"], "datasets": [{"label": "Sales", "data": [58, 315, 694, 304, 198, 99], "backgroundColor": ["#4A90D9", "#1B3A6B", "#C8923A", "#2E7D5E", "#C0392B", "#5A5A7A"], "borderRadius": 4}], "yFormat": "number"}, "property_mix": {"labels": ["Condo", "Single Family", "Other", "Multi Family", "Co-op", "Multi Family/Duplex"], "datasets": [{"data": [638, 612, 188, 106, 79, 45], "backgroundColor": ["#1B3A6B", "#C8923A", "#4A90D9", "#2E7D5E", "#C0392B", "#5A5A7A"], "borderWidth": 2, "borderColor": "#FFFFFF"}]}, "beds": {"labels": ["Studio", "1 BR", "2 BR", "3 BR", "4 BR", "5+ BR"], "datasets": [{"label": "Sales", "data": [93, 195, 466, 390, 212, 149], "backgroundColor": "#1B3A6B", "borderRadius": 4}], "yFormat": "number"}, "neighborhoods_vol": {"labels": ["Central Richmond", "Marina District", "Cow Hollow", "Central Sunset", "Bernal Heights", "Nob Hill", "Inner Mission", "Pacific Heights", "South Beach", "Noe Valley"], "datasets": [{"label": "Sales", "data": [39, 40, 42, 45, 49, 52, 65, 69, 71, 79], "backgroundColor": "#1B3A6B", "borderRadius": 3}], "yFormat": "number", "horizontal": true}, "trend": {"price": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Median Price", "data": [1320000, 1520000, 1720000, 1725000], "borderColor": "#1B3A6B", "backgroundColor": "rgba(27,58,107,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Avg Price", "data": [1793851, 2022331, 2362320, 2243604], "borderColor": "#5A5A7A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#5A5A7A", "pointRadius": 3, "pointHoverRadius": 5, "borderDash": [6, 4]}], "yFormat": "price"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Median Price", "data": [1004500, 1325000, 1500000, 1405000, 1535000, 1650000, 1538000, 1572500, 1768750, 1822500, 1692500, 1650000, 1775000, 1658000], "borderColor": "#1B3A6B", "backgroundColor": "rgba(27,58,107,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Avg Price", "data": [1090468, 1517919, 2220492, 1887939, 1939251, 2384451, 1916118, 2080696, 2317347, 2536451, 2381914, 2327190, 2309227, 2091581], "borderColor": "#5A5A7A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#5A5A7A", "pointRadius": 3, "pointHoverRadius": 5, "borderDash": [6, 4]}], "yFormat": "price"}}, "volume": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Sales", "data": [357, 443, 565, 303], "backgroundColor": ["#1B3A6B", "#C8923A", "#C8923A", "#C8923A"], "borderRadius": 4}], "yFormat": "number"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Sales", "data": [16, 62, 79, 109, 122, 101, 111, 86, 98, 154, 164, 128, 145, 93], "backgroundColor": ["#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B"], "borderRadius": 4}], "yFormat": "number"}}, "dom_by_type": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Single Family", "data": [41.5, 28.0, 25.0, 27.0], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [87.5, 31.0, 31.0, 33.0], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "days"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Single Family", "data": [58.5, 40.0, 35.0, 28.0, 28.5, 25.0, 30.5, 29.0, 25.0, 22.0, 25.0, 26.5, 27.0, 27.0], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [113.0, 100.0, 87.5, 25.0, 31.0, 32.0, 33.0, 32.0, 24.0, 29.0, 32.0, 33.5, 32.5, 33.5], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "days"}}, "ppsf_by_type": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Single Family", "data": [942, 1121, 1216, 1180], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [930, 1063, 1130, 1109], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "ppsf"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Single Family", "data": [748, 844, 950, 1024, 1024, 1163, 1162, 1040, 1242, 1235, 1169, 1317, 1175, 1130], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [788, 940, 865, 1036, 1064, 1064, 1074, 1130, 1300, 1103, 1033, 1030, 1109, 1183], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "ppsf"}}, "pct_over": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "% Sold Over Asking", "data": [43.1, 63.8, 69.4, 69.5], "borderColor": "#C8923A", "backgroundColor": "rgba(200,146,58,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "percent"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "% Sold Over Asking", "data": [33.3, 43.2, 52.1, 53.9, 66.3, 61.5, 70.3, 56.5, 81.2, 71.2, 66.7, 70.1, 65.2, 76.1], "borderColor": "#C8923A", "backgroundColor": "rgba(200,146,58,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "percent"}}}, "price_dist": {"labels": ["$0.0M", "$0.5M", "$1.0M", "$1.5M", "$2.0M", "$2.5M", "$3.0M", "$3.5M", "$4.0M", "$4.5M", "$5.0M", "$5.5M", "$6.0M", "$6.5M", "$7.0M", "$7.5M", "$8.0M", "$8.5M", "$9.0M", "$9.5M", "$10.0M"], "datasets": [{"label": "Single Family", "data": [6, 47, 130, 146, 75, 53, 36, 23, 17, 18, 5, 10, 7, 7, 3, 2, 9, 2, 1, 10, 0], "backgroundColor": "#1B3A6B", "borderRadius": 2}, {"label": "Condo", "data": [39, 202, 161, 97, 48, 31, 18, 15, 9, 8, 0, 2, 0, 1, 4, 0, 2, 0, 0, 0, 0], "backgroundColor": "#C8923A", "borderRadius": 2}], "yFormat": "number"}, "dom_dist": {"labels": ["0\u20137 days", "8\u201314 days", "15\u201321 days", "22\u201330 days", "31\u201360 days", "61+ days"], "datasets": [{"label": "Single Family", "data": [37, 31, 103, 138, 158, 63], "backgroundColor": "#1B3A6B", "borderRadius": 3}, {"label": "Condo", "data": [40, 30, 73, 100, 175, 148], "backgroundColor": "#C8923A", "borderRadius": 3}], "yFormat": "number"}, "over_under_grouped": {"labels": ["Over Asking", "At Asking", "Under Asking"], "datasets": [{"label": "Single Family", "data": [82.0, 4.7, 13.3], "backgroundColor": "#1B3A6B", "borderRadius": 4}, {"label": "Condo", "data": [53.0, 12.0, 35.0], "backgroundColor": "#C8923A", "borderRadius": 4}], "yFormat": "percent"}, "top_neigh_sf": {"labels": ["Presidio Heights", "Pacific Heights", "Telegraph Hill", "Buena Vista-Ashbury Heights", "Cow Hollow", "Marina District", "Sea Cliff", "Lake Street", "Russian Hill", "Eureka Valley-Dolores Heights"], "datasets": [{"label": "Median Price", "data": [9500000, 8000000, 7548125, 7000000, 5200000, 5200000, 4688000, 4450000, 4169000, 3762944], "backgroundColor": "#1B3A6B", "borderRadius": 3, "counts": [12, 18, 4, 3, 4, 10, 5, 4, 3, 8], "medians": [9500000, 8000000, 7548125, 7000000, 5200000, 5200000, 4688000, 4450000, 4169000, 3762944]}], "yFormat": "price", "horizontal": true}, "top_neigh_condo": {"labels": ["Presidio Heights", "Financial District-Barbary Coast", "Corona Heights", "Cole Valley-Parnassus Heights", "Lake Street", "San Francisco", "Pacific Heights", "Alamo Square", "Telegraph Hill", "Noe Valley"], "datasets": [{"label": "Median Price", "data": [2880000, 2487500, 2105000, 2100000, 1953560, 1947500, 1867500, 1837500, 1750000, 1744000], "backgroundColor": "#C8923A", "borderRadius": 3, "counts": [7, 6, 3, 7, 4, 6, 38, 4, 7, 20], "medians": [2880000, 2487500, 2105000, 2100000, 1953560, 1947500, 1867500, 1837500, 1750000, 1744000]}], "yFormat": "price", "horizontal": true}, "top_neigh_sf_vol": {"labels": ["Bernal Heights", "Central Sunset", "Parkside", "Noe Valley", "Excelsior", "Outer Richmond", "Pacific Heights", "Outer Parkside", "Portola", "Sunnyside"], "datasets": [{"label": "Sales", "data": [42, 35, 33, 30, 29, 19, 18, 18, 18, 17], "backgroundColor": "#1B3A6B", "borderRadius": 3, "counts": [42, 35, 33, 30, 29, 19, 18, 18, 18, 17], "medians": [1600000, 1875000, 1600000, 3475000, 1275000, 2290000, 8000000, 1607500, 1190000, 1500000]}], "yFormat": "number", "horizontal": true}, "top_neigh_condo_vol": {"labels": ["South Beach", "Pacific Heights", "Yerba Buena", "Van Ness-Civic Center", "Cow Hollow", "Inner Mission", "Nob Hill", "Noe Valley", "Lower Pacific Heights", "Potrero Hill"], "datasets": [{"label": "Sales", "data": [71, 38, 31, 29, 26, 25, 22, 20, 20, 20], "backgroundColor": "#C8923A", "borderRadius": 3, "counts": [71, 38, 31, 29, 26, 25, 22, 20, 20, 20], "medians": [1200000, 1867500, 1470000, 673000, 1574000, 1151000, 1525000, 1744000, 1262500, 917500]}], "yFormat": "number", "horizontal": true}}}, "quarter": {"stats": {"total_sales": 1489, "total_sales_fmt": "1,489", "recent_sales": 1468, "date_range": "Jan 2026 \u2013 Apr 2026", "recent_range": "Jan 16 \u2013 Apr 16, 2026", "data_through": "April 16, 2026", "generated_at": "April 18, 2026", "med_price": "$1.60M", "avg_price": "$2.17M", "median_dom": "32", "avg_ppsf": "$1,054", "pct_over_asking": "66%", "yoy_delta": {"med_price": "", "avg_price": "", "median_dom": "", "pct_over_asking": "", "avg_ppsf": "", "total_sales": ""}}, "tc": {"sf": {"total_sales": 555, "median_price_fmt": "$1.93M", "avg_price_fmt": "$2.66M", "avg_ppsf_fmt": "$1,212", "median_dom": "27 days", "pct_over_asking": "83%", "avg_overbid_pct": "+26.9%", "pct_under_asking": "12%", "avg_underbid_pct": "-7.9%"}, "condo": {"total_sales": 576, "median_price_fmt": "$1.27M", "avg_price_fmt": "$1.58M", "avg_ppsf_fmt": "$1,118", "median_dom": "33 days", "pct_over_asking": "55%", "avg_overbid_pct": "+13.1%", "pct_under_asking": "33%", "avg_underbid_pct": "-6.1%"}}, "charts": {"price_range": {"labels": ["Under $500k", "$500k\u2013$1M", "$1M\u2013$2M", "$2M\u2013$3M", "$3M\u2013$5M", "$5M+"], "datasets": [{"label": "Sales", "data": [50, 265, 623, 282, 177, 92], "backgroundColor": ["#4A90D9", "#1B3A6B", "#C8923A", "#2E7D5E", "#C0392B", "#5A5A7A"], "borderRadius": 4}], "yFormat": "number"}, "property_mix": {"labels": ["Condo", "Single Family", "Other", "Multi Family", "Co-op", "Multi Family/Duplex"], "datasets": [{"data": [576, 555, 166, 83, 71, 38], "backgroundColor": ["#1B3A6B", "#C8923A", "#4A90D9", "#2E7D5E", "#C0392B", "#5A5A7A"], "borderWidth": 2, "borderColor": "#FFFFFF"}]}, "beds": {"labels": ["Studio", "1 BR", "2 BR", "3 BR", "4 BR", "5+ BR"], "datasets": [{"label": "Sales", "data": [73, 170, 424, 355, 194, 140], "backgroundColor": "#1B3A6B", "borderRadius": 4}], "yFormat": "number"}, "neighborhoods_vol": {"labels": ["Parkside", "Marina District", "Central Sunset", "Cow Hollow", "Bernal Heights", "Nob Hill", "Inner Mission", "South Beach", "Pacific Heights", "Noe Valley"], "datasets": [{"label": "Sales", "data": [33, 35, 39, 41, 42, 42, 53, 61, 66, 78], "backgroundColor": "#1B3A6B", "borderRadius": 3}], "yFormat": "number", "horizontal": true}, "trend": {"price": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Median Price", "data": [1275000, 1520000, 1720000, 1725000], "borderColor": "#1B3A6B", "backgroundColor": "rgba(27,58,107,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Avg Price", "data": [1797779, 2022331, 2362320, 2243604], "borderColor": "#5A5A7A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#5A5A7A", "pointRadius": 3, "pointHoverRadius": 5, "borderDash": [6, 4]}], "yFormat": "price"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Median Price", "data": [1004500, 1325000, 1500000, 1405000, 1535000, 1650000, 1538000, 1572500, 1768750, 1822500, 1692500, 1650000, 1775000, 1658000], "borderColor": "#1B3A6B", "backgroundColor": "rgba(27,58,107,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Avg Price", "data": [1090468, 1517919, 2220492, 1887939, 1939251, 2384451, 1916118, 2080696, 2317347, 2536451, 2381914, 2327190, 2309227, 2091581], "borderColor": "#5A5A7A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#5A5A7A", "pointRadius": 3, "pointHoverRadius": 5, "borderDash": [6, 4]}], "yFormat": "price"}}, "volume": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Sales", "data": [178, 443, 565, 303], "backgroundColor": ["#1B3A6B", "#C8923A", "#C8923A", "#C8923A"], "borderRadius": 4}], "yFormat": "number"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Sales", "data": [16, 62, 79, 109, 122, 101, 111, 86, 98, 154, 164, 128, 145, 93], "backgroundColor": ["#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B", "#1B3A6B"], "borderRadius": 4}], "yFormat": "number"}}, "dom_by_type": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Single Family", "data": [36.0, 28.0, 25.0, 27.0], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [91.0, 31.0, 31.0, 33.0], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "days"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Single Family", "data": [58.5, 40.0, 35.0, 28.0, 28.5, 25.0, 30.5, 29.0, 25.0, 22.0, 25.0, 26.5, 27.0, 27.0], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [113.0, 100.0, 87.5, 25.0, 31.0, 32.0, 33.0, 32.0, 24.0, 29.0, 32.0, 33.5, 32.5, 33.5], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "days"}}, "ppsf_by_type": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "Single Family", "data": [876, 1121, 1216, 1180], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [869, 1063, 1130, 1109], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "ppsf"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "Single Family", "data": [748, 844, 950, 1024, 1024, 1163, 1162, 1040, 1242, 1235, 1169, 1317, 1175, 1130], "borderColor": "#1B3A6B", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#1B3A6B", "pointRadius": 4, "pointHoverRadius": 6}, {"label": "Condo", "data": [788, 940, 865, 1036, 1064, 1064, 1074, 1130, 1300, 1103, 1033, 1030, 1109, 1183], "borderColor": "#C8923A", "backgroundColor": "transparent", "fill": false, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "ppsf"}}, "pct_over": {"year": {"labels": ["Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], "datasets": [{"label": "% Sold Over Asking", "data": [45.3, 63.8, 69.4, 69.5], "borderColor": "#C8923A", "backgroundColor": "rgba(200,146,58,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "percent"}, "quarter": {"labels": ["Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 13"], "datasets": [{"label": "% Sold Over Asking", "data": [33.3, 43.2, 52.1, 53.9, 66.3, 61.5, 70.3, 56.5, 81.2, 71.2, 66.7, 70.1, 65.2, 76.1], "borderColor": "#C8923A", "backgroundColor": "rgba(200,146,58,0.12)", "fill": true, "tension": 0.3, "pointBackgroundColor": "#C8923A", "pointRadius": 4, "pointHoverRadius": 6}], "yFormat": "percent"}}}, "price_dist": {"labels": ["$0.0M", "$0.5M", "$1.0M", "$1.5M", "$2.0M", "$2.5M", "$3.0M", "$3.5M", "$4.0M", "$4.5M", "$5.0M", "$5.5M", "$6.0M", "$6.5M", "$7.0M", "$7.5M", "$8.0M", "$8.5M", "$9.0M", "$9.5M", "$10.0M"], "datasets": [{"label": "Single Family", "data": [6, 38, 118, 128, 73, 49, 32, 20, 17, 17, 5, 9, 6, 6, 3, 2, 8, 2, 1, 10, 0], "backgroundColor": "#1B3A6B", "borderRadius": 2}, {"label": "Condo", "data": [33, 176, 144, 93, 45, 30, 16, 14, 8, 8, 0, 2, 0, 1, 3, 0, 2, 0, 0, 0, 0], "backgroundColor": "#C8923A", "borderRadius": 2}], "yFormat": "number"}, "dom_dist": {"labels": ["0\u20137 days", "8\u201314 days", "15\u201321 days", "22\u201330 days", "31\u201360 days", "61+ days"], "datasets": [{"label": "Single Family", "data": [36, 31, 103, 135, 142, 50], "backgroundColor": "#1B3A6B", "borderRadius": 3}, {"label": "Condo", "data": [39, 30, 73, 98, 164, 123], "backgroundColor": "#C8923A", "borderRadius": 3}], "yFormat": "number"}, "over_under_grouped": {"labels": ["Over Asking", "At Asking", "Under Asking"], "datasets": [{"label": "Single Family", "data": [83.2, 4.9, 12.0], "backgroundColor": "#1B3A6B", "borderRadius": 4}, {"label": "Condo", "data": [55.0, 12.1, 32.8], "backgroundColor": "#C8923A", "borderRadius": 4}], "yFormat": "percent"}, "top_neigh_sf": {"labels": ["Presidio Heights", "Pacific Heights", "Telegraph Hill", "Buena Vista-Ashbury Heights", "Sea Cliff", "Marina District", "Cow Hollow", "Russian Hill", "Eureka Valley-Dolores Heights", "Saint Francis Wood"], "datasets": [{"label": "Median Price", "data": [9500000, 8000000, 7548125, 7000000, 5470000, 5250000, 5200000, 4169000, 3762944, 3660000], "backgroundColor": "#1B3A6B", "borderRadius": 3, "counts": [12, 18, 4, 3, 4, 9, 4, 3, 6, 4], "medians": [9500000, 8000000, 7548125, 7000000, 5470000, 5250000, 5200000, 4169000, 3762944, 3660000]}], "yFormat": "price", "horizontal": true}, "top_neigh_condo": {"labels": ["Presidio Heights", "Financial District-Barbary Coast", "Corona Heights", "Alamo Square", "Cole Valley-Parnassus Heights", "Lake Street", "San Francisco", "Pacific Heights", "Noe Valley", "Telegraph Hill"], "datasets": [{"label": "Median Price", "data": [2880000, 2487500, 2105000, 2100000, 2100000, 1953560, 1947500, 1867500, 1768000, 1750000], "backgroundColor": "#C8923A", "borderRadius": 3, "counts": [5, 6, 3, 3, 7, 4, 6, 36, 19, 7], "medians": [2880000, 2487500, 2105000, 2100000, 2100000, 1953560, 1947500, 1867500, 1768000, 1750000]}], "yFormat": "price", "horizontal": true}, "top_neigh_sf_vol": {"labels": ["Bernal Heights", "Central Sunset", "Parkside", "Noe Valley", "Excelsior", "Outer Richmond", "Pacific Heights", "Outer Parkside", "Portola", "Sunnyside"], "datasets": [{"label": "Sales", "data": [36, 31, 31, 30, 27, 19, 18, 16, 15, 15], "backgroundColor": "#1B3A6B", "borderRadius": 3, "counts": [36, 31, 31, 30, 27, 19, 18, 16, 15, 15], "medians": [1600000, 1875000, 1525000, 3475000, 1330000, 2290000, 8000000, 1610000, 1180000, 1450000]}], "yFormat": "number", "horizontal": true}, "top_neigh_condo_vol": {"labels": ["South Beach", "Pacific Heights", "Yerba Buena", "Cow Hollow", "Van Ness-Civic Center", "Inner Mission", "Noe Valley", "Potrero Hill", "Nob Hill", "Russian Hill"], "datasets": [{"label": "Sales", "data": [61, 36, 30, 26, 25, 24, 19, 18, 17, 17], "backgroundColor": "#C8923A", "borderRadius": 3, "counts": [61, 36, 30, 26, 25, 24, 19, 18, 17, 17], "medians": [1200000, 1867500, 1335000, 1574000, 673000, 1125500, 1768000, 1141500, 1550000, 1275000]}], "yFormat": "number", "horizontal": true}}}};
-const SLICE_GRANULARITY = {all:'year', year:'year', ytd:'year', quarter:'quarter'};
-const SLICE_LABELS = {all:'All Data', year:'1-Year', ytd:'YTD', quarter:'Last Quarter'};
-const GRAN_LABELS  = {year:'Monthly', quarter:'Weekly'};
-let activeSlice = 'year';
-let CD = SLICE_DATA[activeSlice].charts;
-const ALL_CHARTS = {};
-const TREND_KEYS = new Set(['price','volume','dom_by_type','ppsf_by_type','pct_over']);
-
-// ── SLICE TOGGLE ─────────────────────────────────────────────
-function updateStats(stats) {
-  document.querySelectorAll('[data-stat]').forEach(el => {
-    const v = stats[el.getAttribute('data-stat')];
-    if (v !== undefined) el.textContent = v;
-  });
-}
-
-function updateTC(tc) {
-  document.querySelectorAll('[data-tc]').forEach(el => {
-    const [type, field] = el.getAttribute('data-tc').split('.');
-    const v = tc[type]?.[field];
-    if (v !== undefined) el.textContent = v;
-  });
-}
-
-function setSlice(slice, btn) {
-  document.querySelectorAll('.slice-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  activeSlice = slice;
-  CD = SLICE_DATA[slice].charts;
-  const gran = SLICE_GRANULARITY[slice];
-  updateStats(SLICE_DATA[slice].stats);
-  updateTC(SLICE_DATA[slice].tc);
-  const lbl = document.getElementById('slice-label');
-  if (lbl) lbl.textContent = SLICE_LABELS[slice] || slice;
-  const granLbl = document.getElementById('trend-gran-label');
-  if (granLbl) granLbl.textContent = GRAN_LABELS[gran] || gran;
-  Object.entries(ALL_CHARTS).forEach(([key, chart]) => {
-    const d = TREND_KEYS.has(key) ? CD.trend?.[key]?.[gran] : CD[key];
-    if (!d) return;
-    chart.data.labels = d.labels;
-    chart.data.datasets.forEach((ds, i) => {
-      if (!d.datasets[i]) return;
-      ds.data = d.datasets[i].data;
-      if (d.datasets[i].backgroundColor !== undefined) ds.backgroundColor = d.datasets[i].backgroundColor;
-    });
-    chart.update('none');
-  });
-}
-
-// ── CHART FACTORY ─────────────────────────────────────────────
-function makeChart(canvasId, key, chartType, options, extraPlugins) {
-  const gran = SLICE_GRANULARITY[activeSlice];
-  const d = TREND_KEYS.has(key) ? CD.trend?.[key]?.[gran] : CD[key];
-  if (!d) return null;
-  const cfg = { type: chartType, data: JSON.parse(JSON.stringify(d)), options };
-  if (extraPlugins && extraPlugins.length) cfg.plugins = extraPlugins;
-  const chart = new Chart(canvasId, cfg);
-  ALL_CHARTS[key] = chart;
-  return chart;
-}
-
-// ── CHART.JS DEFAULTS ────────────────────────────────────────
-Chart.defaults.font.family = "'Helvetica Neue',Arial,sans-serif";
-Chart.defaults.color = '#5A5A7A';
-Chart.defaults.plugins.legend.labels.boxWidth = 12;
-Chart.defaults.plugins.legend.labels.padding = 14;
-Chart.defaults.animation = { duration: 350, easing: 'easeInOutQuart' };
-const GRID = 'rgba(0,0,0,0.06)';
-const DL = window.ChartDataLabels || null;
-
-// ── FORMATTERS ───────────────────────────────────────────────
-const F = {
-  price: v => v==null?'': v>=1e6?'$'+(v/1e6).toFixed(2)+'M': v>=1e3?'$'+Math.round(v/1e3)+'k':'$'+v.toLocaleString(),
-  pct:   v => v==null?'': v.toFixed(1)+'%',
-  days:  v => v==null?'': v+'d',
-  ppsf:  v => v==null?'': '$'+Math.round(v),
-  num:   v => v==null?'': v.toLocaleString(),
-};
-function fmtTick(fmt) { return (v) => (F[fmt]||F.num)(v); }
-function tooltipCb(fmt) { return { label: ctx => ' '+(F[fmt]||F.num)(ctx.parsed.y ?? ctx.parsed) }; }
-
-function baseOpts(yFmt, legendShow) {
-  return {
-    responsive: true,
-    interaction: { mode:'index', intersect:false },
-    plugins: {
-      legend: { display: !!legendShow },
-      tooltip: { callbacks: tooltipCb(yFmt) },
-    },
-    scales: {
-      x: { grid:{ color:GRID } },
-      y: { grid:{ color:GRID }, ticks:{ callback: fmtTick(yFmt) } },
-    },
-  };
-}
-
-// ── DATA LABEL HELPERS ───────────────────────────────────────
-function dlV(fmt) {  // vertical bar: label above
-  if (!DL) return {};
-  return { datalabels:{ anchor:'end', align:'end', color:'#5A5A7A', font:{size:10,weight:'600'}, formatter:(v)=>v==null||v===0?'':(F[fmt]||F.num)(v), clip:false } };
-}
-function dlH(fmt) {  // horizontal bar: label right
-  if (!DL) return {};
-  return { datalabels:{ anchor:'end', align:'right', color:'#5A5A7A', font:{size:10,weight:'600'}, formatter:(v)=>v==null||v===0?'':(F[fmt]||F.num)(v), clip:false, padding:{left:4} } };
-}
-
-// ── SECTION 1 CHARTS ─────────────────────────────────────────
-makeChart('chart-price-range', 'price_range', 'bar', {
-  ...baseOpts('num'),
-  plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.y.toLocaleString()+' sales'}}, ...dlV('num') }
-}, DL ? [DL] : []);
-
-if (CD.property_mix) {
-  const pmData = JSON.parse(JSON.stringify(CD.property_mix));
-  ALL_CHARTS['property_mix'] = new Chart('chart-property-mix', { type:'doughnut', data:pmData,
-    options:{ responsive:true, plugins:{ legend:{position:'bottom'},
-      tooltip:{callbacks:{label:ctx=>{const tot=ctx.dataset.data.reduce((a,b)=>a+b,0);return' '+ctx.label+': '+((ctx.parsed/tot)*100).toFixed(1)+'% ('+ctx.parsed.toLocaleString()+')';}}}}}});
-}
-
-makeChart('chart-beds', 'beds', 'bar', {
-  ...baseOpts('num'),
-  plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.y.toLocaleString()+' sales'}}, ...dlV('num') }
-}, DL ? [DL] : []);
-
-makeChart('chart-neighborhoods-vol', 'neighborhoods_vol', 'bar', {
-  indexAxis:'y', responsive:true,
-  plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.x.toLocaleString()+' sales'}}, ...dlH('num') },
-  scales:{ x:{grid:{color:GRID}}, y:{grid:{color:GRID}} }
-}, DL ? [DL] : []);
-
-// ── SECTION 2 TREND CHARTS ───────────────────────────────────
-makeChart('chart-trend-price',    'price',        'line', baseOpts('price', true));
-makeChart('chart-trend-volume',   'volume',       'bar',  {...baseOpts('num'), plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.y.toLocaleString()+' sales'}}}});
-makeChart('chart-trend-dom',      'dom_by_type',  'line', baseOpts('days',  true));
-makeChart('chart-trend-ppsf',     'ppsf_by_type', 'line', baseOpts('ppsf',  true));
-makeChart('chart-trend-pct-over', 'pct_over',     'line', {...baseOpts('pct'), plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.y.toFixed(1)+'% sold over asking'}}}});
-
-// ── SECTION 3 COMPARISON CHARTS ──────────────────────────────
-makeChart('chart-price-dist', 'price_dist', 'bar', {
-  responsive:true, interaction:{mode:'index',intersect:false},
-  plugins:{tooltip:{callbacks:{label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+' sales'}}},
-  scales:{x:{grid:{color:GRID},ticks:{maxRotation:45,font:{size:10}}},y:{grid:{color:GRID}}}
-});
-
-makeChart('chart-over-under-grouped', 'over_under_grouped', 'bar', {
-  responsive:true, interaction:{mode:'group',intersect:false},
-  plugins:{tooltip:{callbacks:{label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}}},
-  scales:{x:{grid:{color:GRID}},y:{grid:{color:GRID},ticks:{callback:v=>v+'%'}}}
-});
-
-makeChart('chart-dom-dist', 'dom_dist', 'bar', {
-  responsive:true, interaction:{mode:'index',intersect:false},
-  plugins:{tooltip:{callbacks:{label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+' sales'}}},
-  scales:{x:{grid:{color:GRID}},y:{grid:{color:GRID}}}
-});
-
-makeChart('chart-top-neigh-sf', 'top_neigh_sf', 'bar', {
-  indexAxis:'y', responsive:true,
-  plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>{const cnt=ALL_CHARTS['top_neigh_sf']?.data.datasets[0].counts?.[ctx.dataIndex];return' '+F.price(ctx.parsed.x)+(cnt?' · '+cnt+' sales':'');}}}, ...dlH('price') },
-  scales:{ x:{grid:{color:GRID},ticks:{callback:F.price}}, y:{grid:{color:GRID}} }
-}, DL ? [DL] : []);
-
-makeChart('chart-top-neigh-condo', 'top_neigh_condo', 'bar', {
-  indexAxis:'y', responsive:true,
-  plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>{const cnt=ALL_CHARTS['top_neigh_condo']?.data.datasets[0].counts?.[ctx.dataIndex];return' '+F.price(ctx.parsed.x)+(cnt?' · '+cnt+' sales':'');}}}, ...dlH('price') },
-  scales:{ x:{grid:{color:GRID},ticks:{callback:F.price}}, y:{grid:{color:GRID}} }
-}, DL ? [DL] : []);
-
-makeChart('chart-top-neigh-sf-vol', 'top_neigh_sf_vol', 'bar', {
-  indexAxis:'y', responsive:true,
-  plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>{const med=ALL_CHARTS['top_neigh_sf_vol']?.data.datasets[0].medians?.[ctx.dataIndex];return' '+ctx.parsed.x.toLocaleString()+' sales'+(med?' · '+F.price(med):'');}}}, ...dlH('num') },
-  scales:{ x:{grid:{color:GRID}}, y:{grid:{color:GRID}} }
-}, DL ? [DL] : []);
-
-makeChart('chart-top-neigh-condo-vol', 'top_neigh_condo_vol', 'bar', {
-  indexAxis:'y', responsive:true,
-  plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>{const med=ALL_CHARTS['top_neigh_condo_vol']?.data.datasets[0].medians?.[ctx.dataIndex];return' '+ctx.parsed.x.toLocaleString()+' sales'+(med?' · '+F.price(med):'');}}}, ...dlH('num') },
-  scales:{ x:{grid:{color:GRID}}, y:{grid:{color:GRID}} }
-}, DL ? [DL] : []);
-
-</script>
 </body>
 </html>
