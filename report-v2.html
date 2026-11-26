@@ -259,7 +259,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
 }
 </style>
 <link rel="stylesheet" href="site-v2.css"><link rel="stylesheet" href="report-v2.css"></head>
-<body><nav class="site-v2-nav" aria-label="Site navigation"><a href="index-v2.html">SF Market Intelligence</a><div><a href="index-v2.html">Home</a><a href="report-v2.html" aria-current="page">Market Intelligence</a><a href="report-v2.html#neighborhoods">Neighborhoods</a><a href="comps.html">Comp Search</a></div></nav>
+<body><nav class="site-v2-nav" aria-label="Site navigation"><a href="index-v2.html">SF Market Intelligence</a><div><a href="index-v2.html">Home</a><a href="report-v2.html" aria-current="page">Market Intelligence</a><a href="neighborhoods-v2.html">Neighborhoods</a><a href="comps.html">Comp Search</a></div></nav>
 
 <!-- HEADER -->
 <div class="header">
@@ -672,7 +672,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
 
 
 <div class="cmp-card">
-  <div class="ct" id="neighborhoods">Neighborhood explorer</div><p class="cs">Search and sort the original neighborhood statistics. This table retains its original reporting period.</p><label for="nb-search">Search neighborhoods</label><input id="nb-search" type="search" placeholder="e.g. Noe Valley"><p id="nb-count" aria-live="polite"></p><div class="nb-ranking"><label for="nb-metric">Rank neighborhoods by</label><select id="nb-metric"><option value="2">Median price</option><option value="1">Sales volume</option><option value="3">Price per square foot</option><option value="4">Sold above asking</option></select><div id="nb-bars"></div></div>
+  <div class="ct" id="neighborhoods">Neighborhood explorer</div><p><a href="neighborhoods-v2.html">Open full neighborhood comparison</a></p><p class="cs">Search and sort the original neighborhood statistics. This table retains its original reporting period.</p><label for="nb-search">Search neighborhoods</label><input id="nb-search" type="search" placeholder="e.g. Noe Valley"><p id="nb-count" aria-live="polite"></p><div class="nb-ranking"><label for="nb-metric">Rank neighborhoods by</label><select id="nb-metric"><option value="2">Median price</option><option value="1">Sales volume</option><option value="3">Price per square foot</option><option value="4">Sold above asking</option></select><div id="nb-bars"></div></div>
   <div class="nb-table-tabs">
     <button class="nb-tab active" onclick="showNbTab('sf',this)">🏠 Single Family</button>
     <button class="nb-tab gold" onclick="showNbTab('condo',this)">🏢 Condos</button>
