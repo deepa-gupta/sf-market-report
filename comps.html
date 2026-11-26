@@ -403,31 +403,11 @@ body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",san
 
 .dashboard-controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:20px 0}.dashboard-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.dashboard-kpis>div{background:white;border:1px solid var(--border);border-radius:12px;padding:20px;display:grid;gap:8px}.dashboard-kpis span,.dashboard-note{color:#475569;font-size:13px}.dashboard-kpis strong{font-size:clamp(24px,3vw,38px);letter-spacing:-.04em;color:#0f172a}.dashboard-note{margin:12px 0 24px}.sec-band{background:#e2e8f0;color:#0f172a}.sec-band h2,.sec-band .sec-tag{color:#0f172a}.commentary summary{cursor:pointer;font-weight:700;margin-bottom:12px}@media(max-width:700px){.dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-kpis>div{padding:12px}}
 </style>
-</head>
+<style>:root{--ink:#0f172a;--muted:#64748b;--teal:#0d9488;--blue:#2563eb;--mint:#5eead4;--line:#e2e8f0;--paper:#f8fafc}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 Inter,system-ui,sans-serif}a{color:#0f766e;text-decoration:none}button,select{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid var(--teal);outline-offset:4px}.site-v2-nav{background:white;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px max(24px,calc((100vw - 1320px)/2));flex-wrap:wrap}.site-v2-nav>a{font-weight:800;color:var(--ink)}.site-v2-nav div{display:flex;gap:24px;flex-wrap:wrap}.site-v2-nav div a{color:var(--muted);font-size:13px}.site-v2-nav a[aria-current]{color:#0f766e;font-weight:700}.shell{max-width:1400px;margin:auto;padding:0 40px 48px}.hero{padding:48px 0 28px;border-bottom:1px solid var(--line)}h1,h2,h3,p{margin:0}h1,h2,.serif{font-family:"Playfair Display",Georgia,serif;font-weight:500}h1{font-size:clamp(36px,5vw,62px);line-height:1.1;letter-spacing:-1.8px}h2{font-size:30px;line-height:1.2}h3{font-size:17px}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;text-transform:uppercase;color:#0f766e}.hero p,.muted{color:var(--muted)}.hero p{margin-top:12px}.between{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.section-nav{position:sticky;top:0;z-index:5;display:flex;gap:24px;overflow:auto;background:var(--paper);padding:15px 0;border-bottom:1px solid var(--line);white-space:nowrap}.section-nav a{color:var(--ink);font-weight:650;font-size:13px}.section-nav a:hover{color:var(--teal)}section[id]{scroll-margin-top:70px;margin-top:48px}.section-head{margin-bottom:18px}.section-head p{margin-top:6px}.period{display:flex;gap:4px;flex-wrap:wrap;background:#e2e8f0;padding:4px;border-radius:8px}.period button,.metric button{border:0;background:transparent;border-radius:6px;padding:7px 12px;color:var(--ink);font-size:13px}.period button[aria-pressed=true],.metric button[aria-pressed=true]{background:var(--ink);color:white}.grid4,.grid3,.grid2,.feature{display:grid;gap:16px}.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.feature{grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);margin-top:16px}.panel{background:white;border:1px solid var(--line);border-radius:12px;padding:22px;min-width:0}.number{font-size:clamp(24px,3vw,36px);font-weight:650;letter-spacing:-1px;font-variant-numeric:tabular-nums;line-height:1.4}.spark{height:36px;width:100%;display:block}.dark{background:var(--ink);color:white;border:0}.dark .eyebrow,.dark a{color:var(--mint)}.dark p{color:#cbd5e1;margin:16px 0}.dark h2{margin:12px 0}.chart{height:290px;position:relative;margin-top:16px}.metric{display:flex;gap:4px;flex-wrap:wrap;margin-top:12px}.metric button{border:1px solid var(--line)}.type{border-top:4px solid var(--teal)}.type.condo{border-top-color:var(--blue)}.facts{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:18px;font-size:14px}.facts dt{color:var(--muted)}.facts dd{margin:0;font-weight:650}.rank{display:grid;grid-template-columns:minmax(100px,1fr) 2fr 48px;align-items:center;gap:12px;margin:12px 0;font-size:13px}.track{height:9px;background:#e2e8f0;border-radius:5px;overflow:hidden}.track span{display:block;height:100%;background:var(--teal);border-radius:5px}.comm-prose{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.comm-section{padding:22px;background:white;border:1px solid var(--line);border-radius:12px}.comm-section h4{font:500 24px/1.25 Georgia,serif;margin:0 0 12px}.comm-section p{margin:0 0 12px}.comm-footer{color:var(--muted);font-size:12px;margin-top:16px}.action{display:inline-block;border:1px solid var(--line);border-radius:8px;background:white;padding:9px 15px;font-weight:650;color:var(--ink)}.sale{border-top:3px solid var(--teal)}footer{border-top:1px solid var(--line);margin-top:48px;padding-top:24px;color:var(--muted);font-size:13px}.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;background:white;padding:12px;z-index:10}@media(max-width:850px){.shell{padding:0 20px 32px}.grid4,.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}.feature{grid-template-columns:1fr}.section-nav{gap:16px}}@media(max-width:540px){.grid2,.grid3,.comm-prose{grid-template-columns:1fr}.panel{padding:16px}.hero{padding-top:28px}.chart{height:240px}.number{font-size:25px}.site-v2-nav{padding:16px}.site-v2-nav div{gap:12px}}@media print{.section-nav,.period,.metric,.action{display:none}body{background:white}.shell{padding:0}.panel,.comm-section{break-inside:avoid}.dark{color:var(--ink);background:white}.dark p{color:var(--ink)}}:root{--navy:#0f172a;--gold:#0f766e;--border:#e2e8f0;--card:#fff;--bg:#f8fafc;--text:#0f172a;--slate:#64748b}.filter-panel{box-shadow:none;border-radius:12px;background:white}.filter-group input,.filter-group select{background:white!important;color:#0f172a!important}.table-wrap,.map-wrap{box-shadow:none}.filter-header h2{font-family:Georgia,serif;font-size:26px;font-weight:500}.apply-btn,.reset-btn{border-radius:8px}.result-count{background:#f8fafc!important;color:#0f172a!important}.map-legend,.map-info{background:white!important;color:#0f172a!important}</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600&display=swap"></head>
 <body>
 <nav class="site-v2-nav" aria-label="Site navigation"><a href="index.html">SF Market Intelligence</a><div><a href="index.html">Home</a><a href="report.html">Market Intelligence</a><a href="neighborhoods.html">Neighborhoods</a><a href="comps.html" aria-current="page">Comp Search</a></div></nav>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-decoration" aria-hidden="true"></div>
-  <div class="header-inner">
-    <div class="header-badge">Comparable Sales</div>
-    <h1>Property Intelligence</h1>
-    <div class="subtitle">Search across <strong>21,392</strong> closed sales in San Francisco</div>
-    <div class="meta">Data through 2026-11-12 &nbsp;·&nbsp; Generated November 26, 2026</div>
-    <div class="header-agent">Prepared by <strong>Deepa Gupta</strong> &nbsp;·&nbsp; <a href="mailto:deepa.tcservices@gmail.com">deepa.tcservices@gmail.com</a></div>
-  </div>
-</div>
-
-<!-- STICKY BAR -->
-<div class="sticky-bar" role="toolbar" aria-label="Page controls">
-  <a href="report.html" class="back-btn">← Market Report</a>
-
-</div>
-
-<div class="container">
-
-<!-- FILTER PANEL -->
+<main class="shell"><header class="hero"><div class="eyebrow">San Francisco / Comparable sales</div><h1>Property Intelligence</h1><p>Search across <strong>21,392</strong> closed sales · Data through 2026-11-12 · Prepared by Deepa Gupta</p></header><!-- FILTER PANEL -->
 <div class="filter-panel">
   <div class="filter-header">
     <h2>Search Filters</h2>
@@ -587,7 +567,7 @@ body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",san
   </table>
 </div>
 
-</div><!-- /container -->
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
 <div class="footer">
