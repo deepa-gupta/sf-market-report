@@ -22,3 +22,6 @@ The repository contains generated HTML but no generator source. In the upstream 
 - Run automated accessibility checks and manual keyboard/screen reader checks before deployment.
 
 No browser verification or production deployment has been performed.
+
+## Consolidated navigation
+Home, Market Intelligence, Neighborhoods (dashboard anchor), and Comp Search are the four primary destinations. The three redundant v2 report/guide URLs redirect to the dashboard or its perspectives section. Original production URLs are unchanged; migrate them only at deployment after reviewing archived content.
