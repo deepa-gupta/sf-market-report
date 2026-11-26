@@ -285,14 +285,19 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
   <button class="dl-btn" style="margin-left:auto" onclick="window.print()" aria-label="Download report as PDF">&#8595; Download PDF</button>
 </nav>
 
-<main class="container" id="market-start"><div class="v2-intro"><div><span class="eyebrow">MARKET AT A GLANCE</span><h2>Know the market. Move with confidence.</h2><p>Explore closed sales, pricing trends and neighborhood comparisons.</p></div><a href="report.html">Original report</a></div><div class="v2-kpis"><article><span>Median sale price</span><strong data-stat="med_price">$1.62M</strong></article><article><span>Closed sales</span><strong data-stat="total_sales_fmt">7,420</strong></article><article><span>Median days on market</span><strong data-stat="median_dom">34</strong></article><article><span>Sold above asking</span><strong data-stat="pct_over_asking">65%</strong></article></div><p class="v2-scope">Selected market period · <span data-stat="date_range">Nov 2025 – Nov 2026</span>. Commentary, annual comparisons and neighborhood tables retain their original reporting periods.</p>
+<main class="container" id="market-start"><div class="v2-intro"><div><span class="eyebrow">MARKET AT A GLANCE</span><h2>Know the market. Move with confidence.</h2><p>Explore closed sales, pricing trends and neighborhood comparisons.</p></div><a href="report.html">Original report</a></div><div class="v2-filter"><span>Reporting period</span><div class="tf-group" role="group" aria-label="Time period">
+    <button class="slice-btn" onclick="setSlice('all',this)" aria-pressed="false">All</button>
+    <button class="slice-btn active" onclick="setSlice('year',this)" aria-pressed="true">1-Year</button>
+    <button class="slice-btn" onclick="setSlice('ytd',this)" aria-pressed="false">YTD</button>
+    <button class="slice-btn" onclick="setSlice('quarter',this)" aria-pressed="false">Last Quarter</button>
+  </div></div><div class="v2-kpis"><article><span>Median sale price</span><strong data-stat="med_price">$1.62M</strong></article><article><span>Closed sales</span><strong data-stat="total_sales_fmt">7,420</strong></article><article><span>Median days on market</span><strong data-stat="median_dom">34</strong></article><article><span>Sold above asking</span><strong data-stat="pct_over_asking">65%</strong></article></div><p class="v2-scope">Selected market period · <span data-stat="date_range">Nov 2025 – Nov 2026</span>. Commentary, annual comparisons and neighborhood tables retain their original reporting periods.</p>
 
 
 <!-- COMMENTARY -->
 <details class="commentary" id="insights"><summary>Market perspectives <span>Read the full analysis</span></summary>
   <div class="comm-pull">
     <span class="comm-pull-val" data-stat="med_price">$1.62M</span>
-    <span class="comm-pull-cap">12-Month Median Sale Price</span>
+    <span class="comm-pull-cap">Selected-period median sale price</span>
   </div>
   <div class="comm-prose">
 <div class="comm-section">
@@ -368,12 +373,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
   <div class="sec-num" aria-hidden="true">01</div>
   <h2>Market Overview</h2>
   <span class="sec-tag" id="slice-label" data-stat="date_range">Nov 2025 – Nov 2026</span>
-  <div class="tf-group" role="group" aria-label="Time period">
-    <button class="slice-btn" onclick="setSlice('all',this)" aria-pressed="false">All</button>
-    <button class="slice-btn active" onclick="setSlice('year',this)" aria-pressed="true">1-Year</button>
-    <button class="slice-btn" onclick="setSlice('ytd',this)" aria-pressed="false">YTD</button>
-    <button class="slice-btn" onclick="setSlice('quarter',this)" aria-pressed="false">Last Quarter</button>
-  </div>
+  
 </div>
 
 <div class="stat-grid">
@@ -385,7 +385,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
     <div class="lbl">Median Sale Price</div>
     <div class="val" data-stat="med_price">$1.62M</div>
     <div class="sub">All property types</div>
-    <div class="sc-trend up">↑ 21% vs last yr</div>
+    
   </div>
 </div>
 
@@ -397,7 +397,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
     <div class="lbl">Average Sale Price</div>
     <div class="val" data-stat="avg_price">$2.22M</div>
     <div class="sub">Pulled up by luxury sales</div>
-    <div class="sc-trend up">↑ 20% vs last yr</div>
+    
   </div>
 </div>
 
@@ -408,8 +408,8 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
     <span class="sc-icon">📋</span>
     <div class="lbl">Total Closed Sales</div>
     <div class="val" data-stat="total_sales_fmt">7,420</div>
-    <div class="sub">Nov 2025 – Nov 2026</div>
-    <div class="sc-trend down">↓ 18% vs last yr</div>
+    <div class="sub" data-stat="date_range">Nov 2025 – Nov 2026</div>
+    
   </div>
 </div>
 
@@ -419,8 +419,8 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
       <span class="sc-icon" aria-hidden="true">⏱️</span>
       <div class="lbl">Median Days on Market</div>
       <div class="val"><span data-stat="median_dom">34</span>d</div>
-      <div class="sub">From listing to close</div>
-      <div class="sc-trend down">↓ 24% vs last yr</div>
+      <div class="sub">MLS-reported days on market</div>
+      
     </div>
   </div>
   
@@ -431,7 +431,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
     <div class="lbl">Avg Price / Sq Ft</div>
     <div class="val" data-stat="avg_ppsf">$1,066</div>
     <div class="sub">Across all transactions</div>
-    <div class="sc-trend up">↑ 29% vs last yr</div>
+    
   </div>
 </div>
 
@@ -443,7 +443,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
     <div class="lbl">Sold Over Asking</div>
     <div class="val" data-stat="pct_over_asking">65%</div>
     <div class="sub">Of sales with list price</div>
-    <div class="sc-trend up">↑ 35% vs last yr</div>
+    
   </div>
 </div>
 
@@ -672,7 +672,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
 
 
 <div class="cmp-card">
-  <div class="ct" id="neighborhoods">Neighborhood explorer</div><p class="cs">Search and sort the original neighborhood statistics. This table retains its original reporting period.</p><label for="nb-search">Search neighborhoods</label><input id="nb-search" type="search" placeholder="e.g. Noe Valley"><p id="nb-count" aria-live="polite"></p>
+  <div class="ct" id="neighborhoods">Neighborhood explorer</div><p class="cs">Search and sort the original neighborhood statistics. This table retains its original reporting period.</p><label for="nb-search">Search neighborhoods</label><input id="nb-search" type="search" placeholder="e.g. Noe Valley"><p id="nb-count" aria-live="polite"></p><div class="nb-ranking"><label for="nb-metric">Rank neighborhoods by</label><select id="nb-metric"><option value="2">Median price</option><option value="1">Sales volume</option><option value="3">Price per square foot</option><option value="4">Sold above asking</option></select><div id="nb-bars"></div></div>
   <div class="nb-table-tabs">
     <button class="nb-tab active" onclick="showNbTab('sf',this)">🏠 Single Family</button>
     <button class="nb-tab gold" onclick="showNbTab('condo',this)">🏢 Condos</button>
