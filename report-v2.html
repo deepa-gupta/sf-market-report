@@ -807,7 +807,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
 </div>
 
 
-</div><!-- /container -->
+</main><!-- /container -->
 
 <div class="footer">
   <div class="footer-brand">Prepared by <strong>Deepa Gupta</strong> &nbsp;·&nbsp; <a href="mailto:deepa.tcservices@gmail.com">deepa.tcservices@gmail.com</a></div>
@@ -843,8 +843,8 @@ function updateTC(tc) {
 }
 
 function setSlice(slice, btn) {
-  document.querySelectorAll('.slice-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.slice-btn').forEach(b => {b.classList.remove('active'); b.setAttribute('aria-pressed','false');});
+  if (btn) {btn.classList.add('active'); btn.setAttribute('aria-pressed','true');}
   activeSlice = slice;
   CD = SLICE_DATA[slice].charts;
   const gran = SLICE_GRANULARITY[slice];
