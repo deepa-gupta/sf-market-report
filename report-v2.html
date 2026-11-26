@@ -259,7 +259,7 @@ body{font-family:'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:va
 }
 </style>
 <link rel="stylesheet" href="site-v2.css"><link rel="stylesheet" href="report-v2.css"></head>
-<body><nav class="site-v2-nav" aria-label="Site navigation"><a href="index-v2.html">SF Market Intelligence</a><div><a href="index-v2.html">Home</a><a href="reports-v2.html">Reports</a><a href="report-v2.html" aria-current="page">Market dashboard</a><a href="buyers-v2.html">Buyers</a><a href="sellers-v2.html">Sellers</a><a href="comps.html">Comp search</a></div></nav>
+<body><nav class="site-v2-nav" aria-label="Site navigation"><a href="index-v2.html">SF Market Intelligence</a><div><a href="index-v2.html">Home</a><a href="report-v2.html" aria-current="page">Market Intelligence</a><a href="report-v2.html#neighborhoods">Neighborhoods</a><a href="comps.html">Comp Search</a></div></nav>
 
 <!-- HEADER -->
 <div class="header">
@@ -1070,5 +1070,5 @@ function sortNb(tblId, colIdx, numeric) {
 }
 
 </script>
-<script src="report-v2.js"></script></body>
+<script src="report-v2.js"></script><script>function revealInsights(){if(location.hash==="#insights"){const el=document.getElementById("insights");if(el){el.open=true;el.scrollIntoView();}}}window.addEventListener("hashchange",revealInsights);revealInsights();</script></body>
 </html>
